@@ -1,0 +1,137 @@
+
+@color_white : #FFFFFF;
+@color_blace : #000000;
+@color-dark-gray : #222222;
+@color-light-gray : #CCCCCC;
+
+@color_p-1 : #CC0033;
+@color_p-2 : #993333;
+@color_p-3 : #990000;
+@color_p-4 : #FF3366;
+@color_p-5 : #FF6666;
+
+@color_s-a-1 : #FF6600;
+@color_s-a-2 : #CC6633;
+@color_s-a-3 : #993300;
+@color_s-a-4 : #FF9933;
+@color_s-a-5 : #FF9966;
+
+@color_s-b-1 : #CC0066;
+@color_s-b-2 : #993366;
+@color_s-b-3 : #660066;
+@color_s-b-4 : #CC3399;
+@color_s-b-5 : #CC66CC;
+
+@color_c-1 : #33CC00;
+@color_c-2 : #339933;
+@color_c-3 : #339900;
+@color_c-4 : #66CC33;
+@color_c-5 : #99CC66;
+
+@fontmain : "microsoft yahei","微软雅黑" ;
+
+.color-white { color: #FFFFFF;}
+.color-blace { color: #000000;}
+.color-light-gray { color: #222222;}
+.color-red { color: #e02222;}
+.color-blue { color: #0da3e2;}
+.color-grey { color: #555555;}
+.color-green { color: #35aa47;}
+.color-yellow { color: #ffb848;}
+.color-purple { color: #852b99;}
+.color-light-red { color: #ff5400;}
+.color-light-blue { color: #bfd5fa;}
+.color-light-grey { color: #fafafa;}
+.color-light-green { color: #78df1d;}
+
+
+/* General body settings */
+body { 
+  color: @color-dark-gray; 
+  font-size:13px; 
+  direction: ltr;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-family: @fontmain;
+  overflow-x: hidden;
+}
+
+/***
+General typography 
+***/
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 300;
+  font-family: inherit;
+}
+
+h1.block, h2.block, h3.block, h4.block, h5.block, h6.block {
+  padding-bottom: 10px;
+}
+
+h2, h2 a {
+  color: #444;
+  font-size: 21px;
+  font-weight: 400;
+  line-height: 26px;
+  text-decoration: none;
+}
+
+h2 a:hover {
+  color: @color_s-a-1;
+  text-decoration: none;
+  transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -webkit-transition: all 0.5s ease;        
+ }
+ 
+h3 {
+  color: @color-dark-gray;
+}
+
+
+/***
+Apply fix for font awesome icons.
+***/
+[class^="fa-"],
+[class*=" fa-"],
+[class^="fa-"]:hover, 
+[class*=" fa-"]:hover { 
+  background: none !important;
+}
+
+/***
+ie8 & ie9 modes
+***/
+.visible-ie8 {
+  display: none;
+}
+
+.ie8 .visible-ie8 {
+  display: inherit !important;
+}
+
+.visible-ie9 {
+  display: none;
+}
+
+.ie9 .visible-ie9 {
+  display: inherit !important;
+}
+
+.hidden-ie8 {
+  display: inherit;
+}
+
+.ie8 .hidden-ie8 {
+  display: none !important;
+}
+
+.hidden-ie9 {
+  display: inherit;
+}
+
+.ie9 .hidden-ie9 {
+  display: none !important;
+}
+

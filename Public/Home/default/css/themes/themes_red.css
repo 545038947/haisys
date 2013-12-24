@@ -1,0 +1,63 @@
+/*!
+ * Bootstrap v3.0.3 (http://getbootstrap.com)
+ * Copyright 2013 Twitter, Inc.
+ * Licensed under http://www.apache.org/licenses/LICENSE-2.0
+ */
+
+
+.navbar-default {
+  background: #444;
+  font-size: 16px;
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: #FFFFFF;
+}
+
+navbar-nav>li>a:focus {
+  color: #EEEEEE;
+  background-color: transparent;
+}
+.navbar-default .navbar-nav > li :hover {
+  background: #FFFFFF !important;
+}
+
+.navbar-default .navbar-nav > .active > a {
+  background: #FFFFFF;
+}
+
+.navbar-brand,
+.navbar-nav > li > a {
+  
+}
+
+
+.navbar-static-top,
+.navbar-fixed-top,
+.navbar-fixed-bottom {
+  border-radius: 0;
+}
+
+.headbar {
+  background: #db3a1b;
+}
+
+.headbar .logo{
+  float: left;
+}
+
+.headbar .search{
+  float: right;  
+  line-height: 70px;
+}
+
+.headbar .login{
+  float: right;
+  width: 100px;
+  line-height: 70px;
+}
+
+
+
+
+
