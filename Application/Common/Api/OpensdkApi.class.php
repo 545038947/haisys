@@ -150,6 +150,24 @@ class OpensdkApi {
 	}
 	
 	/**
+	 * 一起发获取够划算类别
+	 * @param  
+	 * @param  
+	 * @return array 够划算类别数组
+	 * @author 和蔼的木Q <545038947@qq.com>
+	 */
+	public static function getghscat(){
+        $post_data["classname"] = "GhsCatGetRequest";
+        $post_data["q"] = array(
+           'setFields' => 'ghs_catid,ghs_cname,sort_order', 
+        );
+		$res = self::openyiqifa($post_data);
+		return $res["response"]["ghs_cats"]["ghs_cat"];
+
+	}
+
+
+	/**
 	 * 一起发获取商城类别
 	 * @param  
 	 * @param  
