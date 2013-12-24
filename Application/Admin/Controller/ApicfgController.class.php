@@ -26,6 +26,7 @@ class ApicfgController extends AdminController {
 
         $this->assign('_list', $list);
         $this->meta_title = 'Api配置管理';
+        
         $this->display();
     }
 
