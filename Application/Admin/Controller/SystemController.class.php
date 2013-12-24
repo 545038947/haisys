@@ -39,7 +39,6 @@ class SystemController extends AdminController {
 
         } else {
             $this->error('无效的引用！');
-            //$this->redirect('Public/login');
 
         }
     }
