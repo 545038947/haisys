@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50527
 File Encoding         : 65001
 
-Date: 2013-12-24 10:55:33
+Date: 2013-12-25 03:17:49
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -65,7 +65,7 @@ CREATE TABLE `jgjsys_action_log` (
   KEY `action_ip_ix` (`action_ip`),
   KEY `action_id_ix` (`action_id`),
   KEY `user_id_ix` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
 
 -- ----------------------------
 -- Records of jgjsys_action_log
@@ -79,6 +79,23 @@ INSERT INTO `jgjsys_action_log` VALUES ('6', '1', '1', '2130706433', 'member', '
 INSERT INTO `jgjsys_action_log` VALUES ('7', '1', '1', '2130706433', 'member', '1', 'admin在2013-12-22 11:30登录了后台', '1', '1387683005');
 INSERT INTO `jgjsys_action_log` VALUES ('8', '1', '1', '2130706433', 'member', '1', 'admin在2013-12-22 15:34登录了后台', '1', '1387697694');
 INSERT INTO `jgjsys_action_log` VALUES ('9', '1', '1', '2130706433', 'member', '1', 'admin在2013-12-23 02:46登录了后台', '1', '1387738012');
+INSERT INTO `jgjsys_action_log` VALUES ('10', '1', '1', '2130706433', 'member', '1', 'admin在2013-12-24 11:38登录了后台', '1', '1387856295');
+INSERT INTO `jgjsys_action_log` VALUES ('11', '6', '1', '2130706433', 'config', '10', '操作url：/haisys/index.php/admin/config/edit.html', '1', '1387857216');
+INSERT INTO `jgjsys_action_log` VALUES ('12', '9', '1', '2130706433', 'channel', '3', '操作url：/haisys/index.php/admin/channel/edit.html', '1', '1387857407');
+INSERT INTO `jgjsys_action_log` VALUES ('13', '9', '1', '2130706433', 'channel', '2', '操作url：/haisys/index.php/admin/channel/edit.html', '1', '1387857428');
+INSERT INTO `jgjsys_action_log` VALUES ('14', '1', '1', '2130706433', 'member', '1', 'admin在2013-12-24 17:19登录了后台', '1', '1387876758');
+INSERT INTO `jgjsys_action_log` VALUES ('15', '10', '1', '2130706433', 'Menu', '93', '操作url：/haisys/index.php/admin/menu/edit.html', '1', '1387876878');
+INSERT INTO `jgjsys_action_log` VALUES ('16', '10', '1', '2130706433', 'Menu', '93', '操作url：/haisys/index.php/admin/menu/edit.html', '1', '1387876912');
+INSERT INTO `jgjsys_action_log` VALUES ('17', '10', '1', '2130706433', 'Menu', '122', '操作url：/haisys/index.php/admin/menu/add.html', '1', '1387876948');
+INSERT INTO `jgjsys_action_log` VALUES ('18', '10', '1', '2130706433', 'Menu', '123', '操作url：/haisys/index.php/admin/menu/add.html', '1', '1387877003');
+INSERT INTO `jgjsys_action_log` VALUES ('19', '10', '1', '2130706433', 'Menu', '93', '操作url：/haisys/index.php/admin/menu/edit.html', '1', '1387878211');
+INSERT INTO `jgjsys_action_log` VALUES ('20', '10', '1', '2130706433', 'Menu', '122', '操作url：/haisys/index.php/admin/menu/edit.html', '1', '1387878290');
+INSERT INTO `jgjsys_action_log` VALUES ('21', '10', '1', '2130706433', 'Menu', '124', '操作url：/haisys/index.php/admin/menu/add.html', '1', '1387879533');
+INSERT INTO `jgjsys_action_log` VALUES ('22', '10', '1', '2130706433', 'Menu', '125', '操作url：/haisys/index.php/admin/menu/add.html', '1', '1387882759');
+INSERT INTO `jgjsys_action_log` VALUES ('23', '10', '1', '2130706433', 'Menu', '125', '操作url：/haisys/index.php/admin/menu/edit.html', '1', '1387882776');
+INSERT INTO `jgjsys_action_log` VALUES ('24', '1', '1', '2130706433', 'member', '1', 'admin在2013-12-25 00:48登录了后台', '1', '1387903714');
+INSERT INTO `jgjsys_action_log` VALUES ('25', '10', '1', '2130706433', 'Menu', '123', '操作url：/haisys/index.php/admin/menu/edit.html', '1', '1387907083');
+INSERT INTO `jgjsys_action_log` VALUES ('26', '9', '1', '2130706433', 'channel', '0', '操作url：/haisys/index.php/admin/channel/del/id/4.html', '1', '1387911185');
 
 -- ----------------------------
 -- Table structure for `jgjsys_addons`
@@ -552,14 +569,14 @@ CREATE TABLE `jgjsys_channel` (
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态',
   `target` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '新窗口打开',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of jgjsys_channel
 -- ----------------------------
 INSERT INTO `jgjsys_channel` VALUES ('1', '0', '首页', 'Index/index', '1', '1379475111', '1379923177', '1', '0');
-INSERT INTO `jgjsys_channel` VALUES ('2', '0', '博客', 'Article/index?category=blog', '2', '1379475131', '1379483713', '1', '0');
-INSERT INTO `jgjsys_channel` VALUES ('3', '0', '官网', 'http://www.onethink.cn', '3', '1379475154', '1387163458', '1', '0');
+INSERT INTO `jgjsys_channel` VALUES ('2', '0', '文章', 'Article/index?category=blog', '2', '1379475131', '1387857428', '1', '0');
+INSERT INTO `jgjsys_channel` VALUES ('3', '0', '官网', 'http://www.jgjmall.com', '3', '1379475154', '1387857407', '1', '1');
 
 -- ----------------------------
 -- Table structure for `jgjsys_config`
@@ -590,7 +607,7 @@ INSERT INTO `jgjsys_config` VALUES ('2', 'WEB_SITE_DESCRIPTION', '2', '网站描
 INSERT INTO `jgjsys_config` VALUES ('3', 'WEB_SITE_KEYWORD', '2', '网站关键字', '1', '', '网站搜索引擎关键字', '1378898976', '1381390100', '1', 'HaiSys,和蔼的木Q', '8');
 INSERT INTO `jgjsys_config` VALUES ('4', 'WEB_SITE_CLOSE', '4', '关闭站点', '1', '0:关闭,1:开启', '站点关闭后其他用户不能访问，管理员可以正常访问', '1378898976', '1379235296', '1', '1', '1');
 INSERT INTO `jgjsys_config` VALUES ('9', 'CONFIG_TYPE_LIST', '3', '配置类型列表', '4', '', '主要用于数据解析和页面表单的生成', '1378898976', '1379235348', '1', '0:数字\r\n1:字符\r\n2:文本\r\n3:数组\r\n4:枚举', '2');
-INSERT INTO `jgjsys_config` VALUES ('10', 'WEB_SITE_ICP', '1', '网站备案号', '1', '', '设置在网站底部显示的备案号，如“沪ICP备12007941号-2', '1378900335', '1379235859', '1', '', '9');
+INSERT INTO `jgjsys_config` VALUES ('10', 'WEB_SITE_ICP', '1', '网站备案号', '1', '', '设置在网站底部显示的备案号，如 黔ICP备13002758号', '1378900335', '1387857216', '1', '黔ICP备13002758号', '9');
 INSERT INTO `jgjsys_config` VALUES ('11', 'DOCUMENT_POSITION', '3', '文档推荐位', '2', '', '文档推荐位，推荐到多个位置KEY值相加即可', '1379053380', '1379235329', '1', '1:列表页推荐\r\n2:频道页推荐\r\n4:网站首页推荐', '3');
 INSERT INTO `jgjsys_config` VALUES ('12', 'DOCUMENT_DISPLAY', '3', '文档可见性', '2', '', '文章可见性仅影响前台显示，后台不收影响', '1379056370', '1379235322', '1', '0:所有人可见\r\n1:仅注册会员可见\r\n2:仅管理员可见', '4');
 INSERT INTO `jgjsys_config` VALUES ('13', 'COLOR_STYLE', '4', '后台色系', '1', 'default_color:默认\r\nblue_color:紫罗兰', '后台颜色风格', '1379122533', '1379235904', '1', 'blue_color', '10');
@@ -766,7 +783,7 @@ CREATE TABLE `jgjsys_member` (
 -- ----------------------------
 -- Records of jgjsys_member
 -- ----------------------------
-INSERT INTO `jgjsys_member` VALUES ('1', 'admin', '0', '0000-00-00', '', '20', '10', '0', '1387427567', '2130706433', '1387738012', '1');
+INSERT INTO `jgjsys_member` VALUES ('1', 'admin', '0', '0000-00-00', '', '30', '13', '0', '1387427567', '2130706433', '1387903714', '1');
 
 -- ----------------------------
 -- Table structure for `jgjsys_menu`
@@ -783,7 +800,7 @@ CREATE TABLE `jgjsys_menu` (
   `group` varchar(50) DEFAULT '' COMMENT '分组',
   `is_dev` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否仅开发者模式可见',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=122 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=126 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of jgjsys_menu
@@ -880,7 +897,7 @@ INSERT INTO `jgjsys_menu` VALUES ('89', '修复表', '86', '0', 'Database/repair
 INSERT INTO `jgjsys_menu` VALUES ('90', '还原数据库', '68', '0', 'Database/index?type=import', '0', '', '数据备份', '0');
 INSERT INTO `jgjsys_menu` VALUES ('91', '恢复', '90', '0', 'Database/import', '0', '数据库恢复', '', '0');
 INSERT INTO `jgjsys_menu` VALUES ('92', '删除', '90', '0', 'Database/del', '0', '删除备份文件', '', '0');
-INSERT INTO `jgjsys_menu` VALUES ('93', '其他', '0', '5', 'other', '1', '', '', '0');
+INSERT INTO `jgjsys_menu` VALUES ('93', '开放平台', '0', '5', 'Apicfg/index', '0', '', '', '0');
 INSERT INTO `jgjsys_menu` VALUES ('96', '新增', '75', '0', 'Menu/add', '0', '', '系统设置', '0');
 INSERT INTO `jgjsys_menu` VALUES ('98', '编辑', '75', '0', 'Menu/edit', '0', '', '', '0');
 INSERT INTO `jgjsys_menu` VALUES ('104', '下载管理', '102', '0', 'Think/lists?model=download', '0', '', '', '0');
@@ -899,6 +916,10 @@ INSERT INTO `jgjsys_menu` VALUES ('118', '文档排序', '3', '0', 'Article/sort
 INSERT INTO `jgjsys_menu` VALUES ('119', '排序', '70', '0', 'Config/sort', '1', '', '', '0');
 INSERT INTO `jgjsys_menu` VALUES ('120', '排序', '75', '0', 'Menu/sort', '1', '', '', '0');
 INSERT INTO `jgjsys_menu` VALUES ('121', '排序', '76', '0', 'Channel/sort', '1', '', '', '0');
+INSERT INTO `jgjsys_menu` VALUES ('122', '开放平台基础配置', '93', '0', 'Apicfg/index', '0', '', '基础', '0');
+INSERT INTO `jgjsys_menu` VALUES ('123', '购划算商品类别', '93', '0', 'Yqfghs/ghscatlist', '0', '', '亿起发配置', '0');
+INSERT INTO `jgjsys_menu` VALUES ('124', '添加', '122', '0', 'Apicfg/add', '1', '', '', '0');
+INSERT INTO `jgjsys_menu` VALUES ('125', '编辑', '122', '0', 'Apicfg/edit', '0', '', '', '0');
 
 -- ----------------------------
 -- Table structure for `jgjsys_model`
@@ -984,7 +1005,7 @@ CREATE TABLE `jgjsys_shopset` (
   `vval9` char(64) DEFAULT '' COMMENT 'KEY9值',
   PRIMARY KEY (`id`),
   UNIQUE KEY `app_sname` (`sname`)
-) ENGINE=MyISAM AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COMMENT='商城appkey设置\r\n@author   和蔼的木Q\r\n@version  2013-12-07';
+) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COMMENT='商城appkey设置\r\n@author   和蔼的木Q\r\n@version  2013-12-07';
 
 -- ----------------------------
 -- Records of jgjsys_shopset
@@ -1055,7 +1076,7 @@ CREATE TABLE `jgjsys_ucenter_member` (
 -- ----------------------------
 -- Records of jgjsys_ucenter_member
 -- ----------------------------
-INSERT INTO `jgjsys_ucenter_member` VALUES ('1', 'admin', '6cc437c212bbd45531647e74f60f4743', '545038947@qq.com', '', '1387427567', '2130706433', '1387738012', '2130706433', '1387427567', '1');
+INSERT INTO `jgjsys_ucenter_member` VALUES ('1', 'admin', '6cc437c212bbd45531647e74f60f4743', '545038947@qq.com', '', '1387427567', '2130706433', '1387903714', '2130706433', '1387427567', '1');
 
 -- ----------------------------
 -- Table structure for `jgjsys_ucenter_setting`
@@ -1571,6 +1592,33 @@ INSERT INTO `jgjsys_yqf_city` VALUES ('1809', '130181', '辛集', 'XINJI', 'true
 INSERT INTO `jgjsys_yqf_city` VALUES ('1808', '130100', '石家庄', 'SHIJIAZHUANG', 'true', '21', '', 'S', '1');
 INSERT INTO `jgjsys_yqf_city` VALUES ('1807', '120000', '天津', 'TIANJIN', 'true', '13', '', 'T', '1');
 INSERT INTO `jgjsys_yqf_city` VALUES ('1806', '110000', '北京', 'BEIJING', 'true', '13', '1', 'B', '1');
+
+-- ----------------------------
+-- Table structure for `jgjsys_yqf_ghscat`
+-- ----------------------------
+DROP TABLE IF EXISTS `jgjsys_yqf_ghscat`;
+CREATE TABLE `jgjsys_yqf_ghscat` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `ghs_catid` char(64) NOT NULL DEFAULT '' COMMENT '购划算商品所属的类目ID',
+  `ghs_cname` char(64) NOT NULL DEFAULT '' COMMENT '购划算商品所属类目名称',
+  `sort_order` char(64) NOT NULL DEFAULT '' COMMENT '排序序号，表示同级类目的展现次序',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `app_ghs_catid` (`ghs_catid`)
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='购划算的商品分类信息\r\n@author   和蔼的木Q\r\n@version  2013-12-07';
+
+-- ----------------------------
+-- Records of jgjsys_yqf_ghscat
+-- ----------------------------
+INSERT INTO `jgjsys_yqf_ghscat` VALUES ('3', '000000', '全部商品', '2');
+INSERT INTO `jgjsys_yqf_ghscat` VALUES ('4', '000100', '家居日用', '2');
+INSERT INTO `jgjsys_yqf_ghscat` VALUES ('5', '000200', '美容美妆', '2');
+INSERT INTO `jgjsys_yqf_ghscat` VALUES ('6', '000300', '时尚女装', '2');
+INSERT INTO `jgjsys_yqf_ghscat` VALUES ('7', '000400', '精品鞋包', '2');
+INSERT INTO `jgjsys_yqf_ghscat` VALUES ('8', '000500', '母婴用品', '2');
+INSERT INTO `jgjsys_yqf_ghscat` VALUES ('9', '000600', '零食饮品', '2');
+INSERT INTO `jgjsys_yqf_ghscat` VALUES ('10', '000700', '牛仔专场', '2');
+INSERT INTO `jgjsys_yqf_ghscat` VALUES ('14', '645708', '精品男装', '12');
+INSERT INTO `jgjsys_yqf_ghscat` VALUES ('13', '778437', '内衣配饰', '13');
 
 -- ----------------------------
 -- Table structure for `jgjsys_yqf_itemcat`
