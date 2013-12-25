@@ -166,6 +166,80 @@ class OpensdkApi {
 
 	}
 
+	/**
+	 * 一起发获取够划算商品
+	 * @param  $catid 商品类型id
+	 * @param  $page_no 页码
+	 * @param  $page_size 每页记录数
+	 * @return array 够划算商品数组
+	 * @author 和蔼的木Q <545038947@qq.com>
+	 */
+	public static function getghsitemlist($catid='',$page_no='1',$page_size='10'){
+		$cachestr = "OPENGHSGOODS-".$catid."-".$page_no."-".$page_size;
+	    $res = S($cachestr);
+	    if(is_array($res)){
+	        return $res;
+	    }
+	    else
+	    {
+	        $post_data["classname"] = "GhsProductListGetRequest";
+
+	        if ($catid == '') {
+	        	$post_data["q"] = array(
+		           'setFields' => 'pid,web_name,p_name,ghs_o_url,ghs_catid,ghs_cname,weight,ori_price,ghs_price,discount,bought,pic_url,post,begin_time,end_time,total', 
+		           'setPage_no' => "$page_no",
+		           'setPage_size' => "$page_size",
+		        );
+	        }
+	        else{
+	        	$post_data["q"] = array(
+		           'setFields' => 'pid,web_name,p_name,ghs_o_url,ghs_catid,ghs_cname,weight,ori_price,ghs_price,discount,bought,pic_url,post,begin_time,end_time,total', 
+		           'setPage_no' => "$page_no",
+		           'setPage_size' => "$page_size",
+		           'setCategory' => "$catid",
+		        );
+		    }
+	        
+			$res = self::openyiqifa($post_data);
+			$res = $res["response"]["ghs_list"]["ghs"];
+			S($cachestr,$res);
+	    }
+
+		return $res;
+
+	}
+
+
+
+	/**
+	 * 一起发够划算商品搜索
+	 * @param  
+	 * @param  
+	 * @return array 够划算类别数组
+	 * @author 和蔼的木Q <545038947@qq.com>
+	 */
+	public static function getghsitemsearch($keyword='手机',$page_no='1',$page_size='10'){
+
+		//TODO : 官方无数据返回 待查
+        $post_data["classname"] = "GhsSearchGetRequest";
+
+
+    	$post_data["q"] = array(
+           'setFields' => 'pid,web_name,p_name,ghs_o_url,ghs_catid,ghs_cname,weight,ori_price,ghs_price,discount,bought,pic_url,post,begin_time,end_time,total', 
+           'setPage_no' => "$page_no",
+           'setPage_size' => "$page_size",
+           'setKeyword' => "$keyword",
+        );
+
+        
+		$res = self::openyiqifa($post_data);
+
+		return $res["response"]["ghs_list"]["ghs"];
+
+	}
+
+
+
 
 	/**
 	 * 一起发获取商城类别

@@ -8,6 +8,8 @@
 	</div>
     <div class="tools">
         <button class="btn ajax-post" target-form="ids" url="{:U('Yqfghs/catupdate')}">更 新</button>
+        <button class="btn ajax-post" target-form="ids" url="{:U('Yqfghs/ghscatsetStatus',array('status'=>1))}">启 用</button>
+        <button class="btn ajax-post" target-form="ids" url="{:U('Yqfghs/ghscatsetStatus',array('status'=>0))}">禁 用</button>
     </div>
 
 	<!-- 数据列表 -->
@@ -21,6 +23,7 @@
 		<th class="">类别ID</th>
 		<th class="">名称</th>
 		<th class="">排序号</th>
+        <th class="">状态</th>
 		<th class="">操作</th>
 		</tr>
     </thead>
@@ -33,7 +36,9 @@
 			<td>{$vo.ghs_catid}</td>
 			<td>{$vo.ghs_cname}</td>
 			<td>{$vo.sort_order}</td>
+            <td>{$vo.status_text}</td>
 			<td>
+                <a href="{:U('Yqfghs/ghscatsetStatus?ids='.$vo['id'].'&status='.abs(1-$vo['status']))}" class="ajax-get">{$vo.status|show_status_op}</a>
 				<a href="{:U('Yqfghs/ghscatedit?id='.$vo['id'])}">编辑</a>
 				<a href="{:U('Yqfghs/ghscatdel?ids='.$vo['id'])}" class="confirm ajax-get">删除</a>
             </td>

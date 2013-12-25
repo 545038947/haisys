@@ -169,8 +169,8 @@ class YqfghsController extends AdminController {
      * 设置一条或者多条数据的状态
      * @author 和蔼的木Q <545038947@qq.com>
      */
-    public function setStatus(){
-        $Model = "shopset";
+    public function ghscatsetStatus(){
+        $Model = "yqf_ghscat";
         $ids    =   I('request.ids');
         $status =   I('request.status');
         if(empty($ids)){
