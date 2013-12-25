@@ -1,0 +1,37 @@
+<meta charset="UTF-8">
+<title>{:C('WEB_SITE_TITLE')}</title>
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+<meta name="MobileOptimized" content="320">
+<meta name="author" content="和蔼的木Q" />
+
+
+<!-- BEGIN GLOBAL STYLES -->          
+<link rel="stylesheet" type="text/css" href="__DEFAULTTMPL__/plugins/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="__DEFAULTTMPL__/plugins/bootstrap/3.0.3/css/bootstrap.min.css">
+<!-- END GLOBAL STYLES -->
+
+<!-- BEGIN THEME STYLES --> 
+<link rel="stylesheet" type="text/css" href="__DEFAULTTMPL__/css/style.css">
+<link rel="stylesheet" type="text/css" href="__DEFAULTTMPL__/css/themes/themes_red.css">
+<link rel="stylesheet" type="text/css" href="__DEFAULTTMPL__/css/custom.css">
+
+<link rel="stylesheet/less" type="text/css" href="__DEFAULTTMPL__/less/styles.less">
+
+<script src="__DEFAULTTMPL__/less/less-1.5.1.min.js"></script>
+<!-- END THEME STYLES -->
+
+<block name="style"></block>
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+	<script src="__DEFAULTTMPL__/plugins/html5shiv.min.js"></script>
+	<script src="__DEFAULTTMPL__/plugins/respond.min.js"></script>
+<![endif]-->
+<link rel="shortcut icon" href="favicon.ico" />
+
+
+<!-- 页面header钩子，一般用于加载插件CSS文件和代码 -->
+{:hook('pageHeader')}
