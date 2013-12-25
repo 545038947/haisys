@@ -9,6 +9,7 @@
 
 namespace Home\Controller;
 use OT\DataDictionary;
+use Common\Api\OpensdkApi;
 
 /**
  * 前台首页控制器
@@ -26,8 +27,36 @@ class IndexController extends HomeController {
         $this->assign('lists',$lists);//列表
         $this->assign('page',D('Document')->page);//分页
 
+
+
+        //够划算类目
+        $this->assign('ghslists',getghsgoods(5));//列表
+
+        //类目下商品列表
+
                  
         $this->display();
     }
+
+    /**
+	 * 首页够划算楼层列表
+	 * @param  变量
+	 * @return array 导航数据数组
+	 * @author 和蔼的木Q <545038947@qq.com>
+	 */
+	public function getghsgoods($goodssize)
+	{
+		
+		$Model = M('yqf_ghscat')->where("status=1")->order("sort_order")->select();
+
+		foreach ($Model as $key => $value) {
+			
+			$Model[$key]['goods'] = getghsitemlist($value['ghs_catid'],'1','5');
+		}
+
+		return $Model;
+
+		//P($Model);
+	}
 
 }
