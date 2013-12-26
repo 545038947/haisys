@@ -30,7 +30,7 @@ class IndexController extends HomeController {
 
 
         //够划算类目
-        $this->assign('ghslists',$this->getghsgoods(5));//列表
+        $this->assign('ghslists',$this->getghsgoods(6));//列表
 
         //类目下商品列表
 
@@ -51,7 +51,7 @@ class IndexController extends HomeController {
 
 		foreach ($Model as $key => $value) {
 			
-			$Model[$key]['goods'] = OpensdkApi::getghsitemlist($value['ghs_catid'],'1','5');
+			$Model[$key]['goods'] = OpensdkApi::getghsitemlist($value['ghs_catid'],'1',"$goodssize");
 		}
 
 		return $Model;

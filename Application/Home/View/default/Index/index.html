@@ -1,5 +1,5 @@
 <extend name="Base/common"/>
-
+<!-- 广告区 -->
 <block name="header">
     <header class="jumbotron subhead" id="overview">
         <div class="container">
@@ -10,50 +10,49 @@
 </block>
 
 <block name="side">
-<!-- 左侧 nav
-================================================== -->
-    <div class="span3 bs-docs-sidebar">
-        <ul class="nav nav-list bs-docs-sidenav">
-            {:W('Category/lists', array(1, true))}
-        </ul>
-    </div>
 </block>
 
 <block name="body">
-    <div class="span9">
-        <!-- Contents
-        ================================================== -->
-        <section id="contents">
-     ---__SELF__-__ROOT__/-{$Think.MODULE_NAME} --__JS__---__DEFAULTTMPL__----      
-<php>
-use Common\Api\OpensdkApi;
-//p(mainnav());
-P($ghslists);
+<!-- 直供产品区 -->
 
+<!-- 分类展示区 -->
+<div class="row">
+<h2>热卖单品</h2>
+</div>
+<volist name="ghslists" id="vo">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <h4>{$key+1}F {$vo.ghs_cname}</h4>
+            
+        </div>
+        <volist name="vo.goods" id="item">
+            <div class="col-xs-6 col-sm-4 col-md-2">
+                <div class="thumbnail">
+                    <a href="{$item.ghs_o_url}" target="_blank"><img data-src="holder.js/300x200" src="{$item.pic_url}" alt="..."></a>
+                    <div class="caption">
+                        <h5><a href="{$item.ghs_o_url}" target="_blank">{$item.p_name}</a></h5>
+                        <p>原价：{$item.ori_price}</p>
+                        <p>现价：{$item.ghs_price}</p>
+                        <p>折扣：{$item.discount}</p>
+                        <p>{$item.post}</p>
+                        <p>已经卖出{$item.bought}件</p>
+
+                    </div>
+                </div>
+            </div>
+        </volist> 
+    </div>
+</volist>  
+
+<php>
+echo("-=====--__SELF__-__ROOT__/-{$Think.MODULE_NAME} --__JS__---__DEFAULTTMPL__----");
+//use Common\Api\OpensdkApi;
+//p(mainnav());
+//P($ghslists);
+//P(OpensdkApi::gethotactivitylist("1401","4","10"));
 //P(RUNTIME_PATH);
 //P(OpensdkApi::getshopcat());
 //P(OpensdkApi::getgoods("101000000","1","1","","10,800"));
 </php>
 
-            <article:list name="article" category="1" child="true">
-                <div class="">
-                    <h3><a href="{:U('Article/detail?id='.$article['id'])}">{$article.title}</a></h3>
-                </div>
-                <div>
-                    <p class="lead">{$article.description}</p>
-                </div>
-                <div>
-                    <span><a href="{:U('Article/detail?id='.$article['id'])}">查看全文</a></span>
-                    <span class="pull-right">
-                        <span class="author">{$article.uid|get_username}</span>
-                        <span>于 {$article.create_time|date='Y-m-d H:i',###}</span> 发表在 <span>
-                        <a href="{:U('Article/lists?category='.get_category_name($article['category_id']))}">{$article.category_id|get_category_title}</a></span> ( 阅读：{$article.view} )
-                    </span>
-                </div>
-                <hr/>
-            </article:list>
-
-        </section>
-    </div>
-        </div>
 </block>

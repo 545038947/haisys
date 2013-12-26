@@ -16,7 +16,7 @@ function P($v){
 
 /**
  * 主导航栏
- * @param  变量
+ * @param  
  * @return array 导航数据数组
  * @author 和蔼的木Q <545038947@qq.com>
  */

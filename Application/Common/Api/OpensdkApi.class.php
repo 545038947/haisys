@@ -167,6 +167,66 @@ class OpensdkApi {
 	}
 
 	/**
+	 * 一起发获取特卖网站
+	 * @param  
+	 * @param  
+	 * @return array 特卖网站数组
+	 * @author 和蔼的木Q <545038947@qq.com>
+	 */
+	public static function gethotweb(){
+        $post_data["classname"] = "HotactivityWebsiteGetRequest";
+        $post_data["q"] = array(
+           'setFields' => 'web_id,web_name,web_o_url', 
+        );
+		$res = self::openyiqifa($post_data);
+		return $res["response"]["hot_webs"]["hot_web"];
+
+	}
+
+	/**
+	 * 一起发获取特卖活动列表
+	 * @param  $webid 特卖网站id
+	 * @param  $page_no 页码
+	 * @param  $page_size 每页记录数
+	 * @return array 特卖活动数组
+	 * @author 和蔼的木Q <545038947@qq.com>
+	 */
+	public static function gethotactivitylist($webid='',$page_no='1',$page_size='10'){
+		$cachestr = "OPENHOTACTIVITY-".$webid."-".$page_no."-".$page_size;
+	    $res = S($cachestr);
+	    if(is_array($res)){
+	        return $res;
+	    }
+	    else
+	    {
+	        $post_data["classname"] = "HotactivityListGetRequest";
+
+	        if ($webid == '') {
+	        	return array();
+	        }
+	        else{
+	        	$post_data["q"] = array(
+		           'setFields' => 'hot_id,web_id,web_name,hot_name,pic_url,hot_o_url,discount,brand_name,hot_catid,begin_date,end_date,modified_time,total', 
+		           'setPage_no' => "$page_no",
+		           'setPage_size' => "$page_size",
+		           'setWebid' => "$webid",
+		        );
+		    }
+	        
+			$res = self::openyiqifa($post_data);
+
+			$res = $res["response"]["hot_list"]["hot"];
+			S($cachestr,$res);
+	    }
+
+		return $res;
+
+	}
+
+
+
+
+	/**
 	 * 一起发获取够划算商品
 	 * @param  $catid 商品类型id
 	 * @param  $page_no 页码
