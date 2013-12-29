@@ -222,6 +222,8 @@ class AdminController extends Controller {
             $this->error('请选择要操作的数据');
         }
 
+
+
         $map['id'] = array('in',$ids);
         switch ($status){
             case -1 :
