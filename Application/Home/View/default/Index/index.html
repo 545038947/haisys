@@ -17,7 +17,7 @@
 
 <!-- 分类展示区 -->
 <div class="row">
-<h2>热卖单品</h2>
+<h2>  热卖单品  </h2>
 </div>
 <volist name="ghslists" id="vo">
     <div class="row">
@@ -26,6 +26,7 @@
             
         </div>
         <volist name="vo.goods" id="item">
+
             <div class="col-xs-6 col-sm-4 col-md-2">
                 <div class="thumbnail">
                     <a href="{$item.ghs_o_url}" target="_blank"><img data-src="holder.js/300x200" src="{$item.pic_url}" alt="..."></a>
@@ -45,8 +46,15 @@
 </volist>  
 
 <php>
+//    use Vendor\Test;
+//    $test = new Test();
+//    $test->P("Vendor");
 echo("-=====--__SELF__-__ROOT__/-{$Think.MODULE_NAME} --__JS__---__DEFAULTTMPL__----");
-//use Common\Api\OpensdkApi;
+use Common\Api\OpensdkApi;
+
+$datalist = OpensdkApi::get59miaopromoslist('');
+    P($datalist);
+
 //p(mainnav());
 //P($ghslists);
 //P(OpensdkApi::gethotactivitylist("1401","4","10"));

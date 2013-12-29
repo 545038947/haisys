@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by 和蔼的木Q
- * 说明：post 和 get方法都可以使用
+ * 说明：仅仅post 方法可以使用
  * sdk 入口文件
  * User: 和蔼的木Q
  * Date: 13-12-10

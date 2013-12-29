@@ -16,7 +16,7 @@ class OpensdkApi {
 	public static function get_open_shopset($shopname){
 
 	    //清除缓存
-	    //    S('OPENSHPOSET_CONFIG',null);
+	        S('OPENSHPOSET_CONFIG',null);
 	    $openshopset = S('OPENSHPOSET_CONFIG');
 	    if(is_array($openshopset)){
 	        //有缓存，直接使用缓存数据
@@ -29,6 +29,7 @@ class OpensdkApi {
 	        $data = $Model->select();
 
 	        foreach ($data as $key => $value) {
+	        	$keys = array();
 	            for ($i=0; $i <9 ; $i++) { 
 	                if (!empty($value["vname$i"])) {
 	                    $keys[$value["vname$i"]] = $value["vval$i"];
@@ -43,8 +44,11 @@ class OpensdkApi {
 	        }
 
 	        S('OPENSHPOSET_CONFIG',$openshopset);
+
 	        $res = $openshopset[$shopname];
 	    }
+
+
 
 	    return $res;
 	}
@@ -381,6 +385,125 @@ class OpensdkApi {
 
 	   return $res;
 	}
+
+	/**
+	 * 实例化59秒开放平台
+	 * @param  string  开放平台名称
+	 * @return array      59秒开放平台实例
+	 * @author 和蔼的木Q
+	 */
+	public static function get59miao()
+	{
+		$cfg59m = self::get_open_shopset("59秒");
+
+
+		define('IN_API59MIAO', true);
+		//设置时区
+		date_default_timezone_set('Asia/Shanghai');
+		define('ROOT_PATH',substr(dirname(__FILE__),0,-7));
+
+		//设置获取数据的编码. 支持UTF-8 GBK GB2312 
+		//需要 iconv或mb_convert_encoding 函数支持
+		//UTF-8 不可写成UTF8
+		define('CHARSET', 'UTF-8');
+
+		// define('APPKEY','1003987'); //设置59秒appkey
+		// define('APPSECRET','37a0c61e696dcc195a54ac6fef3b79e2');  //设置59秒appSecret
+		define('APPKEY',$cfg59m["APPKEY"]); //设置59秒appkey
+		define('APPSECRET',$cfg59m["APPSECRET"]);  //设置59秒appSecret
+
+		define('APIURL', 'http://api.59miao.com/Router/Rest?'); //设置与59秒通信的地址
+		//define('APIURL', 'http://192.168.1.100:8004/Router/Rest?'); //设置与59秒通信的地址
+		//define('APICACHE_TIME','3600*24');   //1小时   设置缓存时间，单位为秒
+
+		// define('API_CACHEPATH','Apicache');  //设置api缓存目录
+		// define('API_CACHETIME','3600*24');  //设置api缓存时间   单位为秒   0表示不缓存
+
+		define('API_CACHEPATH',$cfg59m["API_CACHEPATH"]);  //设置api缓存目录
+		define('API_CACHETIME',$cfg59m["API_CACHETIME"]);  //设置api缓存时间   单位为秒   0表示不缓存
+
+
+
+		//是否自动清除缓存
+		//自动清除过期缓存的时间间隔，
+		//格式是：* * * *
+		//其中第一个数表示分钟，第二个数表示小时，第三个数表示日期，第四个数表示月份
+		//多个之间可以用半角分号隔开
+		//示例：
+		//要求每天早上的8点1分清除缓存，格式是：1 8 * *
+		//要求每个月的1号晚上12点5分清除缓存，格式是：5 12 1 *
+		//要求每隔5天就在上午10点3分清除缓存，格式是：3 10 1,5,10,15,20,25 *
+		//如果设为0或格式不对将不开启此功能
+		//缓存清除操作每天只会执行一次
+		//$apiConfig['ClearCache'] = "* 9 1,5,10,15,20,25 *"; //默认为每隔5天在上午9点-10点之间进行自动缓存清除  
+
+		//define('API_CLEARCACHE', '1 23 * *');   //注意：只有在23点 1分执行文件才自动执行清除缓存
+		define('API_CLEARCACHE', $cfg59m["API_CLEARCACHE"]);   //注意：只有在23点 1分执行文件才自动执行清除缓存
+
+		// use Vendor\Api59miao;
+		// use Vendor\Api59miao_cache;
+		// use Vendor\Api59miao_Toos;
+		// Vendor('Api59miao');
+		// Vendor('Api59miao_cache');
+		// Vendor('Api59miao_Toos');
+		//获取appkey  appsecret 信息
+		$AppKeySecret = Api59miao_Toos::GetAppkeySecret();
+
+		return new Api59miao($AppKeySecret);
+	}
+
+	/**
+	 * 59秒开放平台商品类别
+	 * @param  string  开放平台名称
+	 * @return array      59秒开放平台实例
+	 * @author 和蔼的木Q
+	 */
+	public static function get59miaoitemcat($cids)
+	{
+		//获取59秒商品类别
+        $api59miao = self::get59miao();
+        //$datalist = 
+        $fileds="cid,name,is_parent,status";
+        $params = Array('cids' => $cids);
+        $Api59miaoData=$api59miao->ListItemCatsGet($fileds,$params);
+
+        return $Api59miaoData['itemcats']['itemcat'];
+
+	}
+
+	/**
+	 * 59秒开放平台获取促销列表
+	 * @param  string  开放平台名称
+	 * @return array      59秒开放平台实例
+	 * @author 和蔼的木Q
+	 */
+	public static function get59miaopromoslist($cids)
+	{
+		//获取59秒商品类别
+        $api59miao = self::get59miao();
+
+	
+	//查询商家促销列表(59miao.promos.list.get )
+	//可传字段pid,title,click_url,seller_logo,start_time,end_time,sid,seller_name,seller_url,pic_url_1,pic_url_2,pic_url_3
+	
+	//ListPromosListGet($fields=null,$sids = null, $cids = null, $page_no = 1, $page_size = 20, $outer_code = null)
+	$fields = 'pid,title,click_url,seller_logo,start_time,end_time,sid,seller_name,seller_url,pic_url_1,pic_url_2,pic_url_3';
+	$params = Array(
+		'cids' => $cids,
+		'out_code' => 'test111',
+	);
+	$Api59miaoData=$api59miao->ListPromosListGet($fields,'','','1','40','test111');
+
+
+
+
+        return $Api59miaoData;
+
+	}
+
+
+
+
 
 
 

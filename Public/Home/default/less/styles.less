@@ -135,3 +135,47 @@ ie8 & ie9 modes
   display: none !important;
 }
 
+
+/***
+商品缩略图
+***/
+
+.thumbnail {
+  display: block;
+  padding: 4px;
+  margin-bottom: 20px;
+  line-height: 1.428571429;
+  background-color: #ffffff;
+  border: 2px solid #dddddd;
+  border-radius: 4px;
+  -webkit-transition: all 0.2s ease-in-out;
+          transition: all 0.2s ease-in-out;
+}
+
+.thumbnail > img,
+.thumbnail a > img {
+  display: block;
+  height: auto;
+  max-width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.thumbnail:hover,
+.thumbnail:focus,
+.thumbnail.active {
+  border-color: @color_p-4
+}
+
+.thumbnail .caption {
+  padding: 9px;
+  color: #333333;
+}
+
+.thumbnail .caption a {
+  color: @color_s-a-1;
+}
+
+.thumbnail .caption a:hover {
+  color: @color_s-a-4;
+}
