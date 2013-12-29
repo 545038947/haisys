@@ -2,21 +2,21 @@
 Navicat MySQL Data Transfer
 
 Source Server         : 127.0.0.1
-Source Server Version : 50527
+Source Server Version : 50520
 Source Host           : localhost:3306
 Source Database       : haisys
 
 Target Server Type    : MYSQL
-Target Server Version : 50527
+Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2013-12-29 13:06:35
+Date: 2013-12-29 20:52:34
 */
 
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for `jgjsys_59m_itemcat`
+-- Table structure for jgjsys_59m_itemcat
 -- ----------------------------
 DROP TABLE IF EXISTS `jgjsys_59m_itemcat`;
 CREATE TABLE `jgjsys_59m_itemcat` (
@@ -1414,7 +1414,7 @@ INSERT INTO `jgjsys_59m_itemcat` VALUES ('1378', '1335', '网络安全', 'false'
 INSERT INTO `jgjsys_59m_itemcat` VALUES ('1379', '1336', '无线网络', 'false', '74', '1');
 
 -- ----------------------------
--- Table structure for `jgjsys_action`
+-- Table structure for jgjsys_action
 -- ----------------------------
 DROP TABLE IF EXISTS `jgjsys_action`;
 CREATE TABLE `jgjsys_action` (
@@ -1446,7 +1446,7 @@ INSERT INTO `jgjsys_action` VALUES ('10', 'update_menu', '更新菜单', '新增
 INSERT INTO `jgjsys_action` VALUES ('11', 'update_category', '更新分类', '新增或修改或删除分类', '', '', '1', '1', '1383296765');
 
 -- ----------------------------
--- Table structure for `jgjsys_action_log`
+-- Table structure for jgjsys_action_log
 -- ----------------------------
 DROP TABLE IF EXISTS `jgjsys_action_log`;
 CREATE TABLE `jgjsys_action_log` (
@@ -1463,7 +1463,7 @@ CREATE TABLE `jgjsys_action_log` (
   KEY `action_ip_ix` (`action_ip`),
   KEY `action_id_ix` (`action_id`),
   KEY `user_id_ix` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=53 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
+) ENGINE=MyISAM AUTO_INCREMENT=67 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
 
 -- ----------------------------
 -- Records of jgjsys_action_log
@@ -1520,9 +1520,23 @@ INSERT INTO `jgjsys_action_log` VALUES ('49', '1', '1', '2130706433', 'member', 
 INSERT INTO `jgjsys_action_log` VALUES ('50', '1', '1', '2130706433', 'member', '1', 'admin在2013-12-29 00:00登录了后台', '1', '1388246422');
 INSERT INTO `jgjsys_action_log` VALUES ('51', '10', '1', '2130706433', 'Menu', '127', '操作url：/haisys/index.php/admin/menu/add.html', '1', '1388246497');
 INSERT INTO `jgjsys_action_log` VALUES ('52', '1', '1', '2130706433', 'member', '1', 'admin在2013-12-29 02:14登录了后台', '1', '1388254496');
+INSERT INTO `jgjsys_action_log` VALUES ('53', '1', '1', '2130706433', 'member', '1', 'admin在2013-12-29 16:11登录了后台', '1', '1388304675');
+INSERT INTO `jgjsys_action_log` VALUES ('54', '10', '1', '2130706433', 'Menu', '128', '操作url：/haisys/index.php/admin/menu/add.html', '1', '1388306126');
+INSERT INTO `jgjsys_action_log` VALUES ('55', '10', '1', '2130706433', 'Menu', '129', '操作url：/haisys/index.php/admin/menu/add.html', '1', '1388306402');
+INSERT INTO `jgjsys_action_log` VALUES ('56', '10', '1', '2130706433', 'Menu', '130', '操作url：/haisys/index.php/admin/menu/add.html', '1', '1388313525');
+INSERT INTO `jgjsys_action_log` VALUES ('57', '10', '1', '2130706433', 'Menu', '130', '操作url：/haisys/index.php/admin/menu/edit.html', '1', '1388313566');
+INSERT INTO `jgjsys_action_log` VALUES ('58', '10', '1', '2130706433', 'Menu', '131', '操作url：/haisys/index.php/admin/menu/add.html', '1', '1388313608');
+INSERT INTO `jgjsys_action_log` VALUES ('59', '10', '1', '2130706433', 'Menu', '129', '操作url：/haisys/index.php/admin/menu/edit.html', '1', '1388313659');
+INSERT INTO `jgjsys_action_log` VALUES ('60', '10', '1', '2130706433', 'Menu', '130', '操作url：/haisys/index.php/admin/menu/edit.html', '1', '1388313673');
+INSERT INTO `jgjsys_action_log` VALUES ('61', '10', '1', '2130706433', 'Menu', '131', '操作url：/haisys/index.php/admin/menu/edit.html', '1', '1388313687');
+INSERT INTO `jgjsys_action_log` VALUES ('62', '10', '1', '2130706433', 'Menu', '132', '操作url：/haisys/index.php/admin/menu/add.html', '1', '1388313707');
+INSERT INTO `jgjsys_action_log` VALUES ('63', '10', '1', '2130706433', 'Menu', '0', '操作url：/haisys/index.php/admin/menu/del/id/132.html', '1', '1388313714');
+INSERT INTO `jgjsys_action_log` VALUES ('64', '10', '1', '2130706433', 'Menu', '130', '操作url：/haisys/index.php/admin/menu/edit.html', '1', '1388313757');
+INSERT INTO `jgjsys_action_log` VALUES ('65', '10', '1', '2130706433', 'Menu', '131', '操作url：/haisys/index.php/admin/menu/edit.html', '1', '1388313765');
+INSERT INTO `jgjsys_action_log` VALUES ('66', '10', '1', '2130706433', 'Menu', '133', '操作url：/haisys/index.php/admin/menu/add.html', '1', '1388314505');
 
 -- ----------------------------
--- Table structure for `jgjsys_addons`
+-- Table structure for jgjsys_addons
 -- ----------------------------
 DROP TABLE IF EXISTS `jgjsys_addons`;
 CREATE TABLE `jgjsys_addons` (
@@ -1551,7 +1565,7 @@ INSERT INTO `jgjsys_addons` VALUES ('6', 'Attachment', '附件', '用于文档�
 INSERT INTO `jgjsys_addons` VALUES ('9', 'SocialComment', '通用社交化评论', '集成了各种社交化评论插件，轻松集成到系统中。', '1', '{\"comment_type\":\"1\",\"comment_uid_youyan\":\"\",\"comment_short_name_duoshuo\":\"\",\"comment_data_list_duoshuo\":\"\"}', 'thinkphp', '0.1', '1380273962', '0');
 
 -- ----------------------------
--- Table structure for `jgjsys_attachment`
+-- Table structure for jgjsys_attachment
 -- ----------------------------
 DROP TABLE IF EXISTS `jgjsys_attachment`;
 CREATE TABLE `jgjsys_attachment` (
@@ -1577,7 +1591,7 @@ CREATE TABLE `jgjsys_attachment` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `jgjsys_attribute`
+-- Table structure for jgjsys_attribute
 -- ----------------------------
 DROP TABLE IF EXISTS `jgjsys_attribute`;
 CREATE TABLE `jgjsys_attribute` (
@@ -1642,7 +1656,7 @@ INSERT INTO `jgjsys_attribute` VALUES ('31', 'download', '下载次数', 'int(10
 INSERT INTO `jgjsys_attribute` VALUES ('32', 'size', '文件大小', 'bigint(20) unsigned NOT NULL ', 'num', '0', '单位bit', '1', '', '3', '0', '1', '1383896371', '1383891252', '', '0', '', '', '', '0', '');
 
 -- ----------------------------
--- Table structure for `jgjsys_auth_extend`
+-- Table structure for jgjsys_auth_extend
 -- ----------------------------
 DROP TABLE IF EXISTS `jgjsys_auth_extend`;
 CREATE TABLE `jgjsys_auth_extend` (
@@ -1667,7 +1681,7 @@ INSERT INTO `jgjsys_auth_extend` VALUES ('1', '4', '1');
 INSERT INTO `jgjsys_auth_extend` VALUES ('1', '37', '1');
 
 -- ----------------------------
--- Table structure for `jgjsys_auth_group`
+-- Table structure for jgjsys_auth_group
 -- ----------------------------
 DROP TABLE IF EXISTS `jgjsys_auth_group`;
 CREATE TABLE `jgjsys_auth_group` (
@@ -1688,7 +1702,7 @@ INSERT INTO `jgjsys_auth_group` VALUES ('1', 'admin', '1', '默认用户组', ''
 INSERT INTO `jgjsys_auth_group` VALUES ('2', 'admin', '1', '测试用户', '测试用户', '1', '1,2,5,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,79,80,82,83,84,88,89,90,91,92,93,96,97,100,102,103,195');
 
 -- ----------------------------
--- Table structure for `jgjsys_auth_group_access`
+-- Table structure for jgjsys_auth_group_access
 -- ----------------------------
 DROP TABLE IF EXISTS `jgjsys_auth_group_access`;
 CREATE TABLE `jgjsys_auth_group_access` (
@@ -1704,7 +1718,7 @@ CREATE TABLE `jgjsys_auth_group_access` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `jgjsys_auth_rule`
+-- Table structure for jgjsys_auth_rule
 -- ----------------------------
 DROP TABLE IF EXISTS `jgjsys_auth_rule`;
 CREATE TABLE `jgjsys_auth_rule` (
@@ -1717,7 +1731,7 @@ CREATE TABLE `jgjsys_auth_rule` (
   `condition` varchar(300) NOT NULL DEFAULT '' COMMENT '规则附加条件',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`module`,`name`,`type`)
-) ENGINE=MyISAM AUTO_INCREMENT=217 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=225 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of jgjsys_auth_rule
@@ -1915,7 +1929,7 @@ INSERT INTO `jgjsys_auth_rule` VALUES ('191', 'admin', '2', 'Admin/Database/repa
 INSERT INTO `jgjsys_auth_rule` VALUES ('192', 'admin', '2', 'Admin/Database/index?type=import', '还原数据库', '-1', '');
 INSERT INTO `jgjsys_auth_rule` VALUES ('193', 'admin', '2', 'Admin/Database/import', '恢复', '-1', '');
 INSERT INTO `jgjsys_auth_rule` VALUES ('194', 'admin', '2', 'Admin/Database/del', '删除', '-1', '');
-INSERT INTO `jgjsys_auth_rule` VALUES ('195', 'admin', '2', 'Admin/other', '其他', '1', '');
+INSERT INTO `jgjsys_auth_rule` VALUES ('195', 'admin', '2', 'Admin/other', '其他', '-1', '');
 INSERT INTO `jgjsys_auth_rule` VALUES ('196', 'admin', '2', 'Admin/Menu/add', '新增', '-1', '');
 INSERT INTO `jgjsys_auth_rule` VALUES ('197', 'admin', '2', 'Admin/Menu/edit', '编辑', '-1', '');
 INSERT INTO `jgjsys_auth_rule` VALUES ('198', 'admin', '2', 'Admin/Think/lists?model=article', '应用', '-1', '');
@@ -1936,9 +1950,41 @@ INSERT INTO `jgjsys_auth_rule` VALUES ('213', 'admin', '1', 'Admin/Menu/sort', '
 INSERT INTO `jgjsys_auth_rule` VALUES ('214', 'admin', '1', 'Admin/Channel/sort', '排序', '1', '');
 INSERT INTO `jgjsys_auth_rule` VALUES ('215', 'admin', '1', 'Admin/Category/operate/type/move', '移动', '1', '');
 INSERT INTO `jgjsys_auth_rule` VALUES ('216', 'admin', '1', 'Admin/Category/operate/type/merge', '合并', '1', '');
+INSERT INTO `jgjsys_auth_rule` VALUES ('217', 'admin', '1', 'Admin/Apicfg/index', '开放平台基础配置', '1', '');
+INSERT INTO `jgjsys_auth_rule` VALUES ('218', 'admin', '1', 'Admin/Yqfghs/ghscatlist', '购划算商品类别', '1', '');
+INSERT INTO `jgjsys_auth_rule` VALUES ('219', 'admin', '1', 'Admin/Apicfg/add', '添加', '1', '');
+INSERT INTO `jgjsys_auth_rule` VALUES ('220', 'admin', '1', 'Admin/Apicfg/edit', '编辑', '1', '');
+INSERT INTO `jgjsys_auth_rule` VALUES ('221', 'admin', '1', 'Admin/Yqfhot/hotweblist', '特卖网站管理', '1', '');
+INSERT INTO `jgjsys_auth_rule` VALUES ('222', 'admin', '1', 'Admin/Openwjm/itemcatlist', '59秒商品类型', '1', '');
+INSERT INTO `jgjsys_auth_rule` VALUES ('223', 'admin', '2', 'Admin/Apicfg/index', '开放平台', '1', '');
+INSERT INTO `jgjsys_auth_rule` VALUES ('224', 'admin', '2', 'Admin/Autocode/index', '脚手架', '1', '');
 
 -- ----------------------------
--- Table structure for `jgjsys_category`
+-- Table structure for jgjsys_autocode
+-- ----------------------------
+DROP TABLE IF EXISTS `jgjsys_autocode`;
+CREATE TABLE `jgjsys_autocode` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `name` char(64) DEFAULT NULL COMMENT '配置名称',
+  `ctrtmpl` char(100) NOT NULL DEFAULT '' COMMENT '控制器模板路径',
+  `modeltmpl` char(100) NOT NULL DEFAULT '' COMMENT '模型模板路径',
+  `tmpltmpl` char(100) NOT NULL DEFAULT '' COMMENT '模板模板路径',
+  `ctrpath` char(100) NOT NULL DEFAULT '' COMMENT '生成控制器路径',
+  `modelpath` char(100) NOT NULL DEFAULT '' COMMENT '生成模型路径',
+  `tmplpath` char(100) NOT NULL DEFAULT '' COMMENT '生成模板路径',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '数据状态',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `app_autocodecfg_id` (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='代码生成配置信息\r\n@author   和蔼的木Q\r\n@version  2013-12-07';
+
+-- ----------------------------
+-- Records of jgjsys_autocode
+-- ----------------------------
+INSERT INTO `jgjsys_autocode` VALUES ('1', '标准配置', '/Public/ctrtmpl', '/Public/modeltmpl', '/Public/tmpltmpl', '/Application/Controller', '/Application/Model', '/Application/View', '1');
+INSERT INTO `jgjsys_autocode` VALUES ('9', 'test', '/Public/ctrtmpl', '/Public/modeltmpl', '/Public/tmpltmpl', '/Application/Controller', '/Application/Model', '/Application/View', '1');
+
+-- ----------------------------
+-- Table structure for jgjsys_category
 -- ----------------------------
 DROP TABLE IF EXISTS `jgjsys_category`;
 CREATE TABLE `jgjsys_category` (
@@ -1980,7 +2026,7 @@ INSERT INTO `jgjsys_category` VALUES ('2', 'default_blog', '默认分类', '1', 
 INSERT INTO `jgjsys_category` VALUES ('39', 'dgoods', '直供商品', '0', '0', '10', '', '', '', '', '', '', '', '2', '3', '0', '1', '1', '1', '0', '', '', '1388041934', '1388043367', '1', '0');
 
 -- ----------------------------
--- Table structure for `jgjsys_channel`
+-- Table structure for jgjsys_channel
 -- ----------------------------
 DROP TABLE IF EXISTS `jgjsys_channel`;
 CREATE TABLE `jgjsys_channel` (
@@ -2005,7 +2051,7 @@ INSERT INTO `jgjsys_channel` VALUES ('3', '0', '官网', 'http://www.jgjmall.com
 INSERT INTO `jgjsys_channel` VALUES ('5', '0', '直供商品', 'Article/index?category=dgoods', '12', '1388042012', '1388042033', '1', '0');
 
 -- ----------------------------
--- Table structure for `jgjsys_config`
+-- Table structure for jgjsys_config
 -- ----------------------------
 DROP TABLE IF EXISTS `jgjsys_config`;
 CREATE TABLE `jgjsys_config` (
@@ -2057,7 +2103,7 @@ INSERT INTO `jgjsys_config` VALUES ('36', 'ADMIN_ALLOW_IP', '2', '后台允许�
 INSERT INTO `jgjsys_config` VALUES ('37', 'SHOW_PAGE_TRACE', '4', '是否显示页面Trace', '4', '0:关闭\r\n1:开启', '是否显示页面Trace信息', '1387165685', '1387165685', '1', '0', '1');
 
 -- ----------------------------
--- Table structure for `jgjsys_document`
+-- Table structure for jgjsys_document
 -- ----------------------------
 DROP TABLE IF EXISTS `jgjsys_document`;
 CREATE TABLE `jgjsys_document` (
@@ -2095,7 +2141,7 @@ CREATE TABLE `jgjsys_document` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `jgjsys_document_article`
+-- Table structure for jgjsys_document_article
 -- ----------------------------
 DROP TABLE IF EXISTS `jgjsys_document_article`;
 CREATE TABLE `jgjsys_document_article` (
@@ -2112,7 +2158,7 @@ CREATE TABLE `jgjsys_document_article` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `jgjsys_document_download`
+-- Table structure for jgjsys_document_download
 -- ----------------------------
 DROP TABLE IF EXISTS `jgjsys_document_download`;
 CREATE TABLE `jgjsys_document_download` (
@@ -2131,7 +2177,7 @@ CREATE TABLE `jgjsys_document_download` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `jgjsys_file`
+-- Table structure for jgjsys_file
 -- ----------------------------
 DROP TABLE IF EXISTS `jgjsys_file`;
 CREATE TABLE `jgjsys_file` (
@@ -2155,7 +2201,7 @@ CREATE TABLE `jgjsys_file` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `jgjsys_hooks`
+-- Table structure for jgjsys_hooks
 -- ----------------------------
 DROP TABLE IF EXISTS `jgjsys_hooks`;
 CREATE TABLE `jgjsys_hooks` (
@@ -2185,7 +2231,7 @@ INSERT INTO `jgjsys_hooks` VALUES ('14', 'topicComment', '评论提交方式扩�
 INSERT INTO `jgjsys_hooks` VALUES ('16', 'app_begin', '应用开始', '2', '1384481614', '');
 
 -- ----------------------------
--- Table structure for `jgjsys_member`
+-- Table structure for jgjsys_member
 -- ----------------------------
 DROP TABLE IF EXISTS `jgjsys_member`;
 CREATE TABLE `jgjsys_member` (
@@ -2207,10 +2253,10 @@ CREATE TABLE `jgjsys_member` (
 -- ----------------------------
 -- Records of jgjsys_member
 -- ----------------------------
-INSERT INTO `jgjsys_member` VALUES ('1', 'admin', '0', '0000-00-00', '', '50', '19', '0', '1387427567', '2130706433', '1388254496', '1');
+INSERT INTO `jgjsys_member` VALUES ('1', 'admin', '0', '0000-00-00', '', '50', '20', '0', '1387427567', '2130706433', '1388304675', '1');
 
 -- ----------------------------
--- Table structure for `jgjsys_menu`
+-- Table structure for jgjsys_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `jgjsys_menu`;
 CREATE TABLE `jgjsys_menu` (
@@ -2224,7 +2270,7 @@ CREATE TABLE `jgjsys_menu` (
   `group` varchar(50) DEFAULT '' COMMENT '分组',
   `is_dev` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否仅开发者模式可见',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=128 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=134 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of jgjsys_menu
@@ -2346,9 +2392,14 @@ INSERT INTO `jgjsys_menu` VALUES ('124', '添加', '122', '0', 'Apicfg/add', '1'
 INSERT INTO `jgjsys_menu` VALUES ('125', '编辑', '122', '0', 'Apicfg/edit', '0', '', '', '0');
 INSERT INTO `jgjsys_menu` VALUES ('126', '特卖网站管理', '93', '0', 'Yqfhot/hotweblist', '0', '', '亿起发配置', '0');
 INSERT INTO `jgjsys_menu` VALUES ('127', '59秒商品类型', '93', '0', 'Openwjm/itemcatlist', '0', '', '59秒配置', '0');
+INSERT INTO `jgjsys_menu` VALUES ('128', '脚手架', '0', '100', 'Autocode/index', '0', '', '', '0');
+INSERT INTO `jgjsys_menu` VALUES ('129', '配置列表', '128', '0', 'Autocode/index', '0', '', '', '0');
+INSERT INTO `jgjsys_menu` VALUES ('130', '生成配置编辑', '129', '0', 'Autocode/edit', '1', '', '', '0');
+INSERT INTO `jgjsys_menu` VALUES ('131', '生成配置新增', '129', '0', 'Autocode/add', '1', '', '', '0');
+INSERT INTO `jgjsys_menu` VALUES ('133', '生成操作', '129', '0', 'Autocode/generateor', '0', '', '', '0');
 
 -- ----------------------------
--- Table structure for `jgjsys_model`
+-- Table structure for jgjsys_model
 -- ----------------------------
 DROP TABLE IF EXISTS `jgjsys_model`;
 CREATE TABLE `jgjsys_model` (
@@ -2383,7 +2434,7 @@ INSERT INTO `jgjsys_model` VALUES ('2', 'article', '文章', '1', '', '1', '{\"1
 INSERT INTO `jgjsys_model` VALUES ('3', 'download', '下载', '1', '', '1', '{\"1\":[\"3\",\"28\",\"30\",\"32\",\"2\",\"5\",\"31\"],\"2\":[\"13\",\"10\",\"27\",\"9\",\"12\",\"16\",\"17\",\"19\",\"11\",\"20\",\"14\",\"29\"]}', '1:基础,2:扩展', '', '', '', '', 'id:编号\r\ntitle:标题', '0', '', '', '1383891252', '1387260449', '1', 'MyISAM');
 
 -- ----------------------------
--- Table structure for `jgjsys_picture`
+-- Table structure for jgjsys_picture
 -- ----------------------------
 DROP TABLE IF EXISTS `jgjsys_picture`;
 CREATE TABLE `jgjsys_picture` (
@@ -2402,7 +2453,7 @@ CREATE TABLE `jgjsys_picture` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `jgjsys_shopset`
+-- Table structure for jgjsys_shopset
 -- ----------------------------
 DROP TABLE IF EXISTS `jgjsys_shopset`;
 CREATE TABLE `jgjsys_shopset` (
@@ -2441,7 +2492,7 @@ INSERT INTO `jgjsys_shopset` VALUES ('27', '拍拍', '1', 'uin', '545038947', 'u
 INSERT INTO `jgjsys_shopset` VALUES ('31', '59秒', '1', 'APPKEY', '1026023', 'APPSECRET', 'fbdbd2911f54d12ecec33c1ac8a08536', 'API_CACHEPATH', 'Apicache', 'API_CACHETIME', '3600*24', 'API_CLEARCACHE', '1 23 * *', '', '', '', '', '', '', '', '', '', '');
 
 -- ----------------------------
--- Table structure for `jgjsys_ucenter_admin`
+-- Table structure for jgjsys_ucenter_admin
 -- ----------------------------
 DROP TABLE IF EXISTS `jgjsys_ucenter_admin`;
 CREATE TABLE `jgjsys_ucenter_admin` (
@@ -2456,7 +2507,7 @@ CREATE TABLE `jgjsys_ucenter_admin` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `jgjsys_ucenter_app`
+-- Table structure for jgjsys_ucenter_app
 -- ----------------------------
 DROP TABLE IF EXISTS `jgjsys_ucenter_app`;
 CREATE TABLE `jgjsys_ucenter_app` (
@@ -2479,7 +2530,7 @@ CREATE TABLE `jgjsys_ucenter_app` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `jgjsys_ucenter_member`
+-- Table structure for jgjsys_ucenter_member
 -- ----------------------------
 DROP TABLE IF EXISTS `jgjsys_ucenter_member`;
 CREATE TABLE `jgjsys_ucenter_member` (
@@ -2503,10 +2554,10 @@ CREATE TABLE `jgjsys_ucenter_member` (
 -- ----------------------------
 -- Records of jgjsys_ucenter_member
 -- ----------------------------
-INSERT INTO `jgjsys_ucenter_member` VALUES ('1', 'admin', '6cc437c212bbd45531647e74f60f4743', '545038947@qq.com', '', '1387427567', '2130706433', '1388254496', '2130706433', '1387427567', '1');
+INSERT INTO `jgjsys_ucenter_member` VALUES ('1', 'admin', '6cc437c212bbd45531647e74f60f4743', '545038947@qq.com', '', '1387427567', '2130706433', '1388304675', '2130706433', '1387427567', '1');
 
 -- ----------------------------
--- Table structure for `jgjsys_ucenter_setting`
+-- Table structure for jgjsys_ucenter_setting
 -- ----------------------------
 DROP TABLE IF EXISTS `jgjsys_ucenter_setting`;
 CREATE TABLE `jgjsys_ucenter_setting` (
@@ -2521,7 +2572,7 @@ CREATE TABLE `jgjsys_ucenter_setting` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `jgjsys_url`
+-- Table structure for jgjsys_url
 -- ----------------------------
 DROP TABLE IF EXISTS `jgjsys_url`;
 CREATE TABLE `jgjsys_url` (
@@ -2539,7 +2590,7 @@ CREATE TABLE `jgjsys_url` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `jgjsys_userdata`
+-- Table structure for jgjsys_userdata
 -- ----------------------------
 DROP TABLE IF EXISTS `jgjsys_userdata`;
 CREATE TABLE `jgjsys_userdata` (
@@ -2554,7 +2605,7 @@ CREATE TABLE `jgjsys_userdata` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `jgjsys_yqf_city`
+-- Table structure for jgjsys_yqf_city
 -- ----------------------------
 DROP TABLE IF EXISTS `jgjsys_yqf_city`;
 CREATE TABLE `jgjsys_yqf_city` (
@@ -3021,7 +3072,7 @@ INSERT INTO `jgjsys_yqf_city` VALUES ('1807', '120000', '天津', 'TIANJIN', 'tr
 INSERT INTO `jgjsys_yqf_city` VALUES ('1806', '110000', '北京', 'BEIJING', 'true', '13', '1', 'B', '1');
 
 -- ----------------------------
--- Table structure for `jgjsys_yqf_ghscat`
+-- Table structure for jgjsys_yqf_ghscat
 -- ----------------------------
 DROP TABLE IF EXISTS `jgjsys_yqf_ghscat`;
 CREATE TABLE `jgjsys_yqf_ghscat` (
@@ -3049,7 +3100,7 @@ INSERT INTO `jgjsys_yqf_ghscat` VALUES ('24', '778437', '内衣配饰', '80', '1
 INSERT INTO `jgjsys_yqf_ghscat` VALUES ('23', '645708', '精品男装', '40', '1');
 
 -- ----------------------------
--- Table structure for `jgjsys_yqf_hotweb`
+-- Table structure for jgjsys_yqf_hotweb
 -- ----------------------------
 DROP TABLE IF EXISTS `jgjsys_yqf_hotweb`;
 CREATE TABLE `jgjsys_yqf_hotweb` (
@@ -3070,7 +3121,7 @@ INSERT INTO `jgjsys_yqf_hotweb` VALUES ('5', '3504', '上品折扣网', 'http://
 INSERT INTO `jgjsys_yqf_hotweb` VALUES ('4', '3501', '天品网', 'http://p.yiqifa.com/n?k=2mLErn2lWNzSrI6HCZg7Rnu_fmUmUSe7C5BdRJydf96_YQLErI6H6ERF1QLO1n2F6nbHWZLErJoH2mL7W96b6l4y1QLOPQP3KwPH&e=API090507&spm=138655627865015183.1.1.1', '0');
 
 -- ----------------------------
--- Table structure for `jgjsys_yqf_itemcat`
+-- Table structure for jgjsys_yqf_itemcat
 -- ----------------------------
 DROP TABLE IF EXISTS `jgjsys_yqf_itemcat`;
 CREATE TABLE `jgjsys_yqf_itemcat` (
@@ -3125,7 +3176,7 @@ INSERT INTO `jgjsys_yqf_itemcat` VALUES ('37', '102000000', '图书音像', '1',
 INSERT INTO `jgjsys_yqf_itemcat` VALUES ('36', '101000000', '手机通讯', '1', 'true', '手机通讯', '2013-03-21 11:27:36');
 
 -- ----------------------------
--- Table structure for `jgjsys_yqf_region`
+-- Table structure for jgjsys_yqf_region
 -- ----------------------------
 DROP TABLE IF EXISTS `jgjsys_yqf_region`;
 CREATE TABLE `jgjsys_yqf_region` (
@@ -3145,7 +3196,7 @@ CREATE TABLE `jgjsys_yqf_region` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `jgjsys_yqf_tuancategory`
+-- Table structure for jgjsys_yqf_tuancategory
 -- ----------------------------
 DROP TABLE IF EXISTS `jgjsys_yqf_tuancategory`;
 CREATE TABLE `jgjsys_yqf_tuancategory` (
@@ -3165,7 +3216,7 @@ CREATE TABLE `jgjsys_yqf_tuancategory` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `jgjsys_yqf_webcat`
+-- Table structure for jgjsys_yqf_webcat
 -- ----------------------------
 DROP TABLE IF EXISTS `jgjsys_yqf_webcat`;
 CREATE TABLE `jgjsys_yqf_webcat` (
@@ -3210,7 +3261,7 @@ INSERT INTO `jgjsys_yqf_webcat` VALUES ('54', '2', '服装服饰', '61', '1', '2
 INSERT INTO `jgjsys_yqf_webcat` VALUES ('53', '1', '综合商城', '55', '1', '2013-02-02 11:09:00');
 
 -- ----------------------------
--- Table structure for `jgjsys_yqf_website`
+-- Table structure for jgjsys_yqf_website
 -- ----------------------------
 DROP TABLE IF EXISTS `jgjsys_yqf_website`;
 CREATE TABLE `jgjsys_yqf_website` (
