@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2013-12-29 20:52:34
+Date: 2013-12-30 17:11:49
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -1463,7 +1463,7 @@ CREATE TABLE `jgjsys_action_log` (
   KEY `action_ip_ix` (`action_ip`),
   KEY `action_id_ix` (`action_id`),
   KEY `user_id_ix` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=67 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
+) ENGINE=MyISAM AUTO_INCREMENT=69 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
 
 -- ----------------------------
 -- Records of jgjsys_action_log
@@ -1534,6 +1534,8 @@ INSERT INTO `jgjsys_action_log` VALUES ('63', '10', '1', '2130706433', 'Menu', '
 INSERT INTO `jgjsys_action_log` VALUES ('64', '10', '1', '2130706433', 'Menu', '130', '操作url：/haisys/index.php/admin/menu/edit.html', '1', '1388313757');
 INSERT INTO `jgjsys_action_log` VALUES ('65', '10', '1', '2130706433', 'Menu', '131', '操作url：/haisys/index.php/admin/menu/edit.html', '1', '1388313765');
 INSERT INTO `jgjsys_action_log` VALUES ('66', '10', '1', '2130706433', 'Menu', '133', '操作url：/haisys/index.php/admin/menu/add.html', '1', '1388314505');
+INSERT INTO `jgjsys_action_log` VALUES ('67', '1', '1', '2130706433', 'member', '1', 'admin在2013-12-30 12:21登录了后台', '1', '1388377300');
+INSERT INTO `jgjsys_action_log` VALUES ('68', '1', '1', '2130706433', 'member', '1', 'admin在2013-12-30 15:54登录了后台', '1', '1388390068');
 
 -- ----------------------------
 -- Table structure for jgjsys_addons
@@ -1975,13 +1977,12 @@ CREATE TABLE `jgjsys_autocode` (
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '数据状态',
   PRIMARY KEY (`id`),
   UNIQUE KEY `app_autocodecfg_id` (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='代码生成配置信息\r\n@author   和蔼的木Q\r\n@version  2013-12-07';
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COMMENT='代码生成配置信息\r\n@author   和蔼的木Q\r\n@version  2013-12-07';
 
 -- ----------------------------
 -- Records of jgjsys_autocode
 -- ----------------------------
-INSERT INTO `jgjsys_autocode` VALUES ('1', '标准配置', '/Public/ctrtmpl', '/Public/modeltmpl', '/Public/tmpltmpl', '/Application/Controller', '/Application/Model', '/Application/View', '1');
-INSERT INTO `jgjsys_autocode` VALUES ('9', 'test', '/Public/ctrtmpl', '/Public/modeltmpl', '/Public/tmpltmpl', '/Application/Controller', '/Application/Model', '/Application/View', '1');
+INSERT INTO `jgjsys_autocode` VALUES ('1', '标准配置', '/Public/autocode/ctrtmpl', '/Public/autocode/modeltmpl', '/Public/autocode/tmpltmpl', '/Application/Admin/Controller', '/Application/Admin/Model', '/Application/Admin/View', '1');
 
 -- ----------------------------
 -- Table structure for jgjsys_category
@@ -2253,7 +2254,7 @@ CREATE TABLE `jgjsys_member` (
 -- ----------------------------
 -- Records of jgjsys_member
 -- ----------------------------
-INSERT INTO `jgjsys_member` VALUES ('1', 'admin', '0', '0000-00-00', '', '50', '20', '0', '1387427567', '2130706433', '1388304675', '1');
+INSERT INTO `jgjsys_member` VALUES ('1', 'admin', '0', '0000-00-00', '', '50', '22', '0', '1387427567', '2130706433', '1388390068', '1');
 
 -- ----------------------------
 -- Table structure for jgjsys_menu
@@ -2554,7 +2555,7 @@ CREATE TABLE `jgjsys_ucenter_member` (
 -- ----------------------------
 -- Records of jgjsys_ucenter_member
 -- ----------------------------
-INSERT INTO `jgjsys_ucenter_member` VALUES ('1', 'admin', '6cc437c212bbd45531647e74f60f4743', '545038947@qq.com', '', '1387427567', '2130706433', '1388304675', '2130706433', '1387427567', '1');
+INSERT INTO `jgjsys_ucenter_member` VALUES ('1', 'admin', '6cc437c212bbd45531647e74f60f4743', '545038947@qq.com', '', '1387427567', '2130706433', '1388390068', '2130706433', '1387427567', '1');
 
 -- ----------------------------
 -- Table structure for jgjsys_ucenter_setting

@@ -19,7 +19,7 @@ class AutocodeController extends AdminController {
      */
     public function index(){
         
-        $list = $this->lists('autocode');
+        $list = $this->lists('Autocode');
         int_to_string($list);
         // 记录当前列表页的cookie
         Cookie('__forward__',$_SERVER['REQUEST_URI']);
@@ -104,15 +104,13 @@ class AutocodeController extends AdminController {
         if($data){
             //判断是新增还是更新
             if (I("id")) {
-                $result = $Model->where('id='.I("id"))->save(); // 写入数据到数据库 
+                $result = $Model->save(); // 写入数据到数据库 
                 if($result){
-                    // 如果主键是自动增长型 成功后返回值就是最新插入的值
-                    $insertId = $result;
-                    $this->success('更新成功,ID:'.$insertId, Cookie('__forward__'));
+                    $this->success('更新成功,ID:'.I("id"), Cookie('__forward__'));
                 }
                 else
                 {
-                    $this->error("更新失败！");
+                    $this->error("更新失败!！");
                 }
             }
             else
@@ -141,9 +139,18 @@ class AutocodeController extends AdminController {
      * @author 和蔼的木Q <545038947@qq.com>
      */
     public function generateor(){
-
+        $id = I('id','');
+        if(empty($id)){
+            $this->error('错误的配置项！');
+        }
     	$cfg = M("Autocode"); 
-		$data = $cfg->where('status=1 AND id="'.I('id').'"')->find();
+		$data = $cfg->where('status=1 AND id="'.$id.'"')->find();
+        if(!$data){
+            $this->error($Model->getError());
+        }
+
+        $this->assign('fields', $data);
+
 
 		if($data){
 			$tables = D('Model')->getTables();
@@ -171,13 +178,79 @@ class AutocodeController extends AdminController {
     	}
     	else
     	{
-    		$table = I('table');
+            P($_POST);
+            $gen_name = I('gen_name');
+            $thiserr = array('status' => 0 , 'msg' => '' );
+            
 
-    		$name = substr($table, strlen(C('DB_PREFIX')));
-    		$data = array('name'=>$name, 'title'=>$name);
-    		$fields = M()->query('SHOW FULL COLUMNS FROM '.$table);
-    		P($fields);
+            //验证需要生成的文件是否存在
+            $gen_ctrfile = '.'.I('ctrpath').'/'.$gen_name.'Controller.class.php';
+            if (is_file($gen_ctrfile)) {
 
+                $thiserr['status'] = 1;
+                $thiserr['msg'] .= "控制器文件: $gen_ctrfile 已经存在!请更换标示名称.<br>";
+            }
+            $gen_modelfile = '.'.I('modelpath').'/'.$gen_name.'Model.class.php';
+            if (is_file($gen_modelfile)) {
+                $thiserr['status'] = 1;
+                $thiserr['msg'] .= "模型文件: $gen_modelfile 已经存在!请更换标示名称.<br>";
+            }
+            $gen_tmplfile = '.'.I('tmplpath').'/'.$gen_name.'/';
+            if (is_file($gen_ctrfile)) {
+                $thiserr['status'] = 1;
+                $thiserr['msg'] .= "视图文件夹: $gen_tmplfile 已经存在!请更换标示名称.<br>";
+            }
+
+            if ($thiserr['status'] == 1) {
+                //$this->error($thiserr['msg']);
+            }
+
+            $table = I('table');
+
+            $name = substr($table, strlen(C('DB_PREFIX')));
+            $data = array('name'=>$name, 'title'=>$name);
+            $fields = M()->query('SHOW FULL COLUMNS FROM '.$table);
+
+
+            //获取控制器模板文件
+            $gen_ctrtpml = '.'.I('ctrtmpl').'/Controller.class.php';
+            $tpml_ctrfile = file_get_contents($gen_ctrtpml);
+            //[#gen_name] 
+            $tpml_ctrfile = str_replace('[#gen_name]', $gen_name, $tpml_ctrfile);
+
+            //保存控制器文件
+            //saveFile($gen_ctrfile,$tpml_ctrfile);
+
+            //获取模型模板文件
+            $gen_modeltpml = '.'.I('modeltmpl').'/Model.class.php';
+            $tpml_modelfile = file_get_contents($gen_modeltpml);
+
+
+            P($fields);
+
+
+
+            //echo "$tpml_modelfile";
+            //[#validate]
+            //$tpml_ctrfile = str_replace('[#gen_name]', $gen_name, $tpml_ctrfile);
+
+            //保存控制器文件
+            //saveFile($gen_ctrfile,$tpml_ctrfile);
+
+
+
+
+
+
+
+            
+
+
+
+
+
+
+    		
 
     	}
 
@@ -192,7 +265,7 @@ class AutocodeController extends AdminController {
     public function gettablearrt(){
 
     	if (!IS_POST) {
-    		//$this->error('非法的操作');
+    		$this->error('非法的操作');
     	}
     	else
     	{

@@ -9,12 +9,12 @@
 	<div class="tab-wrap">
 		<ul class="tab-nav nav">
 			<li data-tab="tab1" class="current"><a href="javascript:void(0);">初始配置</a></li>
-			<li data-tab="tab2"><a href="javascript:void(0);">数据库</a></li>
+			<li data-tab="tab2"><a href="javascript:void(0);">细节配置</a></li>
 
 		</ul>
 		<div class="tab-content">
 			<!-- 表 ....单 -->
-			<form id="form" action="{:U('gettablearrt')}" method="post" class="form-horizontal doc-modal-form">
+			<form id="form" action="{:U('generate')}" method="post" class="form-horizontal doc-modal-form">
 				<!-- 基础 -->
 				<div id="tab1" class="tab-pane in tab1">
 					<div class="form-item cf">
@@ -57,23 +57,31 @@
 
 				<!-- 数据库 -->
 				<div id="tab2" class="tab-pane tab2">
-
 					<div class="form-item cf">
 						<label class="item-label">数据表<span class="check-tips">（当前数据库的所有表）</span></label>
 						<div class="controls">
 							<select name="table" id="table">
+								<option value="null" selected>请选择需要生成的数据表</option>
 								<volist name="tables" id="tb">
 									<option value="{$tb}">{$tb}</option>
 								</volist>
 							</select>
 						</div>
-						<a href="javascript:gettablearrt($('#table').val());" class="btn btn-primary btn-lg active" role="button">选择</a>
 					</div>
-
-					<div class="form-item cf" id="fieldlist" style="border: 3px solid #CCC; padding: 5px; display: none;">
+					<div class="form-item cf">
+						<label class="item-label">标示名称<span class="check-tips">（首字母大写）</span></label>
+						<div class="controls">
+							<input type="text" class="text input-large" name="gen_name" value="" id="gen_name">
+						</div>
+					</div>
+					<hr>
+					<div class="form-item cf" id="fieldlist" style="display: none;">
 						<h3>请选择字段编辑类型</h3>
+
+
 						<h5 id="inpoint"></h5>
 					</div>
+					<hr>
 
 
 				</div>
@@ -101,6 +109,12 @@ $('.side-sub-menu').find('a[href="{:U('Model/index')}"]').closest('li').addClass
 
 $(function(){
 	showTab();
+
+	$("#table").change(function(event) {
+		if (!($('#table').val()=='null')) {
+			gettablearrt($('#table').val());
+		};		
+	});
 })
 
 function gettablearrt(tablename){
@@ -118,24 +132,43 @@ function gettablearrt(tablename){
 	    		tname = data['tablename'];
 	    		filedarrt = data['content'];
 
+	    		doname = tname.replace(/\b\w+\b/g, function(word) {
+                           return word.substring(0,1).toUpperCase( ) +
+                                  word.substring(1);
+                         });
+	    		doname = doname.replace(/_/,'')
+
+	    		$("#gen_name").val(doname);
+
+	    		
+	    		$("#fieldlist").html("<h3>请选择字段编辑类型</h3><h5 id='inpoint'></h5>");
+
 	    		//===============================================================
 
 	    		for(var key in filedarrt){
 		            //content += key+": "+u1[key]+"<br/>";
-		            $("#inpoint").before("<label class='item-label'>"+filedarrt[key].Field+"<span class='check-tips'>"+filedarrt[key].Type+"--"+filedarrt[key].Comment+"</span></label>");
-					selectstr = "<div class='controls'><select name='field_"+filedarrt[key].Field+"'>"
-					selectstr += "<option value='1'>文本0</option>";
-					selectstr += "<option value='0'>日期0</option>";
-					selectstr += "</select></div>";
+		            $("#inpoint").before("<h3>"+filedarrt[key].Field+" : <small>"+filedarrt[key].Type+"--"+filedarrt[key].Comment+"</small></h3>");
+					selectstr = "<span>";
+
+					selectstr += " 编辑类型：<select name='"+filedarrt[key].Field+"_edittype'>";
+					selectstr += "<option value='0'>文本框</option>";
+					selectstr += "<option value='1'>日期选择</option>";
+					selectstr += "<option value='2'>富文本编辑器</option>";
+					selectstr += "<option value='3'>上传文件</option>";
+					selectstr += "<option value='4'>上传图片</option>";
+					selectstr += "<option value='5'>布尔</option>";
+					selectstr += "</select>";
+
+					selectstr += " 主键<input type='checkbox' name='"+filedarrt[key].Field+"_iskey' value='1'> ";
+					selectstr += " 列表显示<input type='checkbox' name='"+filedarrt[key].Field+"_inlist' value='1'> ";
+					selectstr += " 表单编辑<input type='checkbox'name='"+filedarrt[key].Field+"_inedit' value='1'> ";
+					selectstr += " 编辑必填<input type='checkbox' name='"+filedarrt[key].Field+"_nonull' value='1'> ";
+					selectstr += " 隐藏域<input type='checkbox'name='"+filedarrt[key].Field+"_ishide' value='1'> ";
+					selectstr += " 备注说明：<input type='text' name='"+filedarrt[key].Field+"_memo'>";
+
+					selectstr += "</span>";
 					$("#inpoint").before(selectstr);
 		        }
-
-
-
-				
-
-
-
 
 
 				//===============================================================
