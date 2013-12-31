@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2013-12-30 17:11:49
+Date: 2013-12-31 18:36:17
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -1463,7 +1463,7 @@ CREATE TABLE `jgjsys_action_log` (
   KEY `action_ip_ix` (`action_ip`),
   KEY `action_id_ix` (`action_id`),
   KEY `user_id_ix` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=69 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
+) ENGINE=MyISAM AUTO_INCREMENT=75 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
 
 -- ----------------------------
 -- Records of jgjsys_action_log
@@ -1536,6 +1536,12 @@ INSERT INTO `jgjsys_action_log` VALUES ('65', '10', '1', '2130706433', 'Menu', '
 INSERT INTO `jgjsys_action_log` VALUES ('66', '10', '1', '2130706433', 'Menu', '133', '操作url：/haisys/index.php/admin/menu/add.html', '1', '1388314505');
 INSERT INTO `jgjsys_action_log` VALUES ('67', '1', '1', '2130706433', 'member', '1', 'admin在2013-12-30 12:21登录了后台', '1', '1388377300');
 INSERT INTO `jgjsys_action_log` VALUES ('68', '1', '1', '2130706433', 'member', '1', 'admin在2013-12-30 15:54登录了后台', '1', '1388390068');
+INSERT INTO `jgjsys_action_log` VALUES ('69', '10', '1', '2130706433', 'Menu', '0', '操作url：/haisys/index.php/admin/menu/del.html', '1', '1388473421');
+INSERT INTO `jgjsys_action_log` VALUES ('70', '10', '1', '2130706433', 'Menu', '0', '操作url：/haisys/index.php/admin/menu/del.html', '1', '1388473428');
+INSERT INTO `jgjsys_action_log` VALUES ('71', '10', '1', '2130706433', 'Menu', '0', '操作url：/haisys/index.php/admin/menu/del.html', '1', '1388474196');
+INSERT INTO `jgjsys_action_log` VALUES ('72', '10', '1', '2130706433', 'Menu', '0', '操作url：/haisys/index.php/admin/menu/del/id/150.html', '1', '1388474203');
+INSERT INTO `jgjsys_action_log` VALUES ('73', '1', '1', '2130706433', 'member', '1', 'admin在2013-12-31 15:37登录了后台', '1', '1388475452');
+INSERT INTO `jgjsys_action_log` VALUES ('74', '10', '1', '2130706433', 'Menu', '170', '操作url：/haisys/index.php/admin/menu/edit.html', '1', '1388478124');
 
 -- ----------------------------
 -- Table structure for jgjsys_addons
@@ -1962,6 +1968,34 @@ INSERT INTO `jgjsys_auth_rule` VALUES ('223', 'admin', '2', 'Admin/Apicfg/index'
 INSERT INTO `jgjsys_auth_rule` VALUES ('224', 'admin', '2', 'Admin/Autocode/index', '脚手架', '1', '');
 
 -- ----------------------------
+-- Table structure for jgjsys_autocadetest
+-- ----------------------------
+DROP TABLE IF EXISTS `jgjsys_autocadetest`;
+CREATE TABLE `jgjsys_autocadetest` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `name` char(64) NOT NULL DEFAULT '' COMMENT '配置名称',
+  `ctrtmpl` char(100) NOT NULL DEFAULT '' COMMENT '控制器模板路径',
+  `modeltmpl` char(100) NOT NULL DEFAULT '' COMMENT '模型模板路径',
+  `tmpltmpl` char(100) NOT NULL DEFAULT '' COMMENT '模板模板路径',
+  `ctrpath` char(100) NOT NULL DEFAULT '' COMMENT '生成控制器路径',
+  `modelpath` char(100) NOT NULL DEFAULT '' COMMENT '生成模型路径',
+  `tmplpath` char(100) NOT NULL DEFAULT '' COMMENT '生成模板路径',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '数据状态',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `app_autocodetestcfg_id` (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COMMENT='代码生成配置信息\r\n@author   和蔼的木Q\r\n@version  2013-12-07';
+
+-- ----------------------------
+-- Records of jgjsys_autocadetest
+-- ----------------------------
+INSERT INTO `jgjsys_autocadetest` VALUES ('16', '啥地方', '2013-12-31 18:02', '阿斯蒂芬', 'MDAwMDAwMDAwMMDSfqeaYox0', '', '', '', '1');
+INSERT INTO `jgjsys_autocadetest` VALUES ('15', '阿斯顿发斯蒂芬', '2013-12-31 17:45', '阿斯蒂芬啥地方天天', 'MDAwMDAwMDAwMMDSfqeaYox0', '', '', '', '1');
+INSERT INTO `jgjsys_autocadetest` VALUES ('17', '完全而且味儿', 'MDAwMDAwMDAwMMjTjqeZcXR0', '武器二', '', '', '', '', '1');
+INSERT INTO `jgjsys_autocadetest` VALUES ('18', '', 'MDAwMDAwMDAwMMvegqSRc4BtfM1-oH57rK27iZacrZ3UzJCRp62br5hux715nYNzgbGMu4-jlKWorLyFrmatnbrckLOua4d6yrC0', '发的是大法官', '', '', '', '', '1');
+INSERT INTO `jgjsys_autocadetest` VALUES ('19', '天天天天天天天天天天天天天天天', 'MDAwMDAwMDAwMMvegqSRc4BtfM16oH57rK27iZacrZ3UzJCQt5-afZyix95tapiIeKB_pn-xi5C8pMSfq6S-hq6ZgKO6r5GwrG20', '天天天天天天天天天天', '', '', '', '', '1');
+INSERT INTO `jgjsys_autocadetest` VALUES ('20', '房东哥史蒂芬', 'MDAwMDAwMDAwMMvegqSRc4BtfM1-oH57rK27iZacrZ3UzJCRp62br5hux715nYNzgbGMu4-jlKWorLyFrmatnbrckLOua4d6yrC0', '啥地方个', '', '', '', '', '1');
+
+-- ----------------------------
 -- Table structure for jgjsys_autocode
 -- ----------------------------
 DROP TABLE IF EXISTS `jgjsys_autocode`;
@@ -1977,7 +2011,7 @@ CREATE TABLE `jgjsys_autocode` (
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '数据状态',
   PRIMARY KEY (`id`),
   UNIQUE KEY `app_autocodecfg_id` (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COMMENT='代码生成配置信息\r\n@author   和蔼的木Q\r\n@version  2013-12-07';
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='代码生成配置信息\r\n@author   和蔼的木Q\r\n@version  2013-12-07';
 
 -- ----------------------------
 -- Records of jgjsys_autocode
@@ -2195,11 +2229,13 @@ CREATE TABLE `jgjsys_file` (
   `create_time` int(10) unsigned NOT NULL COMMENT '上传时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_md5` (`md5`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='文件表';
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='文件表';
 
 -- ----------------------------
 -- Records of jgjsys_file
 -- ----------------------------
+INSERT INTO `jgjsys_file` VALUES ('1', 'adblock.zip', '52c296f949e32.zip', '2013-12-31/', 'zip', 'application/octet-stream', '5099', '7cdacfe2f59278ac7454ade0b19de0e0', '5541255559bdbbe7a4d6c628bdb3ca244b1b5286', '0', '1388484345');
+INSERT INTO `jgjsys_file` VALUES ('2', 'apps.zip', '52c298816191b.zip', '2013-12-31/', 'zip', 'application/octet-stream', '22', '76cdb2bad9582d23c1f6f4d868218d6c', 'b04f3ee8f5e43fa3b162981b50bb72fe1acabb33', '0', '1388484737');
 
 -- ----------------------------
 -- Table structure for jgjsys_hooks
@@ -2254,7 +2290,7 @@ CREATE TABLE `jgjsys_member` (
 -- ----------------------------
 -- Records of jgjsys_member
 -- ----------------------------
-INSERT INTO `jgjsys_member` VALUES ('1', 'admin', '0', '0000-00-00', '', '50', '22', '0', '1387427567', '2130706433', '1388390068', '1');
+INSERT INTO `jgjsys_member` VALUES ('1', 'admin', '0', '0000-00-00', '', '50', '23', '0', '1387427567', '2130706433', '1388475452', '1');
 
 -- ----------------------------
 -- Table structure for jgjsys_menu
@@ -2271,7 +2307,7 @@ CREATE TABLE `jgjsys_menu` (
   `group` varchar(50) DEFAULT '' COMMENT '分组',
   `is_dev` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否仅开发者模式可见',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=134 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=186 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of jgjsys_menu
@@ -2555,7 +2591,7 @@ CREATE TABLE `jgjsys_ucenter_member` (
 -- ----------------------------
 -- Records of jgjsys_ucenter_member
 -- ----------------------------
-INSERT INTO `jgjsys_ucenter_member` VALUES ('1', 'admin', '6cc437c212bbd45531647e74f60f4743', '545038947@qq.com', '', '1387427567', '2130706433', '1388390068', '2130706433', '1387427567', '1');
+INSERT INTO `jgjsys_ucenter_member` VALUES ('1', 'admin', '6cc437c212bbd45531647e74f60f4743', '545038947@qq.com', '', '1387427567', '2130706433', '1388475452', '2130706433', '1387427567', '1');
 
 -- ----------------------------
 -- Table structure for jgjsys_ucenter_setting

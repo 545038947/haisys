@@ -67,11 +67,14 @@ class AutocodeController extends AdminController {
      * @author 和蔼的木Q <545038947@qq.com>
      */
     public function del(){
-        $ids = I('get.ids');
+        $ids    =   I('request.ids');
+        if(empty($ids)){
+            $this->error('请选择要操作的数据');
+        }
 
-        empty($ids) && $this->error('参数不能为空！');
-
-        $ids = explode(',', $ids);
+        if (!is_array($ids)) {
+            $ids = explode(',', $ids);
+        }        
 
         $Model = D("Autocode"); 
         foreach ($ids as $value){
@@ -86,7 +89,7 @@ class AutocodeController extends AdminController {
         if(!$res){
             $this->error(D('Autocode')->getError());
         }else{
-            $this->success('删除该配置成功！');
+            $this->success('删除成功！');
         }
     }
 
@@ -178,9 +181,29 @@ class AutocodeController extends AdminController {
     	}
     	else
     	{
-            P($_POST);
-            $gen_name = I('gen_name');
+            
+
+            $cfgarr = $_POST;
+
+
+            $table = $cfgarr['table'];
+            $mtname = str_replace(C('DB_PREFIX'), '', $table);
+            $gen_name = $cfgarr['gen_name'];
+
+
             $thiserr = array('status' => 0 , 'msg' => '' );
+
+            if (empty($gen_name)) {
+                $thiserr['status'] = 1;
+                $thiserr['msg'] .= "生成标示缺失，无法进行生成操作！<br>";
+                $this->error($thiserr['msg']);
+            }
+
+            if ($table=='null') {
+                $thiserr['status'] = 1;
+                $thiserr['msg'] .= "数据表缺失，无法进行生成操作！<br>";
+                $this->error($thiserr['msg']);
+            }
             
 
             //验证需要生成的文件是否存在
@@ -196,7 +219,7 @@ class AutocodeController extends AdminController {
                 $thiserr['msg'] .= "模型文件: $gen_modelfile 已经存在!请更换标示名称.<br>";
             }
             $gen_tmplfile = '.'.I('tmplpath').'/'.$gen_name.'/';
-            if (is_file($gen_ctrfile)) {
+            if (file_exists($gen_tmplfile)) {
                 $thiserr['status'] = 1;
                 $thiserr['msg'] .= "视图文件夹: $gen_tmplfile 已经存在!请更换标示名称.<br>";
             }
@@ -205,43 +228,249 @@ class AutocodeController extends AdminController {
                 //$this->error($thiserr['msg']);
             }
 
-            $table = I('table');
+            
 
             $name = substr($table, strlen(C('DB_PREFIX')));
             $data = array('name'=>$name, 'title'=>$name);
             $fields = M()->query('SHOW FULL COLUMNS FROM '.$table);
 
 
-            //获取控制器模板文件
+            //获取控制器模板文件 
             $gen_ctrtpml = '.'.I('ctrtmpl').'/Controller.class.php';
             $tpml_ctrfile = file_get_contents($gen_ctrtpml);
-            //[#gen_name] 
-            $tpml_ctrfile = str_replace('[#gen_name]', $gen_name, $tpml_ctrfile);
-
-            //保存控制器文件
-            //saveFile($gen_ctrfile,$tpml_ctrfile);
-
+            
             //获取模型模板文件
             $gen_modeltpml = '.'.I('modeltmpl').'/Model.class.php';
             $tpml_modelfile = file_get_contents($gen_modeltpml);
 
+            //获取模板文件：index,edit,add
+            $gen_tpmltpml_index = '.'.I('tmpltmpl').'/index.html';
+            $tpml_tpmltpml_indexfile = file_get_contents($gen_tpmltpml_index);
 
-            P($fields);
+            $gen_tpmltpml_add = '.'.I('tmpltmpl').'/add.html';
+            $tpml_tpmltpml_addfile = file_get_contents($gen_tpmltpml_add);
+
+            $gen_tpmltpml_edit = '.'.I('tmpltmpl').'/edit.html';
+            $tpml_tpmltpml_editfile = file_get_contents($gen_tpmltpml_edit);
+
+            // P($cfgarr);
+
+            // P($fields);
+            // die();
 
 
 
-            //echo "$tpml_modelfile";
-            //[#validate]
-            //$tpml_ctrfile = str_replace('[#gen_name]', $gen_name, $tpml_ctrfile);
+            //处理模板文件
 
-            //保存控制器文件
-            //saveFile($gen_ctrfile,$tpml_ctrfile);
+            $model_validatestr = "";
+            $tpml_index_listthstr = "";
+            $tpml_index_listtdstr = "";
 
-
-
-
+            $tpml_eidt_ctrsstr = "";
+            $tpml_add_ctrsstr = "";
 
 
+
+            foreach ($fields as $key => $value) {
+                //读取对应字段配置
+                $field_edittype = $cfgarr[$value['Field'].'_edittype'];
+                $field_iskey = $cfgarr[$value['Field'].'_iskey'];
+                $field_inlist = $cfgarr[$value['Field'].'_inlist'];
+                $field_inedit = $cfgarr[$value['Field'].'_inedit'];
+                $field_nonull = $cfgarr[$value['Field'].'_nonull'];
+                $field_ishide = $cfgarr[$value['Field'].'_ishide'];
+                $field_memo = $cfgarr[$value['Field'].'_memo'];
+
+                //模型部分
+                if ($field_nonull == 1) {
+                    $model_validatestr .= "array('".$value['Field']."', 'require', '".$value['Comment']."不能为空', self::MUST_VALIDATE , 'regex', self::MODEL_BOTH),\n";
+                    
+                }
+
+                
+                //模板部分
+                //index列表部分
+                if ($field_inlist == 1) {
+                    $tpml_index_listthstr .= "<th>".$value['Comment']."</th>\n";
+                    $tpml_index_listtdstr .= "<td>{\$vo.".$value['Field']."}</td>\n";
+                }
+
+                //edit表单部分
+                if ($field_inedit == 1) {
+                    if ($field_ishide == 1) {
+                        $tpml_eidt_ctrsstr .= "<input type=\"hidden\" name=\"".$value['Field']."\" value=\"{\$fields['".$value['Field']."']}\"/>\n";
+                        $tpml_add_ctrsstr .= "<input type=\"hidden\" name=\"".$value['Field']."\" value=\"{\$fields['".$value['Field']."']}\"/>\n";
+
+                    }
+                    else
+                    {
+                        $tpml_eidt_ctrsstr .= "<div class='form-item cf'>\n";
+                        $tpml_add_ctrsstr .= "<div class='form-item cf'>\n";
+
+                        $tpml_eidt_ctrsstr .= "<label class=\"item-label\">".$value['Comment']."<span class=\"check-tips\"> ".$field_memo." </span></label>\n";
+                        $tpml_add_ctrsstr .= "<label class=\"item-label\">".$value['Comment']."<span class=\"check-tips\"> ".$field_memo." </span></label>\n";
+
+                        $tpml_eidt_ctrsstr .= "<div class='controls'>\n";
+                        $tpml_add_ctrsstr .= "<div class='controls'>\n";
+                        if ($field_edittype == 0) {//输入框
+
+                            $tpml_eidt_ctrsstr .= "<input type=\"text\" class=\"text input-large\" name=\"".$value['Field']."\" value=\"{\$fields.".$value['Field']."}\">\n";
+                            $tpml_add_ctrsstr .= "<input type=\"text\" class=\"text input-large\" name=\"".$value['Field']."\" value=\"\">\n";
+                        }
+                        elseif ($field_edittype == 1) {//时间选择器
+                            $tpml_eidt_ctrsstr .= "<input type=\"text\" name=\"".$value['Field']."\" class=\"text input-large time\" value=\"{\$data[\$fields['".$value['Field']."']]|time_format}\" placeholder=\"请选择时间\" />";
+                            $tpml_add_ctrsstr .= "<input type=\"text\" name=\"".$value['Field']."\" class=\"text input-large time\" value=\"{\$data[\$fields['".$value['Field']."']]|time_format}\" placeholder=\"请选择时间\" />";
+                        }
+                        elseif ($field_edittype == 2) {//编辑器
+                            $tpml_eidt_ctrsstr .= "<label class=\"textarea\">\n";
+                            $tpml_eidt_ctrsstr .= "<textarea name=\"".$value['Field']."\">{\$fields.".$value['Field']."}</textarea>\n";
+                            $tpml_eidt_ctrsstr .= "{:hook('adminArticleEdit', array('name'=>'".$value['Field']."','value'=>\$fields.".$value['Field']."))}";
+                            $tpml_eidt_ctrsstr .= "</label>\n";
+
+                            $tpml_add_ctrsstr .= "<label class=\"textarea\">\n";
+                            $tpml_add_ctrsstr .= "<textarea name=\"".$value['Field']."\"></textarea>\n";
+                            $tpml_add_ctrsstr .= "{:hook('adminArticleEdit', array('name'=>'".$value['Field']."','value'=>\$fields.".$value['Field']."))}";
+                            $tpml_add_ctrsstr .= "</label>\n";
+                        }
+                        elseif ($field_edittype == 3) {//文件上传[{$field.name}]
+                            //[{$field.name}] [$field['name']]
+                            $upfiletpml = '.'.I('tmpltmpl').'/fileup.html';
+                            $upfilestr = file_get_contents($upfiletpml);
+                            $upfilestr = str_replace("[{\$field.name}]", $value['Field'],$upfilestr);
+                            $upfilestr = str_replace("[\$field['name']]", $value['Field'],$upfilestr);
+
+                            $tpml_eidt_ctrsstr .= $upfilestr."\n";
+                            $tpml_add_ctrsstr .= $upfilestr."\n";
+
+                        }
+
+
+                        $tpml_eidt_ctrsstr .= "</div>\n";
+                        $tpml_add_ctrsstr .= "</div>\n";
+                        
+                        $tpml_eidt_ctrsstr .= "</div>\n";
+                        $tpml_add_ctrsstr .= "</div>\n";
+                    }
+                }
+
+
+            }
+
+            //生成控制器文件
+            $tpml_ctrfile = str_replace('[#gen_name]', $gen_name, $tpml_ctrfile);//[#gen_name]：生成的控制器名称
+            $tpml_ctrfile = str_replace('[#gen_mtname]', $mtname, $tpml_ctrfile);//[#gen_mtname]：对应表名(无前缀)
+
+            //---------------保存控制器文件
+            if (!saveFile($gen_ctrfile,$tpml_ctrfile)){
+                $this->error("保存文件错误:".$gen_ctrfile,$tpml_ctrfile);
+            }
+
+
+
+            //生成模型文件
+            $tpml_modelfile = str_replace('[#gen_name]', $gen_name, $tpml_modelfile);//[#gen_name]：生成的模型名称
+            $tpml_modelfile = str_replace('[#validate]', $model_validatestr, $tpml_modelfile);//[#validate]：数据校验数据
+
+            //---------------保存模型文件
+            if (!saveFile($gen_modelfile,$tpml_modelfile)){
+                $this->error("保存文件错误:".$gen_modelfile);
+            }
+
+
+            //生成模板文件index
+            $tpml_tpmltpml_indexfile = str_replace('[#indexthstr]', $tpml_index_listthstr, $tpml_tpmltpml_indexfile);//[#indexthstr]：列表表头
+            $tpml_tpmltpml_indexfile = str_replace('[#indextdstr]', $tpml_index_listtdstr, $tpml_tpmltpml_indexfile);//[#indexthstr]：列表表体
+            $tpml_tpmltpml_indexfile = str_replace('[#gen_name]', $gen_name, $tpml_tpmltpml_indexfile);//[#gen_name]：控制器名
+
+            //---------------保存模板文件index
+            
+            if (!saveFile($gen_tmplfile.'/index.html',$tpml_tpmltpml_indexfile)){
+                $this->error("保存文件错误:".$gen_tmplfile.'/index.html');
+            }
+
+
+            // $tpml_eidt_ctrsstr = "";
+            // $tpml_add_ctrsstr = "";
+            //生成模板文件edit
+            $tpml_tpmltpml_editfile = str_replace('[#ctrsstr]', $tpml_eidt_ctrsstr, $tpml_tpmltpml_editfile);//[#ctrsstr]：编辑控件
+
+            //---------------保存模板文件edit
+            
+            if (!saveFile($gen_tmplfile.'/edit.html',$tpml_tpmltpml_editfile)){
+                $this->error("保存文件错误:".$gen_tmplfile.'/edit.html');
+            }
+
+            //生成模板文件add
+            $tpml_tpmltpml_addfile = str_replace('[#ctrsstr]', $tpml_add_ctrsstr, $tpml_tpmltpml_addfile);//[#ctrsstr]：编辑控件
+
+            //---------------保存模板文件edit
+            
+            if (!saveFile($gen_tmplfile.'/add.html',$tpml_tpmltpml_addfile)){
+                $this->error("保存文件错误:".$gen_tmplfile.'/add.html');
+            }
+
+
+
+            //生成菜单项目
+            $Menu = D('Menu');
+
+            //$data['id'] = 
+            $data['title'] = '临时菜单';
+            $data['pid'] = 0;
+            $data['sort'] = 100;
+            $data['url'] = $gen_name.'/index';
+            $data['hide'] = 0;
+            //$data['tip'] = '';
+            //$data['group'] = '';
+            $data['is_dev'] = 0;
+
+            $newid = $Menu->data($data)->add();
+            if ($newid) {
+                $data['title'] = '列表';
+                $data['pid'] = $newid;
+                $data['sort'] = 100;
+                $data['url'] = $gen_name.'/index';
+                $data['hide'] = 0;
+                //$data['tip'] = '';
+                //$data['group'] = '';
+                $data['is_dev'] = 0;
+                $Menu->data($data)->add();
+
+                $data['title'] = '新增';
+                $data['pid'] = $newid;
+                $data['sort'] = 100;
+                $data['url'] = $gen_name.'/add';
+                $data['hide'] = 0;
+                //$data['tip'] = '';
+                //$data['group'] = '';
+                $data['is_dev'] = 0;
+                $Menu->data($data)->add();
+
+                $data['title'] = '编辑';
+                $data['pid'] = $newid;
+                $data['sort'] = 100;
+                $data['url'] = $gen_name.'/edit';
+                $data['hide'] = 1;
+                //$data['tip'] = '';
+                //$data['group'] = '';
+                $data['is_dev'] = 0;
+                $Menu->data($data)->add();
+            }
+            else
+            {
+                $this->error('添加菜单出错！');
+            }
+
+
+
+            $resmsg = '代码生成完成，生成如下文件：<br>';
+            $resmsg .= $gen_ctrfile.'<br>';
+            $resmsg .= $gen_modelfile.'<br>';
+            $resmsg .= $gen_tmplfile.'/index.html'.'<br>';
+            $resmsg .= $gen_tmplfile.'/edit.html'.'<br>';
+            $resmsg .= $gen_tmplfile.'/add.html'.'<br>';
+
+            echo "$resmsg";
 
             
 

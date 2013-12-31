@@ -3,13 +3,13 @@
 <block name="body">
     <!-- 标题栏 -->
     <div class="main-title">
-        <h2>代码生成器配置列表</h2>
+        <h2>列表</h2>
 
     </div>
     <div class="tools">
-        <a class="btn" href="{:U('Autocode/add')}">新 增</a>
-        <button class="btn ajax-post" target-form="ids" url="{:U('Autocode/setStatus',array('status'=>1))}">启 用</button>
-        <button class="btn ajax-post" target-form="ids" url="{:U('Autocode/setStatus',array('status'=>0))}">禁 用</button>
+        <a class="btn" href="{:U('[#gen_name]/add')}">新 增</a>
+        <button class="btn ajax-post" target-form="ids" url="{:U('[#gen_name]/setStatus',array('status'=>1))}">启 用</button>
+        <button class="btn ajax-post" target-form="ids" url="{:U('[#gen_name]/setStatus',array('status'=>0))}">禁 用</button>
     </div>
 
     <!-- 数据列表 -->
@@ -19,8 +19,7 @@
     <thead>
         <tr>
         <th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
-        <th class="">编号</th>
-        <th class="">名称</th>
+        [#indexthstr]
         <th class="">状态</th>
         <th class="">操作</th>
         </tr>
@@ -30,14 +29,12 @@
         <volist name="_list" id="vo">
         <tr>
             <td><input class="ids" type="checkbox" name="ids[]" value="{$vo.id}" /></td>
-            <td>{$vo.id} </td>
-            <td>{$vo.name}</td>
+            [#indextdstr]
             <td>{$vo.status_text}</td>
             <td>
-                <a href="{:U('Autocode/setStatus?ids='.$vo['id'].'&status='.abs(1-$vo['status']))}" class="ajax-get">{$vo.status|show_status_op}</a>
-                <a href="{:U('Autocode/edit?id='.$vo['id'])}">编辑</a>
-                <a href="{:U('Autocode/del?ids='.$vo['id'])}" class="confirm ajax-get">删除</a>
-                <a href="{:U('Autocode/generateor?id='.$vo['id'])}">生成</a>
+                <a href="{:U('[#gen_name]/setStatus?ids='.$vo['id'].'&status='.abs(1-$vo['status']))}" class="ajax-get">{$vo.status|show_status_op}</a>
+                <a href="{:U('[#gen_name]/edit?id='.$vo['id'])}">编辑</a>
+                <a href="{:U('[#gen_name]/del?ids='.$vo['id'])}" class="confirm ajax-get">删除</a>
             </td>
         </tr>
         </volist>

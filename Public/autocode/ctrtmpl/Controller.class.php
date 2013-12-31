@@ -18,7 +18,7 @@ class [#gen_name]Controller extends AdminController {
      */
     public function index(){
         
-        $list = $this->lists('[#gen_name]');
+        $list = $this->lists('[#gen_mtname]');
         int_to_string($list);
         // 记录当前列表页的cookie
         Cookie('__forward__',$_SERVER['REQUEST_URI']);
@@ -66,11 +66,14 @@ class [#gen_name]Controller extends AdminController {
      * @author 和蔼的木Q <545038947@qq.com>
      */
     public function del(){
-        $ids = I('get.ids');
+        $ids    =   I('request.ids');
+        if(empty($ids)){
+            $this->error('请选择要操作的数据');
+        }
 
-        empty($ids) && $this->error('参数不能为空！');
-
-        $ids = explode(',', $ids);
+        if (!is_array($ids)) {
+            $ids = explode(',', $ids);
+        }
 
         $Model = D("[#gen_name]"); 
         foreach ($ids as $value){

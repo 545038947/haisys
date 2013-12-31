@@ -73,6 +73,8 @@ function saveFile($fileName, $text) {
 * @return boolean 
 */
 function makeDir($dir, $mode = "0777") {
+	 
+
 	 if (!dir) return false;
 
 	 if(!file_exists($dir)) {
