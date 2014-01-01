@@ -1,36 +1,36 @@
 
-	<input type="file" id="upload_file_[{$field.name}]">
-	<input type="hidden" name="[{$field.name}]" value="{:think_encrypt(json_encode(get_table_field($data['[$field['name']]'],'id','','File')))}"/>
-	<div class="upload-img-box">
-		<present name="data['[$field['name']]']">
-			<div class="upload-pre-file"><span class="upload_icon_all"></span>{$data['[$field['name']]']|get_table_field=###,'id','name','File'}</div>
-		</present>
-	</div>
+    <input type="file" id="upload_file_[#fieldname]">
+    <input type="hidden" name="[#fieldname]" value="{$fields[[#fieldname]]}"/>
+    <div class="upload-img-box">
+        <present name="fields[[#fieldname]]">
+            <div class="upload-pre-file"><span class="upload_icon_all"></span>{$fields[[#fieldname]]|get_table_field=###,'id','name','File'}</div>
+        </present>
+    </div>
 
 <script type="text/javascript">
 //上传图片
 /* 初始化上传插件 */
-$("#upload_file_[{$field.name}]").uploadify({
+$("#upload_file_[#fieldname]").uploadify({
     "height"          : 30,
     "swf"             : "__STATIC__/uploadify/uploadify.swf",
-    "fileObjName"     : "attachment",
+    "fileObjName"     : "download",
     "buttonText"      : "上传附件",
     "uploader"        : "{:U('File/upload',array('session_id'=>session_id()))}",
     "width"           : 120,
-    'removeTimeout'	  : 1,
-    "onUploadSuccess" : uploadFile[{$field.name}]
+    'removeTimeout'   : 1,
+    "onUploadSuccess" : uploadFile[#fieldname]
 });
-function uploadFile[{$field.name}](file, data){
-	var data = $.parseJSON(data);
+function uploadFile[#fieldname](file, data){
+    var data = $.parseJSON(data);
     if(data.status){
-    	var name = "[{$field.name}]";
-    	$("input[name="+name+"]").val(data.data);
-    	$("input[name="+name+"]").parent().find('.upload-img-box').html(
-    		"<div class=\"upload-pre-file\"><span class=\"upload_icon_all\"></span>" + data.info + "</div>"
-    	);
+        var name = "[#fieldname]";
+        $("input[name="+name+"]").val(data.id);
+        $("input[name="+name+"]").parent().find('.upload-img-box').html(
+            "<div class=\"upload-pre-file\"><span class=\"upload_icon_all\"></span>" + data.info + "</div>"
+        );
     } else {
-    	updateAlert(data.info);
-    	setTimeout(function(){
+        updateAlert(data.info);
+        setTimeout(function(){
             $('#top-alert').find('button').click();
             $(that).removeClass('disabled').prop('disabled',false);
         },1500);

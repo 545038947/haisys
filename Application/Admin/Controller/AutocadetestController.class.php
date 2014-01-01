@@ -7,13 +7,13 @@ namespace Admin\Controller;
 use Admin\Model\AuthGroupModel;
 
 /**
- * ______ 控制器
+ * 测试生成 控制器
  * @author 和蔼的木Q <545038947@qq.com>
  */
 
 class AutocadetestController extends AdminController {
 	 /**
-     * _______ 首页
+     * 测试生成 首页
      * @author 和蔼的木Q <545038947@qq.com>
      */
     public function index(){
@@ -24,7 +24,7 @@ class AutocadetestController extends AdminController {
         Cookie('__forward__',$_SERVER['REQUEST_URI']);
 
         $this->assign('_list', $list);
-        $this->meta_title = '列表';
+        $this->meta_title = '测试生成-列表';
         $this->display();
         
     }
@@ -35,7 +35,7 @@ class AutocadetestController extends AdminController {
      */
     public function add(){
 
-        $this->meta_title = '新增';
+        $this->meta_title = '测试生成-新增';
         $this->display();
     }
 
@@ -57,7 +57,7 @@ class AutocadetestController extends AdminController {
         }
 
         $this->assign('fields', $data);
-        $this->meta_title = '编辑';
+        $this->meta_title = '测试生成-编辑';
         $this->display();
     }
 

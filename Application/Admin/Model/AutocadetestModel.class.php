@@ -7,7 +7,7 @@ namespace Admin\Model;
 use Think\Model;
 
 /**
- * ______模型
+ * 测试生成 模型
  * @author 和蔼的木Q <545038947@qq.com>
  */
 

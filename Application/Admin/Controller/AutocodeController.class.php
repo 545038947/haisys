@@ -189,6 +189,8 @@ class AutocodeController extends AdminController {
             $table = $cfgarr['table'];
             $mtname = str_replace(C('DB_PREFIX'), '', $table);
             $gen_name = $cfgarr['gen_name'];
+            $gen_title = $cfgarr['gen_title'];
+
 
 
             $thiserr = array('status' => 0 , 'msg' => '' );
@@ -225,7 +227,7 @@ class AutocodeController extends AdminController {
             }
 
             if ($thiserr['status'] == 1) {
-                //$this->error($thiserr['msg']);
+                $this->error($thiserr['msg']);
             }
 
             
@@ -252,12 +254,6 @@ class AutocodeController extends AdminController {
 
             $gen_tpmltpml_edit = '.'.I('tmpltmpl').'/edit.html';
             $tpml_tpmltpml_editfile = file_get_contents($gen_tpmltpml_edit);
-
-            // P($cfgarr);
-
-            // P($fields);
-            // die();
-
 
 
             //处理模板文件
@@ -333,17 +329,32 @@ class AutocodeController extends AdminController {
                             $tpml_add_ctrsstr .= "</label>\n";
                         }
                         elseif ($field_edittype == 3) {//文件上传[{$field.name}]
-                            //[{$field.name}] [$field['name']]
+                            
                             $upfiletpml = '.'.I('tmpltmpl').'/fileup.html';
                             $upfilestr = file_get_contents($upfiletpml);
-                            $upfilestr = str_replace("[{\$field.name}]", $value['Field'],$upfilestr);
-                            $upfilestr = str_replace("[\$field['name']]", $value['Field'],$upfilestr);
-
+                            $upfilestr = str_replace("[#fieldname]", $value['Field'],$upfilestr);
+                            
                             $tpml_eidt_ctrsstr .= $upfilestr."\n";
                             $tpml_add_ctrsstr .= $upfilestr."\n";
 
                         }
-
+                        elseif ($field_edittype == 4) {
+                            $upfiletpml = '.'.I('tmpltmpl').'/pic.html';
+                            $upfilestr = file_get_contents($upfiletpml);
+                            $upfilestr = str_replace("[#fieldname]", $value['Field'],$upfilestr);
+                            
+                            $tpml_eidt_ctrsstr .= $upfilestr."\n";
+                            $tpml_add_ctrsstr .= $upfilestr."\n";
+                        }
+                        elseif ($field_edittype == 5) {
+                            $tpml_eidt_ctrsstr .= "<textarea name=\"".$value['Field']."\" cols=\"50\" rows=\"5\">{\$fields.".$value['Field']."}</textarea>\n";
+                            $tpml_add_ctrsstr .= "<textarea name=\"".$value['Field']."\" cols=\"50\" rows=\"5\">{\$fields.".$value['Field']."}</textarea>\n";
+                        }
+                        else
+                        {
+                            $tpml_eidt_ctrsstr .= "<input type=\"text\" class=\"text input-large\" name=\"".$value['Field']."\" value=\"{\$fields.".$value['Field']."}\">\n";
+                            $tpml_add_ctrsstr .= "<input type=\"text\" class=\"text input-large\" name=\"".$value['Field']."\" value=\"\">\n";
+                        }
 
                         $tpml_eidt_ctrsstr .= "</div>\n";
                         $tpml_add_ctrsstr .= "</div>\n";
@@ -358,7 +369,8 @@ class AutocodeController extends AdminController {
 
             //生成控制器文件
             $tpml_ctrfile = str_replace('[#gen_name]', $gen_name, $tpml_ctrfile);//[#gen_name]：生成的控制器名称
-            $tpml_ctrfile = str_replace('[#gen_mtname]', $mtname, $tpml_ctrfile);//[#gen_mtname]：对应表名(无前缀)
+            $tpml_ctrfile = str_replace('[#gen_mtname]', $mtname, $tpml_ctrfile);//[#gen_mtname]：对应表名(无前缀)            
+            $tpml_ctrfile = str_replace('[#gen_title]', $gen_title, $tpml_ctrfile);//[#gen_title]：代码标题
 
             //---------------保存控制器文件
             if (!saveFile($gen_ctrfile,$tpml_ctrfile)){
@@ -370,6 +382,7 @@ class AutocodeController extends AdminController {
             //生成模型文件
             $tpml_modelfile = str_replace('[#gen_name]', $gen_name, $tpml_modelfile);//[#gen_name]：生成的模型名称
             $tpml_modelfile = str_replace('[#validate]', $model_validatestr, $tpml_modelfile);//[#validate]：数据校验数据
+            $tpml_modelfile = str_replace('[#gen_title]', $gen_title, $tpml_modelfile);//[#gen_title]：代码标题
 
             //---------------保存模型文件
             if (!saveFile($gen_modelfile,$tpml_modelfile)){
@@ -381,6 +394,7 @@ class AutocodeController extends AdminController {
             $tpml_tpmltpml_indexfile = str_replace('[#indexthstr]', $tpml_index_listthstr, $tpml_tpmltpml_indexfile);//[#indexthstr]：列表表头
             $tpml_tpmltpml_indexfile = str_replace('[#indextdstr]', $tpml_index_listtdstr, $tpml_tpmltpml_indexfile);//[#indexthstr]：列表表体
             $tpml_tpmltpml_indexfile = str_replace('[#gen_name]', $gen_name, $tpml_tpmltpml_indexfile);//[#gen_name]：控制器名
+            $tpml_tpmltpml_indexfile = str_replace('[#gen_title]', $gen_title, $tpml_tpmltpml_indexfile);//[#gen_title]：代码标题
 
             //---------------保存模板文件index
             
@@ -393,6 +407,8 @@ class AutocodeController extends AdminController {
             // $tpml_add_ctrsstr = "";
             //生成模板文件edit
             $tpml_tpmltpml_editfile = str_replace('[#ctrsstr]', $tpml_eidt_ctrsstr, $tpml_tpmltpml_editfile);//[#ctrsstr]：编辑控件
+            $tpml_tpmltpml_editfile = str_replace('[#gen_name]', $gen_name, $tpml_tpmltpml_editfile);//[#gen_name]：控制器名
+            $tpml_tpmltpml_editfile = str_replace('[#gen_title]', $gen_title, $tpml_tpmltpml_editfile);//[#gen_title]：代码标题
 
             //---------------保存模板文件edit
             
@@ -402,6 +418,8 @@ class AutocodeController extends AdminController {
 
             //生成模板文件add
             $tpml_tpmltpml_addfile = str_replace('[#ctrsstr]', $tpml_add_ctrsstr, $tpml_tpmltpml_addfile);//[#ctrsstr]：编辑控件
+            $tpml_tpmltpml_addfile = str_replace('[#gen_name]', $gen_name, $tpml_tpmltpml_addfile);//[#gen_name]：控制器名
+            $tpml_tpmltpml_addfile = str_replace('[#gen_title]', $gen_title, $tpml_tpmltpml_addfile);//[#gen_title]：代码标题
 
             //---------------保存模板文件edit
             
@@ -440,7 +458,7 @@ class AutocodeController extends AdminController {
                 $data['pid'] = $newid;
                 $data['sort'] = 100;
                 $data['url'] = $gen_name.'/add';
-                $data['hide'] = 0;
+                $data['hide'] = 1;
                 //$data['tip'] = '';
                 //$data['group'] = '';
                 $data['is_dev'] = 0;
