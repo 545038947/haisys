@@ -190,6 +190,11 @@ class AutocodeController extends AdminController {
             $mtname = str_replace(C('DB_PREFIX'), '', $table);
             $gen_name = $cfgarr['gen_name'];
             $gen_title = $cfgarr['gen_title'];
+            if (empty($gen_title)) {
+                $gen_title = "默认标题";
+            }
+            $gen_redo = $cfgarr['gen_redo'];
+            $gen_createmenu = $cfgarr['gen_createmenu'];
 
 
 
@@ -227,10 +232,11 @@ class AutocodeController extends AdminController {
             }
 
             if ($thiserr['status'] == 1) {
-                $this->error($thiserr['msg']);
+                if ($gen_redo!=1) {
+                    $this->error($thiserr['msg']);
+                }                
             }
-
-            
+    
 
             $name = substr($table, strlen(C('DB_PREFIX')));
             $data = array('name'=>$name, 'title'=>$name);
@@ -428,67 +434,69 @@ class AutocodeController extends AdminController {
             }
 
 
+            if ($gen_createmenu == 1) {
+                //生成菜单项目
+                $Menu = D('Menu');
 
-            //生成菜单项目
-            $Menu = D('Menu');
-
-            //$data['id'] = 
-            $data['title'] = '临时菜单';
-            $data['pid'] = 0;
-            $data['sort'] = 100;
-            $data['url'] = $gen_name.'/index';
-            $data['hide'] = 0;
-            //$data['tip'] = '';
-            //$data['group'] = '';
-            $data['is_dev'] = 0;
-
-            $newid = $Menu->data($data)->add();
-            if ($newid) {
-                $data['title'] = '列表';
-                $data['pid'] = $newid;
+                //$data['id'] = 
+                $data['title'] = $gen_title;
+                $data['pid'] = 0;
                 $data['sort'] = 100;
                 $data['url'] = $gen_name.'/index';
                 $data['hide'] = 0;
                 //$data['tip'] = '';
                 //$data['group'] = '';
                 $data['is_dev'] = 0;
-                $Menu->data($data)->add();
 
-                $data['title'] = '新增';
-                $data['pid'] = $newid;
-                $data['sort'] = 100;
-                $data['url'] = $gen_name.'/add';
-                $data['hide'] = 1;
-                //$data['tip'] = '';
-                //$data['group'] = '';
-                $data['is_dev'] = 0;
-                $Menu->data($data)->add();
+                $newid = $Menu->data($data)->add();
+                if ($newid) {
+                    $data['title'] = '列表';
+                    $data['pid'] = $newid;
+                    $data['sort'] = 100;
+                    $data['url'] = $gen_name.'/index';
+                    $data['hide'] = 0;
+                    //$data['tip'] = '';
+                    //$data['group'] = '';
+                    $data['is_dev'] = 0;
+                    $Menu->data($data)->add();
 
-                $data['title'] = '编辑';
-                $data['pid'] = $newid;
-                $data['sort'] = 100;
-                $data['url'] = $gen_name.'/edit';
-                $data['hide'] = 1;
-                //$data['tip'] = '';
-                //$data['group'] = '';
-                $data['is_dev'] = 0;
-                $Menu->data($data)->add();
-            }
-            else
-            {
-                $this->error('添加菜单出错！');
-            }
+                    $data['title'] = '新增';
+                    $data['pid'] = $newid;
+                    $data['sort'] = 100;
+                    $data['url'] = $gen_name.'/add';
+                    $data['hide'] = 1;
+                    //$data['tip'] = '';
+                    //$data['group'] = '';
+                    $data['is_dev'] = 0;
+                    $Menu->data($data)->add();
+
+                    $data['title'] = '编辑';
+                    $data['pid'] = $newid;
+                    $data['sort'] = 100;
+                    $data['url'] = $gen_name.'/edit';
+                    $data['hide'] = 1;
+                    //$data['tip'] = '';
+                    //$data['group'] = '';
+                    $data['is_dev'] = 0;
+                    $Menu->data($data)->add();
+                }
+                else
+                {
+                    $this->error('添加菜单出错！');
+                }
+            }  
+            
 
 
 
-            $resmsg = '代码生成完成，生成如下文件：<br>';
+            $resmsg = '<br>生成文件：<br>';
             $resmsg .= $gen_ctrfile.'<br>';
             $resmsg .= $gen_modelfile.'<br>';
             $resmsg .= $gen_tmplfile.'/index.html'.'<br>';
             $resmsg .= $gen_tmplfile.'/edit.html'.'<br>';
             $resmsg .= $gen_tmplfile.'/add.html'.'<br>';
 
-            echo "$resmsg";
+            $this->assign('msg', $resmsg);
 
             
 
@@ -501,7 +509,7 @@ class AutocodeController extends AdminController {
 
     	}
 
-    	//$this->display();
+    	$this->display();
 
     }
 

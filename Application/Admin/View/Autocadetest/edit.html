@@ -3,7 +3,7 @@
 <block name="body">
 	<script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
 	<div class="main-title cf">
-		<h2>测试生成-编辑</h2>
+		<h2>-编辑</h2>
 	</div>
 
 	<!-- 标签页导航 -->
@@ -18,7 +18,7 @@
 				<!-- 基础 -->
 				<div id="tab1" class="tab-pane in tab1">
 					<div class='form-item cf'>
-<label class="item-label">配置名称<span class="check-tips"> test </span></label>
+<label class="item-label">配置名称<span class="check-tips">  </span></label>
 <div class='controls'>
 <input type="text" class="text input-large" name="name" value="{$fields.name}">
 </div>
@@ -26,110 +26,31 @@
 <div class='form-item cf'>
 <label class="item-label">控制器模板路径<span class="check-tips">  </span></label>
 <div class='controls'>
-<input type="text" name="ctrtmpl" class="text input-large time" value="{$data[$fields['ctrtmpl']]|time_format}" placeholder="请选择时间" /></div>
+<input type="text" class="text input-large" name="ctrtmpl" value="{$fields.ctrtmpl}">
+</div>
 </div>
 <div class='form-item cf'>
 <label class="item-label">模型模板路径<span class="check-tips">  </span></label>
 <div class='controls'>
-
-    <input type="file" id="upload_file_modeltmpl">
-    <input type="hidden" name="modeltmpl" value="{$fields[modeltmpl]}"/>
-    <div class="upload-img-box">
-        <present name="fields[modeltmpl]">
-            <div class="upload-pre-file"><span class="upload_icon_all"></span>{$fields[modeltmpl]|get_table_field=###,'id','name','File'}</div>
-        </present>
-    </div>
-
-<script type="text/javascript">
-//上传图片
-/* 初始化上传插件 */
-$("#upload_file_modeltmpl").uploadify({
-    "height"          : 30,
-    "swf"             : "__STATIC__/uploadify/uploadify.swf",
-    "fileObjName"     : "download",
-    "buttonText"      : "上传附件",
-    "uploader"        : "{:U('File/upload',array('session_id'=>session_id()))}",
-    "width"           : 120,
-    'removeTimeout'   : 1,
-    "onUploadSuccess" : uploadFilemodeltmpl
-});
-function uploadFilemodeltmpl(file, data){
-    var data = $.parseJSON(data);
-    if(data.status){
-        var name = "modeltmpl";
-        $("input[name="+name+"]").val(data.id);
-        $("input[name="+name+"]").parent().find('.upload-img-box').html(
-            "<div class=\"upload-pre-file\"><span class=\"upload_icon_all\"></span>" + data.info + "</div>"
-        );
-    } else {
-        updateAlert(data.info);
-        setTimeout(function(){
-            $('#top-alert').find('button').click();
-            $(that).removeClass('disabled').prop('disabled',false);
-        },1500);
-    }
-}
-</script>
+<input type="text" class="text input-large" name="modeltmpl" value="{$fields.modeltmpl}">
 </div>
 </div>
 <div class='form-item cf'>
 <label class="item-label">模板模板路径<span class="check-tips">  </span></label>
 <div class='controls'>
-
-	<input type="file" id="upload_picture_tmpltmpl">
-	<input type="hidden" name="tmpltmpl" id="cover_id_tmpltmpl"  value="{$fields[tmpltmpl]}"/>
-	<div class="upload-img-box">
-	<notempty name="fields[tmpltmpl]">
-		<div class="upload-pre-item"><img src="__ROOT__{$fields[tmpltmpl]|get_cover='path'}"/></div>
-	</notempty>
-	</div>
-
-<script type="text/javascript">
-//上传图片
-/* 初始化上传插件 */
-$("#upload_picture_tmpltmpl").uploadify({
-    "height"          : 30,
-    "swf"             : "__STATIC__/uploadify/uploadify.swf",
-    "fileObjName"     : "download",
-    "buttonText"      : "上传图片",
-    "uploader"        : "{:U('File/uploadPicture',array('session_id'=>session_id()))}",
-    "width"           : 120,
-    'removeTimeout'	  : 1,
-    'fileTypeExts'	  : '*.jpg; *.png; *.gif;',
-    "onUploadSuccess" : uploadPicturetmpltmpl
-});
-function uploadPicturetmpltmpl(file, data){
-	var data = $.parseJSON(data);
-	var src = '';
-    if(data.status){
-    	$("#cover_id_tmpltmpl").val(data.id);
-    	src = data.url || '__ROOT__' + data.path
-    	$("#cover_id_tmpltmpl").parent().find('.upload-img-box').html(
-    		'<div class="upload-pre-item"><img src="' + src + '"/></div>'
-    	);
-    } else {
-    	updateAlert(data.info);
-    	setTimeout(function(){
-            $('#top-alert').find('button').click();
-            $(that).removeClass('disabled').prop('disabled',false);
-        },1500);
-    }
-}
-</script>
+<input type="text" class="text input-large" name="tmpltmpl" value="{$fields.tmpltmpl}">
 </div>
 </div>
 <div class='form-item cf'>
 <label class="item-label">生成控制器路径<span class="check-tips">  </span></label>
 <div class='controls'>
-<textarea name="ctrpath" cols="50" rows="5">{$fields.ctrpath}</textarea>
+<input type="text" class="text input-large" name="ctrpath" value="{$fields.ctrpath}">
 </div>
 </div>
 <div class='form-item cf'>
 <label class="item-label">生成模型路径<span class="check-tips">  </span></label>
 <div class='controls'>
-<label class="textarea">
-<textarea name="modelpath">{$fields.modelpath}</textarea>
-{:hook('adminArticleEdit', array('name'=>'modelpath','value'=>$fields.modelpath))}</label>
+<input type="text" class="text input-large" name="modelpath" value="{$fields.modelpath}">
 </div>
 </div>
 <div class='form-item cf'>

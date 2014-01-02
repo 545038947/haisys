@@ -10,7 +10,6 @@
 		<ul class="tab-nav nav">
 			<li data-tab="tab1" class="current"><a href="javascript:void(0);">初始配置</a></li>
 			<li data-tab="tab2"><a href="javascript:void(0);">细节配置</a></li>
-
 		</ul>
 		<div class="tab-content">
 			<!-- 表 ....单 -->
@@ -63,6 +62,9 @@
 						<div class="controls">
 							<input type="text" class="text input-large" name="gen_title" value="" id="gen_title">
 						</div>
+						<label class='checkbox'><input type='checkbox' value='1' name='gen_redo'>重新生成</label>
+						<label class='checkbox'><input type='checkbox' value='1' name='gen_createmenu' checked>生成菜单</label>
+
 					</div>
 
 					<div class="form-item cf">
@@ -113,7 +115,7 @@
 Think.setValue("extend", {$info.extend|default=0});
 
 //导航高亮
-$('.side-sub-menu').find('a[href="{:U('Model/index')}"]').closest('li').addClass('current');
+$('.side-sub-menu').find('a[href="{:U('Autocode/index')}"]').closest('li').addClass('current');
 
 $(function(){
 	showTab();
