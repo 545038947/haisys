@@ -62,7 +62,7 @@
         {$_page}
     </div>
 
---------<a href="javascript:gettreedata(12);">测试</a>--------
+--------<a href="javascript:gettreedata(1);" id="test">测试</a>--------
 <div id="MyTree4" class="tree tree-plus-minus tree-solid-line tree-unselectable">
                                 <div class = "tree-folder" style="display:none;">
                                     <div class="tree-folder-header">
@@ -95,91 +95,22 @@ $(function(){
             url += '/search/' + search;
         }
         window.location.href = url;
-
-
-
-
-
-
     });
+});
 
-
-
-
-var DataSourceTree = function (options) {
-    this._data  = options.data;
-    this._delay = options.delay;
-};
-
-DataSourceTree.prototype = {
-
-    data: function (options, callback) {
-        var self = this;
-        //alert(self._data[0].key);
-
-
-
-        setTimeout(function () {
-            var data = $.extend(true, [], self._data);
-
-            callback({ data: data });
-
-        }, this._delay)
-    }
-};
-
-//ajax获取类型数据
-function gettreedata(pid)
-{
-    // $.ajax({
-    //   type: 'POST',
-    //   url: url,
-    //   data: data,
-    //   success: success,
-    //   dataType: dataType
-    // });
-alert("pid"+"333");
-// $.post('{:U("goodscat/gettreedata")}', 
-//     {
-//         pid:pid
-//     },
-//     function(data, textStatus) {
-//     alert("test");
-// });
-    // $.post("demo_ajax_gethint.asp",
-    //     {
-    //         pid:pid
-    //     },        
-    //     function(result){
-    //         alert(result);
-    //     },
-    //     error(function() { alert("error"); })
-
-    // );
-};
-
-function initree(treedata,treeid){
-
-    var treedataSource = new DataSourceTree({
-        data: [
-            { name: '<i class="fa fa-suitcase"></i> null <div class="tree-actions"><i class="fa fa-plus"></i><i class="fa fa-trash-o"></i><i class="fa fa-refresh"></i></div>', type: 'item', additionalParameters: { id: 'I12' } }
-        ],
-        delay: 400
+function gettreedata(ppid){
+    $.post("http://127.0.0.1{:U("Goodscat/gettreedata")}",
+    {
+        pid:ppid,
+        city:'Duckburg'
+    },
+    function(data,status){
+        //alert("Data: " + data + "\nStatus: " + status);
+        alert(data["content"]);
     });
+    alert(ppid);
+}
 
-    $('#'+treeid).tree({
-            selectable: false,
-            dataSource: treedata,
-            loadingHTML: '加载中...',
-        });
-    
-
-};
-
-function p(mstr,t){
-    alert(mstr);
-    alert(t);
-};
 
 </script>
 </block>

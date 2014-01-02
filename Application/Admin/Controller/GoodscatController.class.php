@@ -139,14 +139,13 @@ class GoodscatController extends AdminController {
      */
     public function gettreedata(){
         $pid = I("pid");
-        if (empty($pid)) {
+        if (is_null($pid)) {
             
             $data['status']  = 0;
-            $data['content'] = '错误的请求！';
-            //$this->ajaxReturn($data);
+            $data['content'] = '错误的请求！'.$pid;
+            $this->ajaxReturn($data);
         }
 
-        echo "$pid";
 
         $Model = D("Goodscat"); 
 
