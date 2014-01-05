@@ -1,0 +1,135 @@
+<extend name="Public/base" />
+
+<block name="body">
+	<script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
+	<div class="main-title cf">
+		<h2>商品属性-编辑</h2>
+	</div>
+
+	<!-- 标签页导航 -->
+	<div class="tab-wrap">
+		<ul class="tab-nav nav">
+			<li data-tab="tab1" class="current"><a href="javascript:void(0);">基 础</a></li>
+			<li data-tab="tab2"><a href="javascript:void(0);">附 加</a></li>
+		</ul>
+		<div class="tab-content">
+			<!-- 表单 -->
+			<form id="form" action="{:U('update')}" method="post" class="form-horizontal doc-modal-form">
+				<!-- 基础 -->
+				<div id="tab1" class="tab-pane in tab1">
+					<div class='form-item cf'>
+<label class="item-label">商品属性名称<span class="check-tips">  </span></label>
+<div class='controls'>
+<input type="text" class="text input-large" name="name" value="{$fields.name}">
+</div>
+</div>
+<div class='form-item cf'>
+<label class="item-label">商品属性对应商品ID<span class="check-tips">  </span></label>
+<div class='controls'>
+<input type="text" class="text input-large" name="goodsid" value="{$fields.goodsid}">
+</div>
+</div>
+<div class='form-item cf'>
+<label class="item-label">商品属性对应类型ID<span class="check-tips">  </span></label>
+<div class='controls'>
+<input type="text" class="text input-large" name="typeid" value="{$fields.typeid}">
+</div>
+</div>
+<div class='form-item cf'>
+<label class="item-label">是否属性组<span class="check-tips">  </span></label>
+<div class='controls'>
+<input type="text" class="text input-large" name="isgroup" value="{$fields.isgroup}">
+</div>
+</div>
+<div class='form-item cf'>
+<label class="item-label">商品属性对应属性组ID<span class="check-tips">  </span></label>
+<div class='controls'>
+<input type="text" class="text input-large" name="gid" value="{$fields.gid}">
+</div>
+</div>
+<div class='form-item cf'>
+<label class="item-label">商品属性值<span class="check-tips">  </span></label>
+<div class='controls'>
+<textarea name="desc" cols="50" rows="5">{$fields.desc}</textarea>
+</div>
+</div>
+<div class='form-item cf'>
+<label class="item-label">商品属性价格_对应销售属性<span class="check-tips">  </span></label>
+<div class='controls'>
+<input type="text" class="text input-large" name="price" value="{$fields.price}">
+</div>
+</div>
+<div class='form-item cf'>
+<label class="item-label">属性类型：1主属性、2次要属性、3价格属性<span class="check-tips">  </span></label>
+<div class='controls'>
+<input type="text" class="text input-large" name="arrttype" value="{$fields.arrttype}">
+</div>
+</div>
+<div class='form-item cf'>
+<label class="item-label">显示类型：0字符串;1选择列表;2复选框;3单选框<span class="check-tips">  </span></label>
+<div class='controls'>
+<input type="text" class="text input-large" name="displaytype" value="{$fields.displaytype}">
+</div>
+</div>
+<div class='form-item cf'>
+<label class="item-label">排序值<span class="check-tips">  </span></label>
+<div class='controls'>
+<input type="text" class="text input-large" name="sortorder" value="{$fields.sortorder}">
+</div>
+</div>
+
+				</div>
+
+				<!-- 附加 -->
+				<div id="tab2" class="tab-pane tab2">
+					<div class="form-item cf">
+						<label class="item-label">是否启用<span class="check-tips">（是否启用）</span></label>
+						<div class="controls">
+							<select name="status">
+								<option value="1">启用</option>
+								<option value="0">禁用</option>
+							</select>
+						</div>
+					</div>
+				</div>
+
+				<!-- 按钮 -->
+				<div class="form-item cf">
+					<label class="item-label"></label>
+					<div class="controls edit_sort_btn">
+						<input type="hidden" name="id" value="{$fields['id']}"/>
+						<button class="btn submit-btn ajax-post no-refresh" type="submit" target-form="form-horizontal">确 定</button>
+						<button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</block>
+<block name="script">
+<link href="__STATIC__/datetimepicker/css/datetimepicker.css" rel="stylesheet" type="text/css">
+<php>if(C('COLOR_STYLE')=='blue_color') echo '<link href="__STATIC__/datetimepicker/css/datetimepicker_blue.css" rel="stylesheet" type="text/css">';</php>
+<link href="__STATIC__/datetimepicker/css/dropdown.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="__STATIC__/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="__STATIC__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+
+<script type="text/javascript" charset="utf-8">
+Think.setValue("extend", {$info.extend|default=0});
+
+//导航高亮
+$('.side-sub-menu').find('a[href="{:U('Goodsarrt/index')}"]').closest('li').addClass('current');
+
+$(function(){
+
+	$('.time').datetimepicker({
+        format: 'yyyy-mm-dd hh:ii',
+        language:"zh-CN",
+        minView:2,
+        autoclose:true
+	});
+	showTab();
+})
+
+</script>
+</block>
+

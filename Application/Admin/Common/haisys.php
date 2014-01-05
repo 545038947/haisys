@@ -96,5 +96,21 @@ function clearallcache()
 }
 
 
+/**
+ * 返回一个数组，内容是在$myarray数组的$position处插入$value
+ * 例如：
+ * $a=array("a", "b","c", "d");
+ * $a=array_insert($a,"add",3);
+ * @param  目标数组,插入的元素值，位置
+ * @return 合并后的数组
+ * @author 和蔼的木Q <545038947@qq.com>
+ */
+function array_insert($myarray,$value,$position=0)
+{
+   $fore=($position==0)?array():array_splice($myarray,0,$position);
+   $fore[]=$value;
+   $ret=array_merge($fore,$myarray);
+   return $ret;
+}
 
 ?>

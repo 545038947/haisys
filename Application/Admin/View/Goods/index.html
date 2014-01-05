@@ -10,6 +10,7 @@
         <a class="btn" href="{:U('Goods/add')}">新 增</a>
         <button class="btn ajax-post" target-form="ids" url="{:U('Goods/setStatus',array('status'=>1))}">启 用</button>
         <button class="btn ajax-post" target-form="ids" url="{:U('Goods/setStatus',array('status'=>0))}">禁 用</button>
+        <button class="btn ajax-post" target-form="ids" url="{:U('Goods/del')}">删 除</button>
     </div>
 
     <!-- 数据列表 -->
@@ -25,17 +26,10 @@
 <th>商品类型ID</th>
 <th>商品标题</th>
 <th>商品编码</th>
-<th>商品缩略图</th>
 <th>商品市场价格</th>
 <th>商品本店价格</th>
-<th>添加人ID</th>
-<th>添加时间</th>
-<th>修改人ID</th>
 <th>修改时间</th>
-<th>有效开始时间</th>
 <th>有效结束时间</th>
-<th>商品详细描述</th>
-<th>排序值</th>
 <th>销售状态：上架，下架</th>
 
         <th class="">状态</th>
@@ -53,17 +47,10 @@
 <td>{$vo.goodstypeid}</td>
 <td>{$vo.title}</td>
 <td>{$vo.code}</td>
-<td>{$vo.goodspic}</td>
 <td>{$vo.price_1}</td>
 <td>{$vo.price_2}</td>
-<td>{$vo.adderid}</td>
-<td>{$vo.addtime}</td>
-<td>{$vo.modifyid}</td>
 <td>{$vo.modifytime}</td>
-<td>{$vo.starttime}</td>
 <td>{$vo.endtime}</td>
-<td>{$vo.desc}</td>
-<td>{$vo.sortorder}</td>
 <td>{$vo.sellstatus}</td>
 
             <td>{$vo.status_text}</td>

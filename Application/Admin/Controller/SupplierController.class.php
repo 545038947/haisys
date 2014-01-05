@@ -29,7 +29,22 @@ class SupplierController extends AdminController {
         
     }
 
-        /**
+    /**
+     * 获取可用的供货商类列表数据
+     * @author 和蔼的木Q <545038947@qq.com>
+     */
+    public function getlist(){
+        
+        $Model = D("Supplier"); 
+        $map = array('status' => 1 );
+        $list = $Model->where($map)->order("sortorder")->select();
+        return $list;
+        
+    }
+
+
+
+     /**
      * 新增页面初始化
      * @author 和蔼的木Q <545038947@qq.com>
      */

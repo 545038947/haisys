@@ -3,13 +3,14 @@
 <block name="body">
     <!-- 标题栏 -->
     <div class="main-title">
-        <h2>商品类型属性列表</h2>
+        <h2>商品类型默认属性列表</h2>
 
     </div>
     <div class="tools">
-        <a class="btn" href="{:U('Goodstypearrt/add?typeid='.$typeid)}">新 增</a>
+        <a class="btn" href="{:U('Goodstypearrt/add')}">新 增</a>
         <button class="btn ajax-post" target-form="ids" url="{:U('Goodstypearrt/setStatus',array('status'=>1))}">启 用</button>
         <button class="btn ajax-post" target-form="ids" url="{:U('Goodstypearrt/setStatus',array('status'=>0))}">禁 用</button>
+        <button class="btn ajax-post confirm" target-form="ids" url="{:U('Goodstypearrt/del')}">删 除</button>
     </div>
 
     <!-- 数据列表 -->
@@ -21,10 +22,12 @@
         <th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
         <th>商品属性名称</th>
 <th>商品属性对应类型ID</th>
+<th>是否属性组</th>
+<th>商品属性对应属性组ID</th>
 <th>商品属性值</th>
-<th>商品属性分组</th>
 <th>商品属性价格_对应销售属性</th>
-<th>属性类型：1主属性、2次要属性、3销售属性</th>
+<th>属性类型：1主属性、2次要属性、3价格属性</th>
+<th>显示类型：0字符串;1选择列表;2复选框;3单选框</th>
 <th>排序值</th>
 
         <th class="">状态</th>
@@ -38,10 +41,12 @@
             <td><input class="ids" type="checkbox" name="ids[]" value="{$vo.id}" /></td>
             <td>{$vo.name}</td>
 <td>{$vo.typeid}</td>
+<td>{$vo.isgroup}</td>
+<td>{$vo.gid}</td>
 <td>{$vo.desc}</td>
-<td>{$vo.group}</td>
 <td>{$vo.price}</td>
 <td>{$vo.arrttype}</td>
+<td>{$vo.displaytype}</td>
 <td>{$vo.sortorder}</td>
 
             <td>{$vo.status_text}</td>

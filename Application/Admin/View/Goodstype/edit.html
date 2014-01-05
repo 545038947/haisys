@@ -10,7 +10,7 @@
 	<div class="tab-wrap">
 		<ul class="tab-nav nav">
 			<li data-tab="tab1" class="current"><a href="javascript:void(0);">基 础</a></li>
-			<li data-tab="tab2"><a href="javascript:void(0);">附 加</a></li>
+			<li data-tab="tab2"><a href="javascript:void(0);">类型默认属性</a></li>
 		</ul>
 		<div class="tab-content">
 			<!-- 表单 -->
@@ -32,17 +32,69 @@
 
 				</div>
 
-				<!-- 附加 -->
+				<!-- 类型默认属性 -->
 				<div id="tab2" class="tab-pane tab2">
-					<div class="form-item cf">
-						<label class="item-label">是否启用<span class="check-tips">（是否启用）</span></label>
-						<div class="controls">
-							<select name="status">
-								<option value="1">启用</option>
-								<option value="0">禁用</option>
-							</select>
-						</div>
-					</div>
+<button type="button" class="btn" id="arrt_add">新增新属性</button>
+<div id="loding" style="display:none; margin: 20px;">
+	<img src="__STATIC__/img/013.gif"><br>数据处理中，请稍候......
+</div>
+<div id="arrtedit" style="display: none;">
+	<input type="hidden" name="arrt_typeid" id="arrt_typeid" value="{$fields['id']}"/>
+	<label class="item-label">属性名称：</label>
+	<input type="text" class="text input-large" name="arrt_name" id="arrt_name" value="">
+
+
+	<label class="item-label">属性类别：</label>
+	<select name="arrt_arrttype" id="arrt_arrttype">
+		<option value="1">主要属性</option>
+		<option value="2" selected>次要属性</option>
+		<option value="3">销售属性</option>
+	</select>
+
+<div id="is_sell" style="display: none">
+	<label class="item-label">是否属性组：</label>
+	<select name="arrt_isgroup" id="arrt_isgroup">
+		<option value="1">是</option>
+		<option value="0" selected>否</option>
+	</select>
+	
+<div id="is_group" style="display: none">
+	<label class="item-label">显示类别：</label>
+	<select name="arrt_displaytype" id="arrt_displaytype">
+		<option value="0" selected>字符串</option>
+		<option value="1">罗列单</option>
+		<option value="2">单选框</option>
+		<option value="3">复选框</option>
+	</select>
+</div>
+<div id="is_item" style="display: block">
+	<label class="item-label">所属属性组：</label>
+	<select name="arrt_gid" id="arrt_gid">
+		<option value="0" selected>无</option>
+		<option value="1">某组</option>
+	</select>
+	<label class="item-label">销售属性价格：</label>
+	<input type="text" class="text input-small" name="arrt_price" id="arrt_price" value="">元
+</div>
+</div>
+	<label class="item-label">排序值：</label>
+	<input type="text" class="text input-small" name="arrt_sortorder" id="arrt_sortorder" value="1">
+	<label class="item-label">属性值：</label>
+	<textarea name="arrt_desc" id="arrt_desc" cols="50" rows="5"></textarea>
+
+<div class="alert alert-warning" style="display: none" id="dataerr">
+  
+</div>
+	<label class="item-label"></label>
+	<button type="button" class="btn" id="arrt_submit">提交新属性</button>
+</div>
+<hr>
+
+<div id="arrtlist">
+	
+</div>
+
+
 				</div>
 
 				<!-- 按钮 -->
@@ -64,6 +116,8 @@
 <link href="__STATIC__/datetimepicker/css/dropdown.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="__STATIC__/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript" src="__STATIC__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script type="text/javascript" src="__STATIC__/function.js"></script>
+
 
 <script type="text/javascript" charset="utf-8">
 Think.setValue("extend", {$info.extend|default=0});
@@ -80,6 +134,186 @@ $(function(){
         autoclose:true
 	});
 	showTab();
+
+
+
+
+
+
+	//============START 属性编辑部分
+	$("#arrt_add").click(function(event) {
+
+		$("#loding").css('display', '');
+		$("#arrt_arrttype").val(2);
+
+		if ($("#arrtedit").css('display')=='none') {
+
+			$.post("{:U("Goodstypearrt/getgrouplist")}?timekey="+(new Date()).valueOf(),
+		    {
+		        typeid:$("#arrt_typeid").val(),
+		        tmp:'test'
+		    },
+		    function(data,status){
+		        $("#arrt_gid option").remove();
+		        $("#arrt_gid").append("<option value='0' selected>无</option>");
+
+		        if (data["status"] == 1) {
+		            list = data['content'];
+		            $.each(list, function(index, val) {
+		            	$("#arrt_gid").append("<option value='"+val.id+"'>"+val.name+"</option>");
+		            });
+
+		            $("#arrtedit").css('display','');
+		        }
+		        else {
+
+		            $("#arrtedit").css('display','');
+
+		        }
+		        $("#loding").css('display', 'none');
+		    });
+			
+		}
+		else
+		{
+			$("#arrtedit").css('display', 'none');
+			$("#loding").css('display', 'none');
+		}
+		
+	});
+
+	$("#arrt_arrttype").change(function(event) {
+		if ($("#arrt_arrttype").val() == 3) {
+			$("#is_sell").css('display', '');
+		}
+		else
+		{
+			$("#is_sell").css('display', 'none');
+		}
+	});
+
+	$("#arrt_isgroup").change(function(event) {
+		if ($("#arrt_isgroup").val() == 1) {
+			$("#is_group").css('display', '');
+			$("#arrt_gid").val(0);
+			$("#is_item").css('display', 'none');
+		}
+		else
+		{
+			$("#is_group").css('display', 'none');
+			$("#is_item").css('display', '');
+		}
+	});
+
+
+	$("#arrt_submit").click(function(event) {
+		inputerr("",0);
+		if (Checkdata()) {
+			$("#loding").css('display', '');
+
+			$.post("{:U("Goodstypearrt/update")}?timekey="+(new Date()).valueOf(),
+		    {
+		        name:$("#arrt_name").val(),
+		        typeid:$("#arrt_typeid").val(),
+		        isgroup:$("#arrt_isgroup").val(),
+		        gid:$("#arrt_gid").val(),
+		        desc:$("#arrt_desc").val(),
+		        price:$("#arrt_price").val(),
+		        arrttype:$("#arrt_arrttype").val(),
+		        displaytype:$("#arrt_displaytype").val(),
+		        sortorder:$("#arrt_sortorder").val(),
+		        status:1,
+		        tmp:'test'
+		    },
+		    function(data,status){
+		    	//$("#arrtlist").html(obj2str(data));
+		        if (data["status"] == 1) {
+		            
+		            alert(data["info"]);
+		            $("#arrtedit").css('display','none');
+		        }
+		        else {
+		            alert(data["info"]);
+
+		        }
+		        $("#loding").css('display', 'none');
+		    });
+		};
+		
+	});
+
+	function Checkdata()
+	{
+
+		if ($("#arrt_name").val() == "") {
+			inputerr("属性名称不能为空！",1);
+			$("#arrt_name").focus();
+			return false;
+		};
+
+		if ($("#arrt_desc").val() == "") {
+			inputerr("属性值不能为空！",1);
+			$("#arrt_desc").focus();
+			return false;
+		};
+
+		if ($("#arrt_sortorder").val() == "") {
+			inputerr("排序值不能为空！",1);
+			$("#arrt_sortorder").focus();
+			return false;
+		}
+		else
+		{
+			if (!verifyString($("#arrt_sortorder").val(),"number")) {
+				inputerr("排序值只能是数字！",1);
+				$("#arrt_sortorder").focus();
+				return false;
+			};
+		}
+
+		if ($("#arrt_arrttype").val() == 3) {
+			if ($("#arrt_isgroup").val() == 0) {
+				if ($("#arrt_gid").val() == 0 ) {
+					inputerr("销售子属性需要指定属性组！",1);
+					return false;
+				}
+				else
+				{
+					if ($("#arrt_price").val() == "") {
+						inputerr("销售子属性需要指定价格！",1);
+						return false;
+					}
+					else
+					{
+						if (!verifyString($("#arrt_price").val(),"number")) {
+							inputerr("价格只能是数字！",1);
+							$("#arrt_price").focus();
+							return false;
+						};
+					}
+				}
+			}
+		};
+
+		return true;
+	}
+
+	function inputerr(msg,isshow)
+	{
+		if (isshow==1) {
+			$("#dataerr").html(msg);
+			$("#dataerr").css('display', '');
+		}
+		else
+		{
+			$("#dataerr").css('display', 'none');
+		}
+		
+	}
+
+
+	//============END 属性编辑部分
+
 })
 
 </script>

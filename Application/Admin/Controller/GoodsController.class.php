@@ -34,6 +34,27 @@ class GoodsController extends AdminController {
      * @author 和蔼的木Q <545038947@qq.com>
      */
     public function add(){
+        //P(session('user_auth'));
+
+        $Model = D('Goods');
+
+
+        //供货商列表 商品类别列表 商品属性类型类别
+        $supplier = A('Supplier');
+        $supplierlist = $supplier->getlist();
+
+        $goodcat = A("Goodscat");
+        $goodcatlist = $goodcat->getlist(0);
+
+        $goodtype = A("Goodstype");
+        $goodtypelist = $goodtype->getlist();    
+
+
+
+        $this->assign('supplierlist', $supplierlist);
+        $this->assign('goodcatlist', $goodcatlist);
+        $this->assign('goodtypelist', $goodtypelist);
+
 
         $this->meta_title = '商品-新增';
         $this->display();
@@ -55,6 +76,20 @@ class GoodsController extends AdminController {
         if(!$data){
             $this->error($Model->getError());
         }
+
+        //供货商列表 商品类别列表 商品属性类型类别
+        $supplier = A('Supplier');
+        $supplierlist = $supplier->getlist();
+
+        $goodcat = A("Goodscat");
+        $goodcatlist = $goodcat->getlist(0);
+
+        $goodtype = A("Goodstype");
+        $goodtypelist = $goodtype->getlist();        
+
+        $this->assign('supplierlist', $supplierlist);
+        $this->assign('goodcatlist', $goodcatlist);
+        $this->assign('goodtypelist', $goodtypelist);
 
         $this->assign('fields', $data);
         $this->meta_title = '商品-编辑';
@@ -103,7 +138,9 @@ class GoodsController extends AdminController {
         if($data){
             //判断是新增还是更新
             if (I("id")) {
-                $result = $Model->save(); // 写入数据到数据库 
+                $data["modifyid"] = session('user_auth.uid');
+                $data["modifytime"] = time();
+                $result = $Model->save($data); // 写入数据到数据库 
                 if($result){
                     $this->success('更新成功,ID:'.I("id"), Cookie('__forward__'));
                 }
@@ -114,7 +151,13 @@ class GoodsController extends AdminController {
             }
             else
             {
-                $result = $Model->add(); // 写入数据到数据库 
+                $data["adderid"] = session('user_auth.uid');
+                $data["addtime"] = time();
+                $data["modifyid"] = session('user_auth.uid');
+                $data["modifytime"] = time();
+
+
+                $result = $Model->add($data); // 写入数据到数据库 
                 if($result){
                     // 如果主键是自动增长型 成功后返回值就是最新插入的值
                     $insertId = $result;
@@ -132,6 +175,41 @@ class GoodsController extends AdminController {
         }
 
     }
+
+    /**
+     * 加载对应商品类型的默认商品属性
+     * @author 和蔼的木Q <545038947@qq.com>
+     */
+    public function loaddefaultarrt($typeid)
+    {
+
+                           
+
+        $Model = D("Goodstypearrt");
+        $map = array(
+            "typeid" => $typeid,
+            "status" => 1,
+            );
+        $list = $Model->where($map)->order("sortorder")->select();
+
+        if ($list) {
+            $data['status']  = 1;
+            $data['content'] = $list;
+            $this->ajaxReturn($data);
+        }
+        else
+        {
+            $data['status']  = 0;
+            $data['content'] = "没有对应的属性数据！";
+            $this->ajaxReturn($data);
+        }
+
+
+        
+
+    }
+
+
 
 
 }

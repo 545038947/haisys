@@ -26,23 +26,6 @@ CREATE TABLE `jgjsys_goodstype` (
   UNIQUE KEY `app_goodstype_name` (`name`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='商品类型信息\r\n@author   和蔼的木Q\r\n@version  2014-01-02';
 
--- Table structure for `jgjsys_supplier`
--- ----------------------------
-DROP TABLE IF EXISTS `jgjsys_goodstypearrt`;
-CREATE TABLE `jgjsys_goodstypearrt` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `name` char(64) NOT NULL DEFAULT '' COMMENT '商品属性名称',
-  `typeid` int(10) unsigned NOT NULL COMMENT '商品属性对应类型ID',
-  `desc` text COMMENT '商品属性值',
-  `group` char(64) NOT NULL DEFAULT '默认' COMMENT '商品属性分组',
-  `price` DECIMAL(11,2) unsigned NOT NULL COMMENT '商品属性价格_对应销售属性',
-  `arrttype` tinyint(4) NOT NULL DEFAULT '0' COMMENT '属性类型：1主属性、2次要属性、3销售属性',
-  `sortorder` tinyint(8) NOT NULL DEFAULT '0' COMMENT '排序值',
-  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '数据状态',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `app_goodstypearrt_name` (`name`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='商品类型属性模板\r\n@author   和蔼的木Q\r\n@version  2014-01-02';
-
 
 -- Table structure for `jgjsys_goodsalbum`
 -- ----------------------------
@@ -122,4 +105,45 @@ CREATE TABLE `jgjsys_goodscat` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `app_goodscat_name` (`name`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='商品类别信息\r\n@author   和蔼的木Q\r\n@version  2014-01-02';
+
+
+
+-- Table structure for `jgjsys_supplier`
+-- ----------------------------
+DROP TABLE IF EXISTS `jgjsys_goodstypearrt`;
+CREATE TABLE `jgjsys_goodstypearrt` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `name` char(64) NOT NULL DEFAULT '' COMMENT '商品属性名称',
+  `typeid` int(10) unsigned NOT NULL COMMENT '商品属性对应类型ID',
+  `isgroup` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否属性组',
+  `gid` int(10) unsigned NOT NULL COMMENT '商品属性对应属性组ID',
+  `desc` text COMMENT '商品属性值',  
+  `price` DECIMAL(11,2) unsigned NOT NULL COMMENT '商品属性价格_对应销售属性',
+  `arrttype` tinyint(4) NOT NULL DEFAULT '0' COMMENT '属性类型：1主属性、2次要属性、3价格属性',
+  `displaytype` tinyint(4) NOT NULL DEFAULT '0' COMMENT '显示类型：0字符串;1选择列表;2复选框;3单选框',
+  `sortorder` tinyint(8) NOT NULL DEFAULT '0' COMMENT '排序值',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '数据状态',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `app_goodstypearrt_name` (`name`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='商品类型属性模板\r\n@author   和蔼的木Q\r\n@version  2014-01-02';
+
+-- Table structure for `jgjsys_goodsarrt`
+-- ----------------------------
+DROP TABLE IF EXISTS `jgjsys_goodsarrt`;
+CREATE TABLE `jgjsys_goodsarrt` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `name` char(64) NOT NULL DEFAULT '' COMMENT '商品属性名称',
+  `goodsid` int(10) unsigned NOT NULL COMMENT '商品属性对应商品ID',
+  `typeid` int(10) unsigned NOT NULL COMMENT '商品属性对应类型ID',
+  `isgroup` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否属性组',
+  `gid` int(10) unsigned NOT NULL COMMENT '商品属性对应属性组ID',
+  `desc` text COMMENT '商品属性值',  
+  `price` DECIMAL(11,2) unsigned NOT NULL COMMENT '商品属性价格_对应销售属性',
+  `arrttype` tinyint(4) NOT NULL DEFAULT '0' COMMENT '属性类型：1主属性、2次要属性、3价格属性',
+  `displaytype` tinyint(4) NOT NULL DEFAULT '0' COMMENT '显示类型：0字符串;1选择列表;2复选框;3单选框',
+  `sortorder` tinyint(8) NOT NULL DEFAULT '0' COMMENT '排序值',
+  `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '数据状态',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `app_goodsarrt_name` (`name`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='商品属性\r\n@author   和蔼的木Q\r\n@version  2014-01-02';
 

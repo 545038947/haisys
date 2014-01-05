@@ -7,55 +7,151 @@ namespace Admin\Controller;
 use Admin\Model\AuthGroupModel;
 
 /**
- * 商品类型属性 控制器
+ * 商品类型默认属性 控制器
  * @author 和蔼的木Q <545038947@qq.com>
  */
 
 class GoodstypearrtController extends AdminController {
 	 /**
-     * 商品类型属性 首页
+     * 商品类型默认属性 首页
      * @author 和蔼的木Q <545038947@qq.com>
      */
     public function index(){
         
-        $typeid = I("typeid");
-        $this->assign('typeid', $typeid);
-
-        if (empty($typeid)) {
-            $where = array( );
-        }
-        else
-        {
-            $where = array('typeid' => $typeid, );
-        }
-
-        $list = $this->lists('goodstypearrt',$where);
-
-        
+        $list = $this->lists('goodstypearrt');
         int_to_string($list);
         // 记录当前列表页的cookie
         Cookie('__forward__',$_SERVER['REQUEST_URI']);
 
         $this->assign('_list', $list);
-        $this->meta_title = '商品类型属性-列表';
+        $this->meta_title = '商品类型默认属性-列表';
         $this->display();
         
     }
 
-        /**
+    /**
+     * 获取可用的商品类型默认属性列表数据
+     * @author 和蔼的木Q <545038947@qq.com>
+     */
+    public function getlist(){
+        
+        $Model = D("Goodstypearrt"); 
+        $map = array('status' => 1 );
+        $list = $Model->where($map)->order("sortorder")->select();
+        return $list;
+        
+    }
+
+    /**
+     * 获取指定typeid的属性组列表
+     * @author 和蔼的木Q <545038947@qq.com>
+     */
+    public function getgrouplist($typeid,$gid=0){
+        $Model = D("Goodstypearrt");
+        $map = array(
+            'typeid' => $typeid,
+            'isgroup' => 1,
+            'gid' => $gid
+            );
+        $list = $Model->where($map)->order("sortorder")->select();
+        
+        if ($list) {
+            //return $list;
+            $data['status']  = 1;
+            $data['content'] = $list;
+            $this->ajaxReturn($data);
+        }
+        else
+        {
+            //return array();
+            $data['status']  = 0;
+            $data['content'] = "无数据！";
+            $this->ajaxReturn($data);
+        }
+    }
+
+    /**
+     * 处理树型列表中name前制表符
+     * @author 和蔼的木Q <545038947@qq.com>
+     */
+    public function prestr($deeps,$isend=0){
+        
+        if ($deeps==1) {
+            $treetmpstr = "";
+        }
+        else
+        {
+            $treetmpstr = "";
+            for ($i=1; $i < $deeps-1; $i++) { 
+                $treetmpstr .= "&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;";
+            }
+
+            if ($isend == 1) {
+                $treetmpstr .= "&nbsp;&nbsp;└──&nbsp;&nbsp;";
+            }
+            else
+            {
+                $treetmpstr .= "&nbsp;&nbsp;├──&nbsp;&nbsp;";
+            }
+
+            
+        }
+        return $treetmpstr;
+    }
+
+    /**
+     * 获取所有子属性（深度）
+     * @author 和蔼的木Q <545038947@qq.com>
+     */
+    public function getsubitems($typeid,$gid=0,$deeplengh=0,$noitemid=0)
+    {
+        //echo "========================$deeplengh <br>";
+        $Model = D("Goodstypearrt");
+        $map = array(
+            'typeid' => $typeid,
+            'gid' => $gid
+            ); 
+        
+        $list = $Model->where($map)->order("sortorder")->select();
+        $arrpostion = 0;
+        $deeplengh = $deeplengh+1;
+        if ($list) {
+            $tmplist = array();
+            foreach ($list as $key => $value) {
+                $arrpostion += 1;
+                $value["deeplengh"] = $deeplengh;
+
+                if ($value["id"] != $noitemid) {
+                    $tmplist = array_insert($tmplist,$value,$arrpostion);
+                    $arrclient = $this->getsubitems($typeid,$value["id"],$deeplengh,$noitemid);
+                    if (!($arrclient === array()))
+                    {
+                        foreach ($arrclient as $clientkey => $val) {
+                            if ($value["id"] != $noitemid) {
+                                $tmplist = array_insert($tmplist,$val,$arrpostion);
+                                $arrpostion += 1;
+                            }
+                        }
+                    }
+                }
+            }
+            //echo "========================<br>";
+            return $tmplist;
+        }
+        else
+        {
+            //echo "========================<br>";
+            return array();
+        }
+    }
+
+     /**
      * 新增页面初始化
      * @author 和蔼的木Q <545038947@qq.com>
      */
     public function add(){
-        $typeid = I("typeid");
-        $this->assign('typeid', $typeid);
 
-        if (empty($typeid)) {
-            $this->error("无效的类型标识！");
-        }
-
-
-        $this->meta_title = '商品类型属性-新增';
+        $this->meta_title = '商品类型默认属性-新增';
         $this->display();
     }
 
@@ -77,7 +173,7 @@ class GoodstypearrtController extends AdminController {
         }
 
         $this->assign('fields', $data);
-        $this->meta_title = '商品类型属性-编辑';
+        $this->meta_title = '商品类型默认属性-编辑';
         $this->display();
     }
 
@@ -152,6 +248,7 @@ class GoodstypearrtController extends AdminController {
         }
 
     }
+
 
 
 }

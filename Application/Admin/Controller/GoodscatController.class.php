@@ -17,25 +17,148 @@ class GoodscatController extends AdminController {
      * @author 和蔼的木Q <545038947@qq.com>
      */
     public function index(){
-        
-        $list = $this->lists('goodscat');
+        $list = $this->getlist(0);
+
         int_to_string($list);
+
         // 记录当前列表页的cookie
         Cookie('__forward__',$_SERVER['REQUEST_URI']);
 
         $this->assign('_list', $list);
         $this->meta_title = '商品类别-列表';
         $this->display();
+
+        //p($list);
         
     }
 
-        /**
+    /**
+     * 获取可用的商品类列表数据
+     * @author 和蔼的木Q <545038947@qq.com>
+     */
+    public function getlist($pid){
+        
+        $list = $this->getsubitems($pid);
+
+        foreach ($list as $key => &$value) {
+            $deeps = $value["deeplengh"];
+            
+            if ($list[$key+1]["deeplengh"] < $deeps) {
+                $value["name"] = $this->prestr($deeps,1) . $value["name"];
+            }
+            else
+            {
+                $value["name"] = $this->prestr($deeps) . $value["name"];
+            }
+        };
+
+        return $list;
+        
+    }
+
+    /**
+     * 处理树型列表中name前制表符
+     * @author 和蔼的木Q <545038947@qq.com>
+     */
+    public function prestr($deeps,$isend=0){
+        
+        if ($deeps==1) {
+            $treetmpstr = "";
+        }
+        else
+        {
+            $treetmpstr = "";
+            for ($i=1; $i < $deeps-1; $i++) { 
+                $treetmpstr .= "&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;";
+            }
+
+            if ($isend == 1) {
+                $treetmpstr .= "&nbsp;&nbsp;└──&nbsp;&nbsp;";
+            }
+            else
+            {
+                $treetmpstr .= "&nbsp;&nbsp;├──&nbsp;&nbsp;";
+            }
+
+            
+        }
+        return $treetmpstr;
+    }
+
+    /**
+     * 获取所有子类型（深度）
+     * @author 和蔼的木Q <545038947@qq.com>
+     */
+    public function getsubitems($pid,$deeplengh=0,$noitemid=0)
+    {
+        //echo "========================$deeplengh <br>";
+        $Model = D("Goodscat"); 
+        $map = array('pid' => $pid );
+        $list = $Model->where($map)->order("sortorder")->select();
+        $arrpostion = 0;
+        $deeplengh = $deeplengh+1;
+        if ($list) {
+            $tmplist = array();
+            foreach ($list as $key => $value) {
+                $arrpostion += 1;
+                $value["deeplengh"] = $deeplengh;
+
+                if ($value["id"] != $noitemid) {
+                    $tmplist = array_insert($tmplist,$value,$arrpostion);
+                    $arrclient = $this->getsubitems($value["id"],$deeplengh,$noitemid);
+                    if (!($arrclient === array()))
+                    {
+                        foreach ($arrclient as $clientkey => $val) {
+                            if ($value["id"] != $noitemid) {
+                                $tmplist = array_insert($tmplist,$val,$arrpostion);
+                                $arrpostion += 1;
+                            }
+                        }
+                    }
+                }
+                
+
+            }
+            //echo "========================<br>";
+            return $tmplist;
+        }
+        else
+        {
+            //echo "========================<br>";
+            return array();
+        }
+    }
+
+    /**
      * 新增页面初始化
      * @author 和蔼的木Q <545038947@qq.com>
      */
     public function add(){
+        $catlist = $this->getsubitems(0);
+
+        foreach ($catlist as $key => &$value) {
+            if ($value["status"] != 1) {
+                unset($catlist[$key]);
+            }
+            else
+            {
+                $deeps = $value["deeplengh"];
+                if ($list[$key+1]["deeplengh"] < $deeps) {
+                    $value["name"] = $this->prestr($deeps,1) . $value["name"];
+                }
+                else
+                {
+                    $value["name"] = $this->prestr($deeps) . $value["name"];
+                }
+                //$value["name"] = $this->prestr($deeps) . $value["name"];
+            }
+            
+        };
+
+        $this->assign('catlist', $catlist);
 
         $this->meta_title = '商品类别-新增';
+        
         $this->display();
     }
 
@@ -55,6 +178,30 @@ class GoodscatController extends AdminController {
         if(!$data){
             $this->error($Model->getError());
         }
+
+
+        $catlist = $this->getsubitems(0,0,$id);
+
+        foreach ($catlist as $key => &$value) {
+            if ($value["status"] != 1) {
+                unset($catlist[$key]);
+            }
+            else
+            {
+                $deeps = $value["deeplengh"];
+                if ($list[$key+1]["deeplengh"] < $deeps) {
+                    $value["name"] = $this->prestr($deeps,1) . $value["name"];
+                }
+                else
+                {
+                    $value["name"] = $this->prestr($deeps) . $value["name"];
+                }
+                //$value["name"] = $this->prestr($deeps) . $value["name"];
+            }
+            
+        };
+
+        $this->assign('catlist', $catlist);
 
         $this->assign('fields', $data);
         $this->meta_title = '商品类别-编辑';
@@ -138,29 +285,53 @@ class GoodscatController extends AdminController {
      * @author 和蔼的木Q <545038947@qq.com>
      */
     public function gettreedata(){
-        $pid = I("pid");
-        if (is_null($pid)) {
+        $pid = I("pid","0");
+        if ( $pid == "") {
             
             $data['status']  = 0;
             $data['content'] = '错误的请求！'.$pid;
             $this->ajaxReturn($data);
         }
 
-
-        $Model = D("Goodscat"); 
-
-        $map =  array('pid' => $pid, );
-
-
-        $datalist = $Model->where($map)->order("sortorder")->select();
+        $datalist = $this->getcatdata($pid);
 
         $data['status']  = 1;
         $data['content'] = $datalist;
 
         $this->ajaxReturn($data);
+        //P($data);
+    }
 
+    /**
+     * 获取类别数据
+     * @author 和蔼的木Q <545038947@qq.com>
+     */
+    public function getcatdata($pid)
+    {
+        $Model = D("Goodscat"); 
+        $map =  'pid = '.$pid;
+        $datalist = $Model->where($map)->order("sortorder")->select();
+        if($datalist)
+        {
+            foreach ($datalist as $key => &$value) {
+                $value["additionalParameters"] = array();
 
-
+                $value["client"] = $this->getcatdata($value["id"]);
+                if ($value["client"]===array()) {
+                    $value["type"] = "item";
+                }
+                else
+                {
+                    $value["type"] = "folder";
+                }
+                
+            }
+            return $datalist;
+        }
+        else
+        {
+            return array();
+        }
 
     }
 

@@ -12,6 +12,7 @@
         <a class="btn" href="{:U('Goodscat/add')}">新 增</a>
         <button class="btn ajax-post" target-form="ids" url="{:U('Goodscat/setStatus',array('status'=>1))}">启 用</button>
         <button class="btn ajax-post" target-form="ids" url="{:U('Goodscat/setStatus',array('status'=>0))}">禁 用</button>
+        <button class="btn ajax-post confirm" target-form="ids" url="{:U('Goodscat/del')}">删 除</button>
     </div>
 
     <!-- 数据列表 -->
@@ -22,8 +23,6 @@
         <tr>
         <th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
         <th>商品类别名称</th>
-<th>类别图片地址</th>
-<th>父类别ID,为0标示根节点</th>
 <th>商品类别描述</th>
 <th>排序值</th>
 
@@ -37,8 +36,6 @@
         <tr>
             <td><input class="ids" type="checkbox" name="ids[]" value="{$vo.id}" /></td>
             <td>{$vo.name}</td>
-<td>{$vo.logo}</td>
-<td>{$vo.pid}</td>
 <td>{$vo.desc}</td>
 <td>{$vo.sortorder}</td>
 
@@ -62,24 +59,28 @@
         {$_page}
     </div>
 
---------<a href="javascript:gettreedata(1);" id="test">测试</a>--------
+<!-- ===<a href="javascript:showhtml(0,'MyTree4');" id="test">测试</a>===
+<div id="showhtml"></div>
 <div id="MyTree4" class="tree tree-plus-minus tree-solid-line tree-unselectable">
-                                <div class = "tree-folder" style="display:none;">
-                                    <div class="tree-folder-header">
-                                        <i class="fa fa-folder"></i>
-                                        <div class="tree-folder-name"></div>
-                                    </div>
-                                    <div class="tree-folder-content"></div>
-                                    <div class="tree-loader" style="display:none"></div>
-                                </div>
-                                <div class="tree-item" style="display:none;">
-                                    <i class="tree-dot"></i>
-                                    <div class="tree-item-name"></div>
-                                </div>
-                            </div>
+    <div class = "tree-folder" style="display:none;">
+        <div class="tree-folder-header">
+            <i class="fa fa-folder"></i>
+            <div class="tree-folder-name"></div>
+        </div>
+        <div class="tree-folder-content"></div>
+        <div class="tree-loader" style="display:none"></div>
+    </div>
+    <div class="tree-item" style="display:none;">
+        <i class="tree-dot"></i>
+        <div class="tree-item-name"></div>
+    </div>
+</div> -->
+
+
 </block>
 
 <block name="script">
+<script src="__STATIC__/function.js"></script>
 <script src="__STATIC__/plugins/fuelux/js/tree.min.js"></script>
 <script src="__STATIC__/thinkbox/jquery.thinkbox.js"></script>
 <script type="text/javascript">
@@ -96,20 +97,129 @@ $(function(){
         }
         window.location.href = url;
     });
+
+
+
 });
 
-function gettreedata(ppid){
-    $.post("http://127.0.0.1{:U("Goodscat/gettreedata")}",
+
+//=======Start fuel ux tree数据结构===========
+var DataSourceTree = function (options) {
+    this._data  = options.data;
+    this._delay = options.delay;
+};
+
+DataSourceTree.prototype = {
+    data: function (options, callback) {
+        if (isEmpty(options)){
+            thisdata = this._data;
+            $.each(thisdata, function(index, val) {
+                 thisdata[index].name = treeactions(val);
+            });
+            callback({ data: thisdata });
+
+        }
+        else
+        {
+            thisdata = options['client'];
+            $.each(thisdata, function(index, val) {
+                 thisdata[index].name = treeactions(val);
+            });
+            callback({ data: thisdata});
+        }
+    }
+
+
+};
+//状态文字
+function statustxt(status)
+{
+    if (status == 1) {
+        return "正常";
+    }
+    else
+    {
+        return "禁用";
+    };
+}
+//操作按钮
+function treeactions(val)
+{
+    
+    tmpstr = '<div style="display: inline-block; width:200px;position:">'+val.name+'</div>';
+    tmpstr += '<div style="display: inline-block; width:200px; position: absolute; right: 400px;">排序值：'+val.sortorder+'</div>';
+    tmpstr += '<div style="display: inline-block; width:200px; position: absolute; right: 200px;">'+statustxt(val.status)+'</div>';
+    tmpstr += '<div style="display: inline-block; position: absolute; right: 4px;">';
+    tmpstr += '<a href="{:U('Goodscat/del')}?id=\[\#id\]">编 辑</a> ';
+    tmpstr += '<a href="javascript:del(\[\#id\]);">删 除</a>';
+
+    tmpstr += '</div>';
+
+    tmpstr += '';
+
+    
+    
+    tmpstr = tmpstr.replace(/\[\#id\]/g,""+val.id);
+    return tmpstr;
+}
+
+//删除
+function del(id){
+
+    if (confirm("确定删除该条记录吗？")){
+        url = "{:U('Goodscat/del')}" + '?ids='+id;
+
+        alert(url);
+
+    }
+    
+    //$("#showhtml").html(obj2str(this));
+}
+
+
+
+//获取数据
+function gettreedata(ppid,treeobj){
+
+    $.post("{:U("Goodscat/gettreedata")}?timekey="+(new Date()).valueOf(),
     {
         pid:ppid,
-        city:'Duckburg'
+        tmp:'test'
     },
     function(data,status){
-        //alert("Data: " + data + "\nStatus: " + status);
-        alert(data["content"]);
+        $("#showhtml").html(obj2str(data));
+        if (data["status"] == 1) {
+            dotreedate(data["content"],treeobj);
+        }
+        else {
+            alert(data["content"]);
+        }
     });
-    alert(ppid);
 }
+
+//处理数据
+function dotreedate(data,treeobj){
+    var treeData = new DataSourceTree({
+        data: data,
+        delay: 400
+    });
+
+    $('#'+treeobj).tree({
+        selectable: false,
+        dataSource: treeData,
+        loadingHTML: '加载中',
+    });
+
+    //$("#showhtml").html(obj2str(data));
+}
+
+function showhtml(pid,treeobj){
+    gettreedata(pid,treeobj);
+}
+
+
+//=======END fuel ux tree数据结构===========
+
 
 
 </script>
