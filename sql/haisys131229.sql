@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : 127.0.0.1
-Source Server Version : 50520
+Source Server Version : 50527
 Source Host           : localhost:3306
 Source Database       : haisys
 
 Target Server Type    : MYSQL
-Target Server Version : 50520
+Target Server Version : 50527
 File Encoding         : 65001
 
-Date: 2014-01-02 18:59:26
+Date: 2014-01-05 22:39:35
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -1463,7 +1463,7 @@ CREATE TABLE `jgjsys_action_log` (
   KEY `action_ip_ix` (`action_ip`),
   KEY `action_id_ix` (`action_id`),
   KEY `user_id_ix` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=97 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
+) ENGINE=MyISAM AUTO_INCREMENT=109 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
 
 -- ----------------------------
 -- Records of jgjsys_action_log
@@ -1564,6 +1564,18 @@ INSERT INTO `jgjsys_action_log` VALUES ('93', '1', '1', '-1062731574', 'member',
 INSERT INTO `jgjsys_action_log` VALUES ('94', '10', '1', '2130706433', 'Menu', '211', '操作url：/haisys/index.php/admin/menu/edit.html', '1', '1388647467');
 INSERT INTO `jgjsys_action_log` VALUES ('95', '10', '1', '2130706433', 'Menu', '215', '操作url：/haisys/index.php/admin/menu/edit.html', '1', '1388647483');
 INSERT INTO `jgjsys_action_log` VALUES ('96', '10', '1', '2130706433', 'Menu', '207', '操作url：/haisys/index.php/admin/menu/edit.html', '1', '1388650029');
+INSERT INTO `jgjsys_action_log` VALUES ('97', '1', '1', '2130706433', 'member', '1', 'admin在2014-01-02 20:08登录了后台', '1', '1388664491');
+INSERT INTO `jgjsys_action_log` VALUES ('98', '1', '1', '2130706433', 'member', '1', 'admin在2014-01-02 21:36登录了后台', '1', '1388669764');
+INSERT INTO `jgjsys_action_log` VALUES ('99', '1', '1', '2130706433', 'member', '1', 'admin在2014-01-03 11:16登录了后台', '1', '1388718998');
+INSERT INTO `jgjsys_action_log` VALUES ('100', '1', '1', '2130706433', 'member', '1', 'admin在2014-01-03 14:23登录了后台', '1', '1388730191');
+INSERT INTO `jgjsys_action_log` VALUES ('101', '11', '1', '2130706433', 'category', '2', '操作url：/haisys/index.php/admin/category/edit.html', '1', '1388739341');
+INSERT INTO `jgjsys_action_log` VALUES ('102', '11', '1', '2130706433', 'category', '2', '操作url：/haisys/index.php/admin/category/edit.html', '1', '1388739345');
+INSERT INTO `jgjsys_action_log` VALUES ('103', '6', '1', '2130706433', 'config', '13', '操作url：/haisys/index.php/admin/config/edit.html', '1', '1388744526');
+INSERT INTO `jgjsys_action_log` VALUES ('104', '1', '1', '2130706433', 'member', '1', 'admin在2014-01-04 14:48登录了后台', '1', '1388818080');
+INSERT INTO `jgjsys_action_log` VALUES ('105', '1', '1', '2130706433', 'member', '1', 'admin在2014-01-05 00:24登录了后台', '1', '1388852668');
+INSERT INTO `jgjsys_action_log` VALUES ('106', '1', '1', '2130706433', 'member', '1', 'admin在2014-01-05 12:48登录了后台', '1', '1388897295');
+INSERT INTO `jgjsys_action_log` VALUES ('107', '10', '1', '2130706433', 'Menu', '219', '操作url：/haisys/index.php/admin/menu/edit.html', '1', '1388897611');
+INSERT INTO `jgjsys_action_log` VALUES ('108', '11', '1', '2130706433', 'category', '40', '操作url：/haisys/index.php/admin/category/add.html', '1', '1388901031');
 
 -- ----------------------------
 -- Table structure for jgjsys_addons
@@ -2073,14 +2085,15 @@ CREATE TABLE `jgjsys_category` (
   `icon` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '分类图标',
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_name` (`name`)
-) ENGINE=MyISAM AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 COMMENT='分类表';
+) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=utf8 COMMENT='分类表';
 
 -- ----------------------------
 -- Records of jgjsys_category
 -- ----------------------------
 INSERT INTO `jgjsys_category` VALUES ('1', 'blog', '文章', '0', '0', '10', '', '', '', '', '', '', '', '2', '2,1', '0', '2', '1', '1', '0', '1', '', '1379474947', '1388043592', '1', '0');
-INSERT INTO `jgjsys_category` VALUES ('2', 'default_blog', '默认分类', '1', '1', '10', '', '', '', '', '', '', '', '2', '2,1,3', '0', '2', '1', '0', '1', '1', '', '1379475028', '1388043600', '1', '31');
+INSERT INTO `jgjsys_category` VALUES ('2', 'default_blog', '默认分类', '1', '1', '10', '', '', '', '', '', '', '', '2', '2,1,3', '0', '2', '1', '0', '1', '1', '', '1379475028', '1388739345', '1', '31');
 INSERT INTO `jgjsys_category` VALUES ('39', 'dgoods', '直供商品', '0', '0', '10', '', '', '', '', '', '', '', '2', '3', '0', '1', '1', '1', '0', '', '', '1388041934', '1388043367', '1', '0');
+INSERT INTO `jgjsys_category` VALUES ('40', 'sys', '系统', '1', '0', '10', '', '', '', '', '', '', '', '2', '2,1,3', '0', '1', '1', '1', '0', '', '', '1388901031', '1388901031', '1', '0');
 
 -- ----------------------------
 -- Table structure for jgjsys_channel
@@ -2139,7 +2152,7 @@ INSERT INTO `jgjsys_config` VALUES ('9', 'CONFIG_TYPE_LIST', '3', '配置类型�
 INSERT INTO `jgjsys_config` VALUES ('10', 'WEB_SITE_ICP', '1', '网站备案号', '1', '', '设置在网站底部显示的备案号，如 黔ICP备13002758号', '1378900335', '1387857216', '1', '黔ICP备13002758号', '9');
 INSERT INTO `jgjsys_config` VALUES ('11', 'DOCUMENT_POSITION', '3', '文档推荐位', '2', '', '文档推荐位，推荐到多个位置KEY值相加即可', '1379053380', '1379235329', '1', '1:列表页推荐\r\n2:频道页推荐\r\n4:网站首页推荐', '3');
 INSERT INTO `jgjsys_config` VALUES ('12', 'DOCUMENT_DISPLAY', '3', '文档可见性', '2', '', '文章可见性仅影响前台显示，后台不收影响', '1379056370', '1379235322', '1', '0:所有人可见\r\n1:仅注册会员可见\r\n2:仅管理员可见', '4');
-INSERT INTO `jgjsys_config` VALUES ('13', 'COLOR_STYLE', '4', '后台色系', '1', 'default_color:默认\r\nblue_color:紫罗兰', '后台颜色风格', '1379122533', '1379235904', '1', 'blue_color', '10');
+INSERT INTO `jgjsys_config` VALUES ('13', 'COLOR_STYLE', '4', '后台色系', '1', 'default_color:默认\r\nblue_color:紫罗兰\r\ngoogle_color:google风格\r\n', '后台颜色风格', '1379122533', '1388744526', '1', 'blue_color', '10');
 INSERT INTO `jgjsys_config` VALUES ('20', 'CONFIG_GROUP_LIST', '3', '配置分组', '4', '', '配置分组', '1379228036', '1384418383', '1', '1:基本\r\n2:内容\r\n3:用户\r\n4:系统', '4');
 INSERT INTO `jgjsys_config` VALUES ('21', 'HOOKS_TYPE', '3', '钩子的类型', '4', '', '类型 1-用于扩展显示内容，2-用于扩展业务处理', '1379313397', '1379313407', '1', '1:视图\r\n2:控制器', '6');
 INSERT INTO `jgjsys_config` VALUES ('22', 'AUTH_CONFIG', '3', 'Auth配置', '4', '', '自定义Auth.class.php类配置', '1379409310', '1379409564', '1', 'AUTH_ON:1\r\nAUTH_TYPE:2', '8');
@@ -2286,11 +2299,12 @@ CREATE TABLE `jgjsys_goods` (
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '数据状态',
   PRIMARY KEY (`id`),
   UNIQUE KEY `app_goods_name` (`name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='商品\r\n@author   和蔼的木Q\r\n@version  2014-01-02';
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='商品\r\n@author   和蔼的木Q\r\n@version  2014-01-02';
 
 -- ----------------------------
 -- Records of jgjsys_goods
 -- ----------------------------
+INSERT INTO `jgjsys_goods` VALUES ('6', 'AAAA', '3', '1', '2', 'aaa', 'aa', '5', '21.00', '12.00', '1', '1388825577', '1', '1388828265', '1388828265', '1970', '2', '100', '1', '0');
 
 -- ----------------------------
 -- Table structure for jgjsys_goodsalbum
@@ -2318,14 +2332,16 @@ CREATE TABLE `jgjsys_goodsarrt` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `name` char(64) NOT NULL DEFAULT '' COMMENT '商品属性名称',
   `goodsid` int(10) unsigned NOT NULL COMMENT '商品属性对应商品ID',
+  `typeid` int(10) unsigned NOT NULL COMMENT '商品属性对应类型ID',
+  `isgroup` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否属性组',
+  `gid` int(10) unsigned NOT NULL COMMENT '商品属性对应属性组ID',
   `desc` text COMMENT '商品属性值',
-  `group` char(64) NOT NULL DEFAULT '默认' COMMENT '商品属性分组',
   `price` decimal(11,2) unsigned NOT NULL COMMENT '商品属性价格_对应销售属性',
-  `arrttype` tinyint(4) NOT NULL DEFAULT '0' COMMENT '属性类型：1主属性、2次要属性、3销售属性',
+  `arrttype` tinyint(4) NOT NULL DEFAULT '0' COMMENT '属性类型：1主属性、2次要属性、3价格属性',
+  `displaytype` tinyint(4) NOT NULL DEFAULT '0' COMMENT '显示类型：0字符串;1选择列表;2复选框;3单选框',
   `sortorder` tinyint(8) NOT NULL DEFAULT '0' COMMENT '排序值',
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '数据状态',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `app_goodsarrt_name` (`name`)
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='商品属性\r\n@author   和蔼的木Q\r\n@version  2014-01-02';
 
 -- ----------------------------
@@ -2346,14 +2362,21 @@ CREATE TABLE `jgjsys_goodscat` (
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '数据状态',
   PRIMARY KEY (`id`),
   UNIQUE KEY `app_goodscat_name` (`name`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='商品类别信息\r\n@author   和蔼的木Q\r\n@version  2014-01-02';
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COMMENT='商品类别信息\r\n@author   和蔼的木Q\r\n@version  2014-01-02';
 
 -- ----------------------------
 -- Records of jgjsys_goodscat
 -- ----------------------------
 INSERT INTO `jgjsys_goodscat` VALUES ('1', '白酒', '4', '0', '白酒', '1', '1');
-INSERT INTO `jgjsys_goodscat` VALUES ('2', '白酒1', '', '1', 'test', '1', '1');
+INSERT INTO `jgjsys_goodscat` VALUES ('2', '白酒1', '', '1', 'test', '5', '1');
 INSERT INTO `jgjsys_goodscat` VALUES ('3', '白酒2', '', '1', 'test', '2', '1');
+INSERT INTO `jgjsys_goodscat` VALUES ('5', '撒旦法', '', '1', 'asf', '1', '1');
+INSERT INTO `jgjsys_goodscat` VALUES ('17', 'asf', '', '3', '地方撒上的', '1', '1');
+INSERT INTO `jgjsys_goodscat` VALUES ('15', '托尔斯泰', '', '11', 'test', '1', '1');
+INSERT INTO `jgjsys_goodscat` VALUES ('8', '234', '', '9', '234', '1', '1');
+INSERT INTO `jgjsys_goodscat` VALUES ('11', '沙发', '', '0', '士大夫撒', '4', '1');
+INSERT INTO `jgjsys_goodscat` VALUES ('18', '4356435', '', '11', '53645', '4', '1');
+INSERT INTO `jgjsys_goodscat` VALUES ('16', '额外认为', '', '3', '玩儿玩儿', '1', '1');
 
 -- ----------------------------
 -- Table structure for jgjsys_goodstype
@@ -2363,6 +2386,7 @@ CREATE TABLE `jgjsys_goodstype` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `name` char(64) NOT NULL DEFAULT '' COMMENT '商品类型名称',
   `desc` text COMMENT '商品类型描述',
+  `sortorder` tinyint(4) NOT NULL COMMENT '排序值',
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '数据状态',
   PRIMARY KEY (`id`),
   UNIQUE KEY `app_goodstype_name` (`name`)
@@ -2371,8 +2395,8 @@ CREATE TABLE `jgjsys_goodstype` (
 -- ----------------------------
 -- Records of jgjsys_goodstype
 -- ----------------------------
-INSERT INTO `jgjsys_goodstype` VALUES ('1', '白酒', '白酒', '1');
-INSERT INTO `jgjsys_goodstype` VALUES ('2', '红酒', '红酒', '1');
+INSERT INTO `jgjsys_goodstype` VALUES ('1', '白酒', '白酒', '0', '1');
+INSERT INTO `jgjsys_goodstype` VALUES ('2', '红酒', '红酒', '0', '1');
 
 -- ----------------------------
 -- Table structure for jgjsys_goodstypearrt
@@ -2382,20 +2406,25 @@ CREATE TABLE `jgjsys_goodstypearrt` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `name` char(64) NOT NULL DEFAULT '' COMMENT '商品属性名称',
   `typeid` int(10) unsigned NOT NULL COMMENT '商品属性对应类型ID',
+  `isgroup` tinyint(4) NOT NULL DEFAULT '0' COMMENT '是否属性组',
+  `gid` int(10) unsigned NOT NULL COMMENT '商品属性对应属性组ID',
   `desc` text COMMENT '商品属性值',
-  `group` char(64) NOT NULL DEFAULT '默认' COMMENT '商品属性分组',
   `price` decimal(11,2) unsigned NOT NULL COMMENT '商品属性价格_对应销售属性',
-  `arrttype` tinyint(4) NOT NULL DEFAULT '0' COMMENT '属性类型：1主属性、2次要属性、3销售属性',
+  `arrttype` tinyint(4) NOT NULL DEFAULT '0' COMMENT '属性类型：1主属性、2次要属性、3价格属性',
+  `displaytype` tinyint(4) NOT NULL DEFAULT '0' COMMENT '显示类型：0字符串;1选择列表;2复选框;3单选框',
   `sortorder` tinyint(8) NOT NULL DEFAULT '0' COMMENT '排序值',
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '数据状态',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `app_goodstypearrt_name` (`name`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='商品类型属性模板\r\n@author   和蔼的木Q\r\n@version  2014-01-02';
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='商品类型属性模板\r\n@author   和蔼的木Q\r\n@version  2014-01-02';
 
 -- ----------------------------
 -- Records of jgjsys_goodstypearrt
 -- ----------------------------
-INSERT INTO `jgjsys_goodstypearrt` VALUES ('1', '红色', '2', '#F00', '颜色', '100.00', '3', '1', '1');
+INSERT INTO `jgjsys_goodstypearrt` VALUES ('6', '品牌', '1', '0', '0', '气味坊', '0.00', '1', '0', '1', '1');
+INSERT INTO `jgjsys_goodstypearrt` VALUES ('7', '生产厂商', '1', '0', '0', '七味坊酒业有限公司', '0.00', '2', '0', '1', '1');
+INSERT INTO `jgjsys_goodstypearrt` VALUES ('8', '包装', '1', '1', '0', '包装', '0.00', '3', '2', '1', '1');
+INSERT INTO `jgjsys_goodstypearrt` VALUES ('9', '包装', '1', '0', '8', '光瓶', '5.00', '3', '2', '1', '1');
+INSERT INTO `jgjsys_goodstypearrt` VALUES ('10', '包装', '1', '0', '8', '彩盒', '2.00', '3', '0', '1', '1');
 
 -- ----------------------------
 -- Table structure for jgjsys_hooks
@@ -2450,7 +2479,7 @@ CREATE TABLE `jgjsys_member` (
 -- ----------------------------
 -- Records of jgjsys_member
 -- ----------------------------
-INSERT INTO `jgjsys_member` VALUES ('1', 'admin', '0', '0000-00-00', '', '60', '25', '0', '1387427567', '3232235722', '1388647296', '1');
+INSERT INTO `jgjsys_member` VALUES ('1', 'admin', '0', '0000-00-00', '', '70', '32', '0', '1387427567', '2130706433', '1388897295', '1');
 
 -- ----------------------------
 -- Table structure for jgjsys_menu
@@ -2467,7 +2496,7 @@ CREATE TABLE `jgjsys_menu` (
   `group` varchar(50) DEFAULT '' COMMENT '分组',
   `is_dev` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否仅开发者模式可见',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=219 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=223 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of jgjsys_menu
@@ -2619,6 +2648,10 @@ INSERT INTO `jgjsys_menu` VALUES ('215', '商品类别', '194', '100', 'Goodscat
 INSERT INTO `jgjsys_menu` VALUES ('216', '列表', '215', '100', 'Goodscat/index', '0', '', '', '0');
 INSERT INTO `jgjsys_menu` VALUES ('217', '新增', '215', '100', 'Goodscat/add', '1', '', '', '0');
 INSERT INTO `jgjsys_menu` VALUES ('218', '编辑', '215', '100', 'Goodscat/edit', '1', '', '', '0');
+INSERT INTO `jgjsys_menu` VALUES ('219', '商品属性', '194', '100', 'Goodsarrt/index', '0', '', '', '0');
+INSERT INTO `jgjsys_menu` VALUES ('220', '列表', '219', '100', 'Goodsarrt/index', '0', '', '', '0');
+INSERT INTO `jgjsys_menu` VALUES ('221', '新增', '219', '100', 'Goodsarrt/add', '1', '', '', '0');
+INSERT INTO `jgjsys_menu` VALUES ('222', '编辑', '219', '100', 'Goodsarrt/edit', '1', '', '', '0');
 
 -- ----------------------------
 -- Table structure for jgjsys_model
@@ -2668,7 +2701,7 @@ CREATE TABLE `jgjsys_picture` (
   `status` tinyint(2) NOT NULL DEFAULT '0' COMMENT '状态',
   `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of jgjsys_picture
@@ -2677,6 +2710,7 @@ INSERT INTO `jgjsys_picture` VALUES ('1', '/Uploads/Picture/2014-01-02/52c4f03c5
 INSERT INTO `jgjsys_picture` VALUES ('2', '/Uploads/Picture/2014-01-02/52c50546a4116.jpg', '', 'e3e411ba703625bbdc6a3a5ff5eadd28', 'eb6718d54b6478df8d2aab6ace389f22abbf80ec', '1', '1388643654');
 INSERT INTO `jgjsys_picture` VALUES ('3', '/Uploads/Picture/2014-01-02/52c5055385909.jpg', '', 'c39095402d7d0e7a96b530f2f8cae829', '0f1c575eaa88be18ec1ba1a1fc8a66ce51b157b9', '1', '1388643667');
 INSERT INTO `jgjsys_picture` VALUES ('4', '/Uploads/Picture/2014-01-02/52c526e6ee719.png', '', '0899e3799111cc3a836c93563c9c6934', '56f7b1435aacdd185772bd1a3f038c03083dd3d9', '1', '1388652262');
+INSERT INTO `jgjsys_picture` VALUES ('5', '/Uploads/Picture/2014-01-03/52c68bb353355.jpg', '', '764bfa05bac0e784262a32b087688f52', '365581bec566f9da5dbbd9a9bf3cdf0a03dee704', '1', '1388743603');
 
 -- ----------------------------
 -- Table structure for jgjsys_shopset
@@ -2732,12 +2766,14 @@ CREATE TABLE `jgjsys_supplier` (
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '数据状态',
   PRIMARY KEY (`id`),
   UNIQUE KEY `app_supplier_name` (`name`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='商品供货商信息\r\n@author   和蔼的木Q\r\n@version  2014-01-02';
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='商品供货商信息\r\n@author   和蔼的木Q\r\n@version  2014-01-02';
 
 -- ----------------------------
 -- Records of jgjsys_supplier
 -- ----------------------------
 INSERT INTO `jgjsys_supplier` VALUES ('1', '七味坊', 'http://qwf9.taobao.com/', '1', '七味坊酒业', '10', '1', '1');
+INSERT INTO `jgjsys_supplier` VALUES ('2', '某品牌', 'http://no.com', '', 'no', '10', '2', '1');
+INSERT INTO `jgjsys_supplier` VALUES ('3', '阿斯蒂芬', '阿斯蒂芬', '', '沙发', '12', '3', '1');
 
 -- ----------------------------
 -- Table structure for jgjsys_ucenter_admin
@@ -2802,7 +2838,7 @@ CREATE TABLE `jgjsys_ucenter_member` (
 -- ----------------------------
 -- Records of jgjsys_ucenter_member
 -- ----------------------------
-INSERT INTO `jgjsys_ucenter_member` VALUES ('1', 'admin', '6cc437c212bbd45531647e74f60f4743', '545038947@qq.com', '', '1387427567', '2130706433', '1388647296', '3232235722', '1387427567', '1');
+INSERT INTO `jgjsys_ucenter_member` VALUES ('1', 'admin', '6cc437c212bbd45531647e74f60f4743', '545038947@qq.com', '', '1387427567', '2130706433', '1388897295', '2130706433', '1387427567', '1');
 
 -- ----------------------------
 -- Table structure for jgjsys_ucenter_setting
