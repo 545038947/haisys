@@ -91,10 +91,10 @@
 <hr>
 
 <div id="arrtlist">
-	
+	<h3>属性列表</h3><hr style="width:70px; margin-left: 0px; height: 3px; background: #FF6600; border: 0px;">
+
+
 </div>
-
-
 				</div>
 
 				<!-- 按钮 -->
@@ -116,7 +116,9 @@
 <link href="__STATIC__/datetimepicker/css/dropdown.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="__STATIC__/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript" src="__STATIC__/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script type="text/javascript" src="__STATIC__/plugins/artDialog/jquery.artDialog.js?skin=idialog"></script>
 <script type="text/javascript" src="__STATIC__/function.js"></script>
+<script type="text/javascript" src="__SCRIPTS__/goodstypearrtedit.js"></script>
 
 
 <script type="text/javascript" charset="utf-8">
@@ -136,19 +138,23 @@ $(function(){
 	showTab();
 
 
+//============START 属性编辑部分
 
-
-
-
-	//============START 属性编辑部分
 	$("#arrt_add").click(function(event) {
 
 		$("#loding").css('display', '');
 		$("#arrt_arrttype").val(2);
+		$("#arrt_gid").val(0);
+		$("#arrt_isgroup").val(0);
+		$("#is_sell").css('display', 'none');
+
+		$("#is_item").css('display', '');
+
+
 
 		if ($("#arrtedit").css('display')=='none') {
 
-			$.post("{:U("Goodstypearrt/getgrouplist")}?timekey="+(new Date()).valueOf(),
+			$.post("{:U("Goodstypearrt/ajaxgetgrouplist")}?timekey="+(new Date()).valueOf(),
 		    {
 		        typeid:$("#arrt_typeid").val(),
 		        tmp:'test'
@@ -229,8 +235,9 @@ $(function(){
 		    	//$("#arrtlist").html(obj2str(data));
 		        if (data["status"] == 1) {
 		            
-		            alert(data["info"]);
+		            //alert(data["info"]);
 		            $("#arrtedit").css('display','none');
+		            getarrtitems($("#arrt_typeid").val());
 		        }
 		        else {
 		            alert(data["info"]);
@@ -312,9 +319,33 @@ $(function(){
 	}
 
 
+
+
+
 	//============END 属性编辑部分
 
+
+	getarrtitems($("#arrt_typeid").val());
+
 })
+
+	//取属性列表
+	function getarrtitems(typeid)
+	{
+		$("#arrtlist").html("");
+		$("#loding").css('display', '');
+		$.post("{:U("Goodstypearrt/getitemlist")}?timekey="+(new Date()).valueOf(),
+	    {
+	        typeid:typeid,
+	        tmp:'test'
+	    },
+	    function(data,status){
+	    	
+	    	$("#arrtlist").html(data);
+	        
+	        $("#loding").css('display', 'none');
+	    });
+	}
 
 </script>
 </block>

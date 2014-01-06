@@ -43,6 +43,35 @@ class GoodstypearrtController extends AdminController {
     }
 
     /**
+     * ajax获取指定typeid的属性组列表
+     * @author 和蔼的木Q <545038947@qq.com>
+     */
+    public function ajaxgetgrouplist($typeid,$gid=0){
+        $Model = D("Goodstypearrt");
+        $map = array(
+            'typeid' => $typeid,
+            'isgroup' => 1,
+            'gid' => $gid
+            );
+        $list = $Model->where($map)->order("sortorder")->select();
+        
+        if ($list) {
+            //return $list;
+
+            $data['status']  = 1;
+            $data['content'] = $list;
+            $this->ajaxReturn($data);
+        }
+        else
+        {
+            //return array();
+            $data['status']  = 0;
+            $data['content'] = "无数据！";
+            $this->ajaxReturn($data);
+        }
+    }
+
+    /**
      * 获取指定typeid的属性组列表
      * @author 和蔼的木Q <545038947@qq.com>
      */
@@ -56,19 +85,89 @@ class GoodstypearrtController extends AdminController {
         $list = $Model->where($map)->order("sortorder")->select();
         
         if ($list) {
-            //return $list;
-            $data['status']  = 1;
-            $data['content'] = $list;
-            $this->ajaxReturn($data);
+            return $list;
+
         }
         else
         {
-            //return array();
-            $data['status']  = 0;
-            $data['content'] = "无数据！";
-            $this->ajaxReturn($data);
+            return array();
         }
     }
+
+    /**
+     * 获取指定typeid的属性列表
+     * @author 和蔼的木Q <545038947@qq.com>
+     */
+    public function getitemlist($typeid)
+    {
+        $list = $this->getsubitems($typeid);
+
+        if ($list) {
+            int_to_string($list);
+            $tmplist = array();
+            $arrpostion = 0;
+
+            foreach ($list as $key => &$value) {
+                switch ($value["arrttype"]) {
+                    case '1':
+                        $tmplist[1][] = $value;
+                        break;
+                    case '2':
+                        $tmplist[2][] = $value;
+                        break;
+                    case '3':
+                        $tmplist[3][] = $value;
+                        break;
+                }
+
+            };
+
+            $data['status']  = 1;
+            $data['info'] = "完成";
+            $data['content'] = $tmplist;
+
+            //$this->ajaxReturn($data);
+        }
+        else
+        {
+            $data['status']  = 0;
+            $data['info'] = "无数据！";
+
+            //$this->ajaxReturn($data);
+        }
+
+        $this->assign('listdata', $data);
+
+        $this->display();
+
+        
+    }
+
+    /**
+     * ajax编辑单属性表单
+     * @author 和蔼的木Q <545038947@qq.com>
+     */
+    public function ajaxedit($id)
+    {
+        $Model = D("Goodstypearrt");
+        $map = array(
+            'id' => $id
+            ); 
+        $data = $Model->where($map)->find();
+
+        if ($data) {
+            $grouplist = $this->getgrouplist($data["typeid"]);
+            $this->assign('grouplist', $grouplist);
+            $this->assign('data', $data);
+            $this->display();
+        }
+        else
+        {
+            $this->error("错误的数据参数！");
+        }
+        
+    }
+
 
     /**
      * 处理树型列表中name前制表符
@@ -112,7 +211,7 @@ class GoodstypearrtController extends AdminController {
             'gid' => $gid
             ); 
         
-        $list = $Model->where($map)->order("sortorder")->select();
+        $list = $Model->where($map)->order("arrttype,sortorder")->select();
         $arrpostion = 0;
         $deeplengh = $deeplengh+1;
         if ($list) {

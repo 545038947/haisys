@@ -1,0 +1,58 @@
+
+	<input type="hidden" name="arrt_id_{$data['id']}" id="arrt_id_{$data['id']}" value="{$data['id']}"/>
+	<input type="hidden" name="arrt_typeid_{$data['id']}" id="arrt_typeid_{$data['id']}" value="{$data['typeid']}"/>
+	<div class='controls'>
+		<span class="label"> 属性名称：</span>
+		<input type="text" class="text input-small" name="arrt_name_{$data['id']}" id="arrt_name_{$data['id']}" value="{$data["name"]}">
+		<span class="label"> 属性类别：</span>
+		<select name="arrt_arrttype_{$data['id']}" id="arrt_arrttype_{$data['id']}">
+			<option value="1" <if condition="$data['arrttype'] eq 1">selected</if>>主要属性</option>
+			<option value="2" <if condition="$data['arrttype'] eq 2">selected</if>>次要属性</option>
+			<option value="3" <if condition="$data['arrttype'] eq 3">selected</if>>销售属性</option>
+		</select>
+		<span class="label"> 排序值：</span>
+		<input type="text" class="text input-small" name="arrt_sortorder_{$data['id']}" id="arrt_sortorder_{$data['id']}" value="1">
+	</div>
+
+	<div class='controls'>
+		<span class="label"> 是否属性组：</span>
+		<select name="arrt_isgroup_{$data['id']}" id="arrt_isgroup_{$data['id']}">
+			<option value="1" <if condition="$data['isgroup'] eq 1">selected</if>>是</option>
+			<option value="0" <if condition="$data['isgroup'] eq 0">selected</if>>否</option>
+		</select>
+		<span class="label"> 组显示类型：</span>
+		<select name="arrt_displaytype_{$data['id']}" id="arrt_displaytype_{$data['id']}">
+			<option value="0" <if condition="$data['displaytype'] eq 0">selected</if>>字符串</option>
+			<option value="1" <if condition="$data['displaytype'] eq 1">selected</if>>罗列单</option>
+			<option value="2" <if condition="$data['displaytype'] eq 2">selected</if>>单选框</option>
+			<option value="3" <if condition="$data['displaytype'] eq 3">selected</if>>复选框</option>
+		</select>
+
+	</div>	
+	<div class='controls'>
+		<span class="label"> 所属属性组：</span>
+		<select name="arrt_gid_{$data['id']}" id="arrt_gid_{$data['id']}">
+			<option value="0">无</option>
+			<volist name="grouplist" id="vo">
+				<option value="{$vo['id']}" <if condition="$data['gid'] eq $vo['id']">selected</if>>{$vo['name']}</option>
+			</volist>
+			
+		</select>
+
+		<span class="label"> 销售属性价格：</span>
+		<input type="text" class="text input-small" name="arrt_price_{$data['id']}" id="arrt_price_{$data['id']}" value="{$data["price"]}">
+	</div>
+
+	<div class='controls'>
+		<span class="label"> 状态：</span><br>
+		<select name="arrt_status_{$data['id']}" id="arrt_status_{$data['id']}">
+			<option value="1" <if condition="$data['status'] eq 1">selected</if>>正常</option>
+			<option value="0" <if condition="$data['status'] eq 0">selected</if>>禁用</option>
+		</select>
+	</div>
+	<div class='controls'>
+		<span class="label"> 属性值：</span><br>
+		<textarea name="arrt_desc_{$data['id']}" id="arrt_desc_{$data['id']}" cols="50" rows="5">{$data["desc"]}</textarea>
+	</div>
+
+

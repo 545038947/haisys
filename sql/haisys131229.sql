@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : 127.0.0.1
-Source Server Version : 50527
+Source Server Version : 50520
 Source Host           : localhost:3306
 Source Database       : haisys
 
 Target Server Type    : MYSQL
-Target Server Version : 50527
+Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2014-01-05 22:39:35
+Date: 2014-01-06 17:27:03
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -1463,7 +1463,7 @@ CREATE TABLE `jgjsys_action_log` (
   KEY `action_ip_ix` (`action_ip`),
   KEY `action_id_ix` (`action_id`),
   KEY `user_id_ix` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=109 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
+) ENGINE=MyISAM AUTO_INCREMENT=110 DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='行为日志表';
 
 -- ----------------------------
 -- Records of jgjsys_action_log
@@ -1576,6 +1576,7 @@ INSERT INTO `jgjsys_action_log` VALUES ('105', '1', '1', '2130706433', 'member',
 INSERT INTO `jgjsys_action_log` VALUES ('106', '1', '1', '2130706433', 'member', '1', 'admin在2014-01-05 12:48登录了后台', '1', '1388897295');
 INSERT INTO `jgjsys_action_log` VALUES ('107', '10', '1', '2130706433', 'Menu', '219', '操作url：/haisys/index.php/admin/menu/edit.html', '1', '1388897611');
 INSERT INTO `jgjsys_action_log` VALUES ('108', '11', '1', '2130706433', 'category', '40', '操作url：/haisys/index.php/admin/category/add.html', '1', '1388901031');
+INSERT INTO `jgjsys_action_log` VALUES ('109', '1', '1', '2130706433', 'member', '1', 'admin在2014-01-06 13:55登录了后台', '1', '1388987757');
 
 -- ----------------------------
 -- Table structure for jgjsys_addons
@@ -2415,16 +2416,19 @@ CREATE TABLE `jgjsys_goodstypearrt` (
   `sortorder` tinyint(8) NOT NULL DEFAULT '0' COMMENT '排序值',
   `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '数据状态',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='商品类型属性模板\r\n@author   和蔼的木Q\r\n@version  2014-01-02';
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COMMENT='商品类型属性模板\r\n@author   和蔼的木Q\r\n@version  2014-01-02';
 
 -- ----------------------------
 -- Records of jgjsys_goodstypearrt
 -- ----------------------------
-INSERT INTO `jgjsys_goodstypearrt` VALUES ('6', '品牌', '1', '0', '0', '气味坊', '0.00', '1', '0', '1', '1');
+INSERT INTO `jgjsys_goodstypearrt` VALUES ('6', '品牌', '1', '0', '0', '七味坊', '0.00', '1', '0', '1', '1');
 INSERT INTO `jgjsys_goodstypearrt` VALUES ('7', '生产厂商', '1', '0', '0', '七味坊酒业有限公司', '0.00', '2', '0', '1', '1');
-INSERT INTO `jgjsys_goodstypearrt` VALUES ('8', '包装', '1', '1', '0', '包装', '0.00', '3', '2', '1', '1');
-INSERT INTO `jgjsys_goodstypearrt` VALUES ('9', '包装', '1', '0', '8', '光瓶', '5.00', '3', '2', '1', '1');
-INSERT INTO `jgjsys_goodstypearrt` VALUES ('10', '包装', '1', '0', '8', '彩盒', '2.00', '3', '0', '1', '1');
+INSERT INTO `jgjsys_goodstypearrt` VALUES ('9', '包装', '1', '0', '15', '光瓶', '5.00', '3', '2', '1', '1');
+INSERT INTO `jgjsys_goodstypearrt` VALUES ('10', '包装', '1', '0', '15', '彩盒', '2.00', '3', '0', '1', '1');
+INSERT INTO `jgjsys_goodstypearrt` VALUES ('11', '产地', '2', '0', '0', '法国', '0.00', '2', '0', '1', '1');
+INSERT INTO `jgjsys_goodstypearrt` VALUES ('12', '厂址', '1', '0', '0', '茅台镇', '0.00', '2', '0', '1', '1');
+INSERT INTO `jgjsys_goodstypearrt` VALUES ('15', '包装', '1', '1', '0', '包装', '0.00', '3', '2', '1', '1');
+INSERT INTO `jgjsys_goodstypearrt` VALUES ('18', '年份', '1', '1', '0', '年份', '100.00', '3', '0', '1', '1');
 
 -- ----------------------------
 -- Table structure for jgjsys_hooks
@@ -2479,7 +2483,7 @@ CREATE TABLE `jgjsys_member` (
 -- ----------------------------
 -- Records of jgjsys_member
 -- ----------------------------
-INSERT INTO `jgjsys_member` VALUES ('1', 'admin', '0', '0000-00-00', '', '70', '32', '0', '1387427567', '2130706433', '1388897295', '1');
+INSERT INTO `jgjsys_member` VALUES ('1', 'admin', '0', '0000-00-00', '', '80', '33', '0', '1387427567', '2130706433', '1388987757', '1');
 
 -- ----------------------------
 -- Table structure for jgjsys_menu
@@ -2838,7 +2842,7 @@ CREATE TABLE `jgjsys_ucenter_member` (
 -- ----------------------------
 -- Records of jgjsys_ucenter_member
 -- ----------------------------
-INSERT INTO `jgjsys_ucenter_member` VALUES ('1', 'admin', '6cc437c212bbd45531647e74f60f4743', '545038947@qq.com', '', '1387427567', '2130706433', '1388897295', '2130706433', '1387427567', '1');
+INSERT INTO `jgjsys_ucenter_member` VALUES ('1', 'admin', '6cc437c212bbd45531647e74f60f4743', '545038947@qq.com', '', '1387427567', '2130706433', '1388987757', '2130706433', '1387427567', '1');
 
 -- ----------------------------
 -- Table structure for jgjsys_ucenter_setting

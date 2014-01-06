@@ -1,0 +1,165 @@
+<div class="data-table">
+	<div class="data-table table-striped">
+		<table class="">
+	    <thead>
+	        <tr>
+	        	<th class="row-selected row-selected"></th>
+	        	<th>属性名称</th>
+	    		<th>属性值</th>
+	    		<th>价格</th>
+	    		<th>排序值</th>
+	    		<th>状态</th>
+	    		<th>操作</th>
+	        </tr>
+	    </thead>
+	    <tbody>
+	    <notempty name="listdata['content']">
+	    	<tr>
+	    		<td colspan="7" style="background: #DDD;">主要属性</td>
+	        </tr>
+	        <volist name="listdata['content'][1]" id="vo">
+	        <tr>
+	            <td></td>
+	    		<td>{$vo.name}</td>
+	    		<td>{$vo.desc}</td>
+	    		<td></td>
+	    		<td>{$vo.sortorder}</td>
+	    		<td>{$vo.status_text}</td>
+	    		<td>
+	    			<button type="button" class="btn" onclick="edit({$vo.id});" >编辑</button>
+					<button type="button" class="btn" onclick="delarrt({$vo.id});">删除</button>
+					<button type="button" class="btn" onclick="delarrt({$vo.id});">禁用</button>
+	    		</td>
+	        </tr>
+	        </volist>
+	        <tr>
+	    		<td colspan="7" style="background: #DDD;">次要属性</td>
+	        </tr>
+	        <volist name="listdata['content'][2]" id="vo">
+	        <tr>
+	            <td></td>
+	    		<td>{$vo.name}</td>
+	    		<td>{$vo.desc}</td>
+	    		<td></td>
+	    		<td>{$vo.sortorder}</td>
+	    		<td>{$vo.status_text}</td>
+	    		<td>
+	    			<button type="button" class="btn" onclick="edit({$vo.id});" >编辑</button>
+					<button type="button" class="btn" onclick="delarrt({$vo.id});">删除</button>
+					<button type="button" class="btn" onclick="delarrt({$vo.id});">禁用</button>
+	    		</td>
+	        </tr>
+	        </volist>
+	        <tr>
+	    		<td colspan="7" style="background: #DDD;">销售属性</td>
+	        </tr>
+	        <volist name="listdata['content'][3]" id="vo">
+	        <tr>
+	            <td></td>
+	    		<td>
+	    			<if condition="$vo['isgroup'] eq 1">{$vo.name}<else />&nbsp;&nbsp;&nbsp;&nbsp;├─────</if>
+	    		</td>
+	    		<td><if condition="$vo['gid'] neq 0">{$vo.desc}</if></td>
+	    		<td><if condition="$vo['gid'] neq 0">{$vo.price}</if></td>
+	    		<td>{$vo.sortorder}</td>
+	    		<td>{$vo.status_text}</td>
+	    		<td>
+	    			<button type="button" class="btn" onclick="edit({$vo.id});" >编辑</button>
+					<button type="button" class="btn" onclick="delarrt({$vo.id});">删除</button>
+					<button type="button" class="btn" onclick="disable({$vo.id});">禁用</button>
+	    		</td>
+	        </tr>
+	        </volist>
+	        <else/>
+	        <td colspan="7" class="text-center"> aOh! 暂时还没有内容! </td>
+	        </notempty>
+	    </tbody>
+	    </table>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+function delarrt(id)
+{
+	if (confirm("确定删除该条属性吗？")) {
+		$.post("{:U("Goodstypearrt/del")}?timekey="+(new Date()).valueOf(),
+	    {
+	        ids:id,
+	        tmp:'test'
+	    },
+	    function(data,status){
+	        alert(data["info"]);
+	        getarrtitems($("#arrt_typeid").val());
+	    });
+	};
+	
+
+};
+
+
+function edit(id)
+{
+	
+	//var dialog = $.dialog({content:'hello world!'});
+	//var dialog = $.dialog({id: 'N3690',title: false});
+	var dialog = $.dialog({
+	    lock: true,
+	    background: '#DDD', // 背景色
+	    opacity: 0.87,	// 透明度
+	    title: false,
+	    button: [
+        {
+            name: '保存',
+            callback: function () {
+					$.post("{:U("Goodstypearrt/update")}?timekey="+(new Date()).valueOf(),
+				    {
+				        id:$("#arrt_id_"+id).val(),
+				        name:$("#arrt_name_"+id).val(),
+				        typeid:$("#arrt_typeid_"+id).val(),
+				        isgroup:$("#arrt_isgroup_"+id).val(),
+				        gid:$("#arrt_gid_"+id).val(),
+				        desc:$("#arrt_desc_"+id).val(),
+				        price:$("#arrt_price_"+id).val(),
+				        arrttype:$("#arrt_arrttype_"+id).val(),
+				        displaytype:$("#arrt_displaytype_"+id).val(),
+				        sortorder:$("#arrt_sortorder_"+id).val(),
+				        status:$("#arrt_status_"+id).val(),
+				        tmp:'test'
+				    },
+				    function(data,status){
+				    	if (status=="success") {
+				    		if (data["status"] == 1) {
+				    			getarrtitems($("#arrt_typeid").val());
+				    		}
+				    		else
+				    		{
+				    			alert(data["info"]);
+				    		}
+				    	};
+				    });
+
+                return true;
+            },
+            focus: true
+        },
+        {
+            name: '取消'
+        }
+    ]
+	})
+
+
+	$.post("{:U("Goodstypearrt/ajaxedit")}?timekey="+(new Date()).valueOf(),
+    {
+        id:id,
+        tmp:'test'
+    },
+    function(data,status){
+
+        dialog.content(data);
+    });
+}
+
+</script>
+
