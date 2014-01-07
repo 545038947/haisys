@@ -146,6 +146,147 @@ class GoodsarrtController extends AdminController {
 
     }
 
+    /**
+     * 获取所有子属性（深度）
+     * @author 和蔼的木Q <545038947@qq.com>
+     */
+    public function getsubitems($goodsid,$gid=0,$deeplengh=0,$noitemid=0)
+    {
+        //echo "========================$deeplengh <br>";
+        $Model = D("Goodsarrt");
+        $map = array(
+            'goodsid' => $goodsid,
+            'gid' => $gid
+            ); 
+        
+        $list = $Model->where($map)->order("arrttype,sortorder")->select();
+        $arrpostion = 0;
+        $deeplengh = $deeplengh+1;
+        if ($list) {
+            $tmplist = array();
+            foreach ($list as $key => $value) {
+                $arrpostion += 1;
+                $value["deeplengh"] = $deeplengh;
+
+                if ($value["id"] != $noitemid) {
+                    $tmplist = array_insert($tmplist,$value,$arrpostion);
+                    $arrclient = $this->getsubitems($goodsid,$value["typeid"],$deeplengh,$noitemid);
+                    if (!($arrclient === array()))
+                    {
+                        foreach ($arrclient as $clientkey => $val) {
+                            if ($value["id"] != $noitemid) {
+                                $tmplist = array_insert($tmplist,$val,$arrpostion);
+                                $arrpostion += 1;
+                            }
+                        }
+                    }
+                }
+            }
+            //echo "========================<br>";
+            return $tmplist;
+        }
+        else
+        {
+            //echo "========================<br>";
+            return array();
+        }
+    }
+
+    /**
+     * 获取指定goodsid的属性列表
+     * @author 和蔼的木Q <545038947@qq.com>
+     */
+    public function getitemlist($goodsid)
+    {
+        $list = $this->getsubitems($goodsid);
+
+        if ($list) {
+            int_to_string($list);
+            $tmplist = array();
+            $arrpostion = 0;
+
+            foreach ($list as $key => &$value) {
+                switch ($value["arrttype"]) {
+                    case '1':
+                        $tmplist[1][] = $value;
+                        break;
+                    case '2':
+                        $tmplist[2][] = $value;
+                        break;
+                    case '3':
+                        $tmplist[3][] = $value;
+                        break;
+                }
+
+            };
+
+            $data['status']  = 1;
+            $data['info'] = "完成";
+            $data['content'] = $tmplist;
+
+            //$this->ajaxReturn($data);
+        }
+        else
+        {
+            $data['status']  = 0;
+            $data['info'] = "无数据！";
+
+            //$this->ajaxReturn($data);
+        }
+
+        $this->assign('listdata', $data);
+
+        $this->display();
+
+        
+    }
+
+    /**
+     * ajax编辑单属性表单
+     * @author 和蔼的木Q <545038947@qq.com>
+     */
+    public function ajaxedit($id)
+    {
+        $Model = D("Goodsarrt");
+        $map = array(
+            'id' => $id
+            ); 
+        $data = $Model->where($map)->find();
+
+        if ($data) {
+            $grouplist = $this->getgrouplist($data["goodsid"]);
+            $this->assign('grouplist', $grouplist);
+            $this->assign('data', $data);
+            $this->display();
+        }
+        else
+        {
+            $this->error("错误的数据参数！");
+        }
+        
+    }
+
+    /**
+     * 获取指定typeid的属性组列表
+     * @author 和蔼的木Q <545038947@qq.com>
+     */
+    public function getgrouplist($goodsid,$gid=0){
+        $Model = D("Goodsarrt");
+        $map = array(
+            'goodsid' => $goodsid,
+            'isgroup' => 1,
+            'gid' => $gid
+            );
+        $list = $Model->where($map)->order("sortorder")->select();
+        
+        if ($list) {
+            return $list;
+        }
+        else
+        {
+            return array();
+        }
+    }
 
 }
 

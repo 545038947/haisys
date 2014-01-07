@@ -140,6 +140,10 @@ class GoodsController extends AdminController {
             if (I("id")) {
                 $data["modifyid"] = session('user_auth.uid');
                 $data["modifytime"] = time();
+                $data["endtime"] = strtotime($data["endtime"]);
+                $data["starttime"] = strtotime($data["starttime"]);
+
+
                 $result = $Model->save($data); // 写入数据到数据库 
                 if($result){
                     $this->success('更新成功,ID:'.I("id"), Cookie('__forward__'));
@@ -177,38 +181,42 @@ class GoodsController extends AdminController {
     }
 
     /**
-     * 加载对应商品类型的默认商品属性
+     * 重置对应商品类型为默认商品属性
      * @author 和蔼的木Q <545038947@qq.com>
      */
-    public function loaddefaultarrt($typeid)
+    public function resetarrt($id,$typeid)
     {
-
-                           
-
-        $Model = D("Goodstypearrt");
+        $Model = D("Goodstypearrt"); 
         $map = array(
-            "typeid" => $typeid,
-            "status" => 1,
-            );
-        $list = $Model->where($map)->order("sortorder")->select();
-
-        if ($list) {
-            $data['status']  = 1;
-            $data['content'] = $list;
-            $this->ajaxReturn($data);
-        }
-        else
+            'typeid' => $typeid
+            ); 
+        $defaultlist = $Model->where($map)->select();
+        if($defaultlist)
         {
-            $data['status']  = 0;
-            $data['content'] = "没有对应的属性数据！";
-            $this->ajaxReturn($data);
+            //清除现有属性
+            $delmap = array(
+                'goodsid' => $id
+            ); 
+            $goodsarrt = D("Goodsarrt");
+            $delres = $goodsarrt->where($delmap)->delete();
+            
+
+
+            //添加新属性
+            foreach ($defaultlist as $key => $value) {
+                
+                $newvalue = $value;
+                $newvalue["typeid"] = $value["id"];
+                $newvalue["id"] = null;
+                $newvalue["goodsid"] = $id;
+                $res = $goodsarrt->add($newvalue);
+                if (!$res) {
+                    $this->error("数据添加错误");
+                }
+                
+            }
         }
-
-
-        
-
     }
-
 
 
 

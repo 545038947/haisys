@@ -83,31 +83,33 @@ function uploadPicturegoodspic(file, data){
 <div class='form-item cf'>
 <label class="item-label">商品编码<span class="check-tips">  </span></label>
 <div class='controls'>
-<input type="text" class="text input-large" name="code" value="">
+<input type="text" class="text input-small" name="code" value="">
 </div>
 </div>
 <div class='form-item cf'>
-<label class="item-label">商品市场价格<span class="check-tips">  </span></label>
+<label class="item-label">价格<span class="check-tips">  </span></label>
 <div class='controls'>
-<input type="text" class="text input-large" name="price_1" value="">
+市场价：
+<input type="text" class="text input-small" name="price_1" value="">元<br>
+商场价：
+<input type="text" class="text input-small" name="price_2" value="">元
 </div>
 </div>
 <div class='form-item cf'>
 <label class="item-label">商品本店价格<span class="check-tips">  </span></label>
 <div class='controls'>
-<input type="text" class="text input-large" name="price_2" value="">
+
 </div>
 </div>
 <div class='form-item cf'>
-<label class="item-label">有效开始时间<span class="check-tips">  </span></label>
+<label class="item-label">开始时间<span class="check-tips">  </span></label>
 <div class='controls'>
-<input type="text" name="starttime" class="text input-large time" value="{$fields['starttime']|time_format}" placeholder="请选择时间" /></div>
+<input type="text" name="starttime" class="text input-small time" value="{$fields['starttime']|time_format='Y-m-d'}" placeholder="请选择时间" />
+至
+<input type="text" name="endtime" class="text input-small time" value="{$fields['endtime']|time_format='Y-m-d'}" placeholder="请选择时间" />
 </div>
-<div class='form-item cf'>
-<label class="item-label">有效结束时间<span class="check-tips">  </span></label>
-<div class='controls'>
-<input type="text" name="endtime" class="text input-large time" value="{$fields['endtime']|time_format}" placeholder="请选择时间" /></div>
 </div>
+
 
 <div class='form-item cf'>
 <label class="item-label">排序值<span class="check-tips">  </span></label>
