@@ -1,0 +1,119 @@
+
+
+<div class='form-item cf'>
+<label class="item-label">请上传商品展示图<span class="check-tips">  </span></label>
+
+<div class='controls'>
+
+    <input type="file" id="upload_picture_new">
+    <input type="hidden" name="picture_new" id="picture_new" value=""/>
+    <div class="upload-img-box"></div>
+
+    <span class="label">排序值:</span>
+    <input type="text" class="text input-small" name="pic_sortorder" id="pic_sortorder" value="1">
+    <button type="button" class="btn" id="addpic">添加</button>
+<div id="pic_loding" style="display:none; margin: 20px;">
+    <img src="__STATIC__/img/013.gif"><br>数据处理中，请稍候......
+</div>
+<script type="text/javascript">
+
+
+$("#addpic").click(function(event) {
+    if ($("#picture_new").val() == "") {
+        alert("请先上传商品展示图!")
+    }
+    else
+    {
+        $("#pic_loding").css('display', '');
+        $.post("{:U("Goodsalbum/update")}?timekey="+(new Date()).valueOf(),
+        {
+            sortorder:$("#pic_sortorder").val(),
+            goodsid:$("#goodsid").val(),
+            picid:$("#picture_new").val(),
+            tmp:'test'
+        },
+        function(data,status){
+
+            if (data!="") {
+                getalbumlists($("#goodsid").val());
+                $("#pic_loding").css('display', 'none');
+            }
+            else
+            {
+                getalbumlists($("#goodsid").val());
+            };
+
+        });
+    }
+});
+
+//上传图片
+/* 初始化上传插件 */
+$("#upload_picture_new").uploadify({
+    "height"          : 30,
+    "swf"             : "__STATIC__/uploadify/uploadify.swf",
+    "fileObjName"     : "download",
+    "buttonText"      : "上传图片",
+    "uploader"        : "{:U('File/uploadPicture',array('session_id'=>session_id()))}",
+    "width"           : 120,
+    'removeTimeout'   : 1,
+    'fileTypeExts'    : '*.jpg; *.png; *.gif;',
+    "onUploadSuccess" : uploadPicturenew
+});
+
+
+function uploadPicturenew(file, data){
+    var data = $.parseJSON(data);
+    var src = '';
+    if(data.status){
+        $("#picture_new").val(data.id);
+        src = data.url || '__ROOT__' + data.path
+        $("#picture_new").parent().find('.upload-img-box').html(
+            '<div class="upload-pre-item"><img src="' + src + '"/></div>'
+        );
+    } else {
+        updateAlert(data.info);
+        setTimeout(function(){
+            $('#top-alert').find('button').click();
+            $(that).removeClass('disabled').prop('disabled',false);
+        },1500);
+    }
+
+}
+
+function delpic(id){
+    if (confirm("确定删除该图片吗？")) {
+        $("#pic_loding").css('display', '');
+        $.post("{:U("Goodsalbum/del")}?timekey="+(new Date()).valueOf(),
+        {
+            ids:id,
+            tmp:'test'
+        },
+        function(data,status){
+
+            if (data!="") {
+                getalbumlists($("#goodsid").val());
+                $("#pic_loding").css('display', 'none');
+            }
+            else
+            {
+                getalbumlists($("#goodsid").val());
+            };
+
+        });
+    }
+}
+</script>
+</div>
+</div>
+<div style="width: 650px;">
+<volist name="album_list" id="vo">
+<div style="width: 200px;border: 1px solid #AAA; display: inline-block; margin: 5px;">
+    <img src="__ROOT__{$vo[picid]|get_cover='path'}" style="width: 100%">
+    <p style="text-align: right;">
+        <button type="button" class="btn" onclick="delpic({$vo[id]})">删除</button>
+    </p>
+</div>
+
+</volist>
+</div>

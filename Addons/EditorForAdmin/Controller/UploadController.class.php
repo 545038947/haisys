@@ -23,14 +23,22 @@ class UploadController extends AddonsController{
 		/* 调用文件上传组件上传文件 */
 		$this->uploader = new Upload($setting, 'Local');
 		$info   = $this->uploader->upload($_FILES);
+		// if($info){
+		// 	foreach ($info as &$file) {
+		// 		$file['rootpath'] = __ROOT__ . ltrim($setting['rootPath'], ".");
+		// 	}
+		// 	$this->success('文件上传成功！', '', array('files' => $info));
+		// } else {
+		// 	$this->error($this->uploader->getError());
+		// }
+
 		if($info){
-			foreach ($info as &$file) {
-				$file['rootpath'] = __ROOT__ . ltrim($setting['rootPath'], ".");
-			}
-			$this->success('文件上传成功！', '', array('files' => $info));
-		} else {
-			$this->error($this->uploader->getError());
-		}
+            $url = C('EDITOR_UPLOAD.rootPath').$info['imgFile']['savepath'].$info['imgFile']['savename'];
+            $url = str_replace('./', '/', $url);
+            $info['fullpath'] = __ROOT__.$url;
+        }
+        return $info;
+
 	}
 
 	//keditor编辑器上传图片处理
@@ -40,7 +48,16 @@ class UploadController extends AddonsController{
 		$img = $this->upload();
 		/* 记录附件信息 */
 		if($img){
-			$return['url'] = $img['fullpath'];
+
+			$img = $img['imgFile'];
+
+			$url = C('EDITOR_UPLOAD.rootPath');
+            $url = str_replace('./', '/', $url);
+			$return['url'] = __ROOT__.$url.$img['savepath'].$img['savename'];
+			//$return['url'] = $this->uploader->__get('rootPath').$img['savepath'].$img['savename'];
+			// unset($return['info'], $return['data']);
+
+			//$return['url'] = $img['fullpath'];
 			unset($return['info'], $return['data']);
 		} else {
 			$return['error'] = 1;
@@ -56,7 +73,14 @@ class UploadController extends AddonsController{
 
 		$img = $this->upload();
 		$return = array();
-		$return['url'] = $img['fullpath'];
+
+		$url = C('EDITOR_UPLOAD.rootPath');
+        $url = str_replace('./', '/', $url);
+		$return['url'] = __ROOT__.$url.$img['savepath'].$img['savename'];
+
+
+		//$return['url'] = $img['fullpath'];
+		//$return['url'] = $this->uploader->__get('rootPath').$img['savepath'].$img['savename'];
 		$title = htmlspecialchars($_POST['pictitle'], ENT_QUOTES);
 		$return['title'] = $title;
 		$return['original'] = $img['imgFile']['name'];

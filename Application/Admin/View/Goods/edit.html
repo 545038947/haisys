@@ -199,7 +199,7 @@ function uploadPicturegoodspic(file, data){
 
 				<!-- 画册 -->
 				<div id="tab5" class="tab-pane tab5">
-					5
+					<div id="albumlists"></div>
 				</div>
 
 				<!-- 按钮 -->
@@ -274,6 +274,8 @@ $(function(){
 
 	getarrtitems($("#goodsid").val());
 
+	getalbumlists($("#goodsid").val());
+
 })
 
 
@@ -291,6 +293,24 @@ $(function(){
 	    function(data,status){
 	    	
 	    	$("#arrtlist").html(data);
+	        
+	        $("#loding").css('display', 'none');
+	    });
+	}
+
+	//取画册列表
+	function getalbumlists(goodsid)
+	{
+		$("#albumlists").html("");
+		$("#loding").css('display', '');
+		$.post("{:U("Goodsalbum/ajaxedit")}?timekey="+(new Date()).valueOf(),
+	    {
+	        goodsid:goodsid,
+	        tmp:'test'
+	    },
+	    function(data,status){
+	    	
+	    	$("#albumlists").html(data);
 	        
 	        $("#loding").css('display', 'none');
 	    });

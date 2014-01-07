@@ -29,6 +29,24 @@ class GoodsalbumController extends AdminController {
         
     }
 
+
+    /**
+     * ajax商品画册编辑
+     * @author 和蔼的木Q <545038947@qq.com>
+     */
+    public function ajaxedit(){
+        
+        $list = $this->lists('goodsalbum',array(),'sortorder');
+        int_to_string($list);
+        // 记录当前列表页的cookie
+        
+        $this->assign('album_list', $list);
+        $this->meta_title = '商品画册-列表';
+        $this->display();
+        
+    }
+
+
         /**
      * 新增页面初始化
      * @author 和蔼的木Q <545038947@qq.com>
